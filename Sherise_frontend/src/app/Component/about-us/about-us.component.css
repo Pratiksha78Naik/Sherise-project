@@ -1,0 +1,84 @@
+.page-nav{
+    margin-top: 9%;
+}
+.page-nav ul{
+    margin-left: 42%;
+}
+.page-nav{
+    margin-top: 9%;
+}
+.page-nav ul{
+    margin-left: 42%;
+}
+.timeline {
+    position: relative;
+    margin-top: 50px;
+    margin-left: 40%;
+  }
+  
+  .timeline-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: 50px;
+    margin-left: 50px; /* Adds space for the date text */
+  }
+  
+  .timeline-dot {
+    position: absolute;
+    left: -40px; /* Adjusts the dot to be inline with the date */
+    width: 12px;
+    height: 12px;
+    background-color: #d63636;
+    border-radius: 50%;
+    z-index: 1;
+  }
+  
+  .timeline-date {
+    position: absolute;
+    left: -200px; /* Adjusts the date position */
+    font-weight: bold;
+    color: #666;
+  }
+  
+  .timeline-content {
+    background-color: #fff;
+    padding: 15px 20px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-width: 250px;
+    margin-left: 40px;
+  }
+  
+  .timeline-img {
+    width: 100px;
+    height: 100px;
+    margin-right: 15px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -34px; /* Adjusts the line to pass through the dots */
+    top: 0;
+    width: 2px;
+    height: 100%;
+    background-color: #ff0066;
+    z-index: 0;
+  }
+  
+  .timeline-item:last-child::before {
+    height: 50%;
+  }
+  .text-part h1{
+    font-weight: 600;
+    font-size: 1.8rem;
+   color: #DD2323;
+    margin-bottom: 20px;
+}

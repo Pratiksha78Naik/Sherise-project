@@ -1,0 +1,20 @@
+.page-nav{
+    margin-top: 9%;
+}
+.page-nav ul{
+    margin-left: 42%;
+}
+
+/* Customize your styles here */
+.cont-row {
+  margin-bottom: 10px;
+}
+
+.text-danger {
+  color: red;
+  font-size: 0.875em;
+}
+
+.alert {
+  font-size: 1em;
+}

@@ -1,0 +1,38 @@
+/* user.component.css */
+table{
+  width: 80%;
+  border-collapse: collapse;
+  margin: 20px auto;
+}
+
+th,td{
+border: 1px solid #ccc;
+padding: 8px;
+text-align: left;
+}
+
+th{
+  background-color: #f0f0f0;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.btn-update,
+.btn-delete {
+  margin-right: 5px;
+  padding: 5px 10px;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+
+.btn-update:hover,
+.btn-delete:hover,
+.btn-new:hover {
+  background-color: red;
+}

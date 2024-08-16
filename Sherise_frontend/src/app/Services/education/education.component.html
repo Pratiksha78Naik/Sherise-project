@@ -1,0 +1,170 @@
+<div class="icontainer mx-auto p-6">
+  <div class="max-w-4xl mx-auto">
+    <h1 class="text-4xl font-bold mb-4">Educational Workshops
+      Empowering Girls with Knowledge and Support</h1>
+    <hr class="border-t border-zinc-300 mb-6">
+    <p class="text-lg mb-6">
+      Our educational workshops are designed to empower girls by providing them with essential knowledge and support on crucial topics such as menstrual health, hygiene, and overall well-being. These workshops aim to create a safe and supportive environment where girls can learn, ask questions, and build confidence.
+    </p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+      <div class="md:col-span-2">
+        <h2 class="text-2xl font-semibold text-primary mb-2">Topics Covered</h2>
+        <p class="text-lg mb-4">
+          <ul class="ul">
+            <li>Understanding the Menstrual Cycle</li>
+            <li>Menstrual Hygiene Practices</li>
+            <li>Nutrition and Menstrual Health</li>
+            <li>Emotional and Psychological Support</li>
+        </ul>
+       <br>
+        <h2 class="text-2xl font-semibold text-primary mb-2">Offline places where our workshop Takes place</h2>
+        <p class="text-lg mb-4">
+
+          <div class="workshop-container">
+            <ul class="workshop-list">
+              <li>
+                <b>Schools and Colleges:</b>
+                Conducting workshops in educational institutions can reach a younger audience and provide crucial information early on.
+              </li>
+              <hr>
+              <li>
+                <b>Health Clinics and Hospitals:</b>
+                These settings are ideal as they already focus on health education and can provide resources and support.
+              </li>
+              <hr>
+              <li>
+                <b>Local NGOs and Women's Organizations:</b>
+                Partnering with local non-profits and organizations focused on women's health and education can provide access to their networks and resources.
+              </li>
+              <hr>
+              <li>
+                <b>Community Halls and Recreation Centers:</b>
+                These venues are designed for community gatherings and may have facilities suitable for workshops.
+              </li>
+            </ul>
+          </div>
+
+        <br>
+        <h2 class="text-2xl font-semibold text-primary mb-2">Facilitators and Experts</h2>
+        <p class="text-lg mb-4">
+          <ul>
+            <li><strong>Dr. Jane Doe</strong> - Gynecologist with 20 years of experience.</li>
+            <li><strong>Mary Smith</strong> - Health Educator specializing in menstrual health.</li>
+            <li><strong>John Brown</strong> - Nutritionist and wellness coach.</li>
+        </ul>
+
+        <br>
+
+
+
+      </div>
+      <div class="md:col-span-1">
+        <img src="/assets/images/What_we_do/image1.jpg" alt="Workshop Image" height="280px" width="280px">
+        <br><br>
+        <img src="/assets/images/What_we_do/image2.jpeg" alt="Workshop Image">
+        <br><br>
+        <img src="/assets/images/What_we_do/image3.webp" alt="Workshop Image">
+
+      </div>
+
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-semibold text-primary mb-2 center-text">Workshops Delivered By Us</h2>
+      <p class="text-lg mb-4">
+        Participants will receive educational brochures, menstrual kits, and access to online resources. Pre-workshop materials will be sent to registered participants prior to the event.
+      </p>
+      <div class="card-container">
+        <div class="card">
+          <img src="assets/images/What_we_do/edu_eve1.jpg" alt="Workshop Image 1" >
+          <h3>sanitary pad comparison</h3>
+          <p>Short description of the workshop. This can include key topics covered, the target audience, and the benefits participants can expect to gain.</p>
+        </div>
+        <div class="card">
+          <img src="assets/images/What_we_do/eve_edu2.jpg" alt="Workshop Image 2">
+          <h3>Menstrual Awareness</h3>
+          <p>Short description of the workshop. This can include key topics covered, the target audience, and the benefits participants can expect to gain.</p>
+        </div>
+        <div class="card">
+          <img src="assets/images/What_we_do/image3.webp" alt="Workshop Image 3">
+          <h3>Importance of menstrual products</h3>
+          <p>Short description of the workshop. This can include key topics covered, the target audience, and the benefits participants can expect to gain.</p>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="text-2xl font-semibold text-primary mb-2 center-text">To Join With Us Register Below</h2>
+
+
+
+    <div class="sign-up-form">
+      <h2 class="text-2xl font-semibold text-primary mb-2">Sign Up for Workshops</h2>
+      <form (ngSubmit)="onSubmit()">
+        <div class="mb-4">
+          <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            [(ngModel)]="formData.name"
+            required
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
+          />
+        </div>
+
+        <div class="mb-4">
+          <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            [(ngModel)]="formData.email"
+            required
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
+          />
+        </div>
+
+        <div class="mb-4">
+          <label for="phone" class="block text-sm font-medium text-gray-700">Phone</label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            [(ngModel)]="formData.phone"
+            required
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
+          />
+        </div>
+
+        <div class="mb-4">
+          <label for="workshop" class="block text-sm font-medium text-gray-700">Select Workshop</label>
+          <select
+            id="workshop"
+            name="workshop"
+            [(ngModel)]="formData.workshop"
+            required
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
+          >
+            <option value="Sakhi">Sakhi</option>
+            <option value="Aarogya">Aarogya</option>
+            <option value="Udaan">Udaan</option>
+            <option value="NayeeDisha">NayeeDisha</option>
+            <option value="Kagad ke Pad">Kagad ke Pad</option>
+          </select>
+        </div>
+
+        <button
+          type="submit"
+          class="w-full bg-primary text-white py-2 px-4 rounded-md hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50"
+        >
+          Sign Up
+        </button>
+      </form>
+
+    </div>
+
+
+  </div>
+</div>
+
+<!--  ************************* Footer Starts Here ************************** -->

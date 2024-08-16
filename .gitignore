@@ -1,0 +1,27 @@
+# Node.js modules (for Angular)
+node_modules/
+
+# Angular build output
+dist/
+
+# Angular CLI cache
+.angular/
+
+# Java build directory
+target/
+
+# Compiled Java classes
+*.class
+
+# JAR and WAR files
+*.jar
+*.war
+
+# Log files
+*.log
+
+# Environment files
+*.env
+
+# System files
+.DS_Store

@@ -1,0 +1,155 @@
+.all{
+    border: 1px solid rgb(201, 201, 72);
+    text-align: center;
+    
+}
+
+.card{
+    border: 1px solid greenyellow;
+}
+.hr-effect{
+    border: 1px solid greenyellow;
+}
+.hr-effect:hover{
+background-color: rgb(255, 255, 255);
+border-top: 5px solid rgb(250, 247, 212);
+border-right: 2px solid gray;
+border-left: 5px solid gray;
+border-bottom: 2px solid gray;
+
+}
+
+.scrolling-text {
+    height: 100px; /* Set the height for the scrolling area */
+    overflow: hidden;
+    position: relative;
+    color: red;
+}
+
+.scrolling-text ul {
+    position: absolute;
+    width: 100%;
+    animation: scroll-up 10s linear infinite;
+}
+
+@keyframes scroll-up {
+    0% {
+        top: 100%;
+    }
+    100% {
+        top: -100%;
+    }
+}
+
+
+
+#multimedia1 {
+    
+    text-align: center;
+    overflow: hidden; /* Hide overflowing content */
+    
+}
+
+.marquee {
+    display: flex;
+    animation: marquee 20s linear infinite; /* Adjust animation duration as needed */
+    border-radius: 5px;
+    
+}
+
+.marquee img {
+    margin: 0 1px; /* Adjust spacing between items */
+    border: 5px solid black;
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+
+
+#multimedia{
+    text-align: center;
+}
+
+#intro {
+    
+    display: flex;
+    align-items: center;
+}
+
+.intro1, .intro2 {
+    flex: 2;
+    height: 310px;
+    margin: 2px;
+    word-wrap: normal;
+}
+
+.intro1 {
+    background: url('https://www.healthcareradius.in/cloud/2021/11/15/shutterstock_1089698537.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+@media (max-width: 768px) {
+    #intro {
+        display: grid; /* Stack items vertically */
+    }
+
+    .intro1, .intro2 {
+        width: 100%; /* Ensure full width for stacked items */
+    width: 100%;
+    word-wrap: normal;
+    }
+}
+
+.news{
+    border: 1px ridge grey;
+}
+.second {
+    text-align: center;
+    padding: 2em;
+    background-color: #f8f9fa;
+}
+    section {
+        padding: 2em;
+        margin: 2em 0;
+    }
+    .accordion {
+        cursor: pointer;
+        padding: 1em;
+        border: 1px solid #ddd;
+        margin-bottom: 1em;
+        background-color: #f9f9f9;
+        transition: background-color 0.3s ease;
+    }
+    .accordion:hover {
+        background-color: #e0e0e0;
+    }
+    .panel {
+        padding: 0 1em;
+        display: none;
+        overflow: hidden;
+    }
+    .carousel {
+        display: flex;
+        overflow-x: auto;
+    }
+    .carousel img {
+        max-width: 100%;
+        margin: 0 1em;
+    }
+    .form-section {
+        background-color: #f8f9fa;
+        padding: 2em;
+        border-radius: 8px;
+    }
+    main{
+      padding-left: 0;
+      padding-right: 0;
+    }

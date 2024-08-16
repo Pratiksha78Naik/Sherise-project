@@ -1,0 +1,76 @@
+
+/* Container for the entire padbank section */
+.container {
+    margin-top: 9%;
+}
+
+/* Image styling */
+.img-fluid {
+    border-radius: 10px;
+    width: 100%;
+    height: auto;
+}
+
+/* Section title styling */
+.section-title {
+    color: #d1473b;
+    margin-bottom: 20px;
+}
+
+/* Card styling */
+.card {
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Card body padding */
+.card-body {
+    padding: 20px;
+}
+
+/* Card icon styling */
+.card i {
+    color: #d1473b;
+    margin-bottom: 10px;
+}
+
+/* Card heading styling */
+.card h3 {
+    margin-bottom: 10px;
+}
+
+/* Card paragraph styling */
+.card p {
+    margin-bottom: 5px;
+}
+
+/* Video container styling */
+.video-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 10px auto;
+}
+
+/* Individual video wrapper styling */
+.video-wrapper {
+    position: relative;
+    flex: 1 1 45%;
+    margin: 10px;
+    max-width: 500px; /* Adjust as needed */
+}
+
+/* Styling for the iframe to fit the video wrapper */
+.video-frame {
+    width: 100%;
+    height: 270px; /* Adjust as needed to maintain aspect ratio */
+    border: none;
+}
+
+/* Additional container styling for "Project at a Glance" */
+.container.mt-5 {
+    margin-top: 40px;
+    margin-bottom: 20px;
+}

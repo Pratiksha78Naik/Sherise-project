@@ -1,0 +1,191 @@
+:root {
+    --background: #ffffff;
+    --foreground: #000000;
+    --primary: #d32f2f;
+    --border: #e0e0e0;
+    --input: #f5f5f5;
+    --ring: #d32f2f;
+    --primary-foreground: #ffffff;
+    --secondary: #1976d2;
+    --secondary-foreground: #ffffff;
+    --accent: #ff4081;
+    --accent-foreground: #ffffff;
+    --destructive: #d32f2f;
+    --destructive-foreground: #ffffff;
+    --muted: #9e9e9e;
+    --muted-foreground: #ffffff;
+    --card: #ffffff;
+    --card-foreground: #000000;
+    --popover: #ffffff;
+    --popover-foreground: #000000;
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background: #121212;
+        --foreground: #ffffff;
+        --primary: #d32f2f;
+        --border: #424242;
+        --input: #333333;
+        --ring: #d32f2f;
+        --primary-foreground: #ffffff;
+        --secondary: #1976d2;
+        --secondary-foreground: #ffffff;
+        --accent: #ff4081;
+        --accent-foreground: #ffffff;
+        --destructive: #d32f2f;
+        --destructive-foreground: #ffffff;
+        --muted: #9e9e9e;
+        --muted-foreground: #ffffff;
+        --card: #333333;
+        --card-foreground: #ffffff;
+        --popover: #333333;
+        --popover-foreground: #ffffff;
+    }
+}
+.education{
+background-color: var(--background);
+    color: var(--foreground);
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+.icontainer {
+max-width: 1200px;
+margin: 0 auto;
+padding: 20px;
+}
+
+
+.workshop-container {
+display: flex;
+flex-direction: row;
+gap: 20px;
+padding: 20px;
+background-color: #fff5f5;
+flex-wrap: wrap;
+}
+.workshop-list {
+list-style-type: none;
+padding: 0;
+display: flex;
+flex-direction: row;
+flex-wrap: wrap;
+gap: 20px;
+}
+.workshop-list li {
+background-color: #ffebee;
+padding: 15px;
+border-radius: 8px;
+border-left: 5px solid #f44336;
+flex: 1 1 calc(33% - 40px);
+box-sizing: border-box;
+}
+.workshop-list li b {
+color: #b71c1c;
+}
+hr {
+border: 0;
+border-top: 1px solid #f44336;
+margin: 10px 0;
+width: 100%;
+}
+h2 {
+color: var(--primary);
+margin-bottom: 10px;
+}
+.grid {
+display: grid;
+grid-template-columns: 2fr 2fr;
+gap: 40px;
+}
+.grid img {
+width: 350px;
+height:300px;
+border-radius: 8px;
+}
+
+.ul {
+padding-left: 20px;
+color: black;
+}
+.ul li {
+margin-bottom: 10px;
+}
+.card-container {
+display: flex;
+gap: 20px;
+overflow-x: auto;
+padding: 20px 0;
+}
+
+.card {
+background-color: #ffebee;
+padding: 20px;
+border-radius: 8px;
+border-left: 5px solid #f44336;
+min-width: 300px;
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.card img {
+width: 100%;
+height: 200px;
+border-radius: 8px;
+}
+.card h3 {
+color: #b71c1c;
+margin-top: 15px;
+}
+.card p {
+margin-top: 10px;
+}
+
+.sign-up-form {
+background-color: #ffebee;
+padding: 20px;
+border-radius: 8px;
+border-left: 5px solid #f44336;
+margin-top: 20px;
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.sign-up-form h2 {
+color: #b71c1c;
+margin-bottom: 15px;
+}
+
+.sign-up-form form {
+display: flex;
+flex-direction: column;
+}
+
+.sign-up-form form .mb-4 {
+margin-bottom: 15px;
+}
+
+.sign-up-form form label {
+color: var(--foreground);
+font-weight: bold;
+margin-bottom: 5px;
+}
+
+.sign-up-form form input,
+.sign-up-form form select {
+width: 100%;
+padding: 10px;
+border: 1px solid #ddd;
+border-radius: 4px;
+}
+
+.sign-up-form form button {
+background-color: #d32f2f;
+color: white;
+padding: 10px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+transition: background-color 0.3s ease;
+}
+
+.sign-up-form form button:hover {
+background-color: #b71c1c;
+}

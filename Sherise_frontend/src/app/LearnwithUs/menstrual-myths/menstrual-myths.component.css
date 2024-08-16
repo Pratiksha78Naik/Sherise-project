@@ -1,0 +1,45 @@
+.page-nav {
+    background-image: url('/assets/images/Learn/1600x960_158033-mythfb-1.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: white; 
+    padding: 20px; 
+    height: 50%;
+        }
+.page-nav h2, .page-nav ul, .page-nav li, .page-nav a {
+    color: white; 
+}
+.myth-container {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    
+}
+
+.myth-header {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #9b1d19;
+}
+
+.myth-body {
+    margin-top: 10px;
+}
+
+.myth-body {
+    font-weight: bold;
+    font-size: 1rem;
+  color:rgb(14, 150, 10);
+}
+
+.icon {
+    font-size: 1rem;
+    
+}
+
+.myth-container{
+    width: 100%;
+}

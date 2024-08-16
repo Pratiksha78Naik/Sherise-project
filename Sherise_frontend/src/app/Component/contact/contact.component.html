@@ -1,0 +1,119 @@
+
+
+
+  <!--  ************************* Page Title Starts Here ************************** -->
+
+  <div class="page-nav no-margin row">
+    <div class="container">
+        <div class="row">
+            <h2>Contact Us</h2>
+            <ul>
+                <li> <a routerLink="/"><i class="fas fa-home"></i> Home</a></li>
+                <li><i class="fas fa-angle-double-right"></i> Contact US</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+<!--  ************************* Contact Us Starts Here ************************** -->
+
+
+<div style="margin-top:0px;" class="row no-margin">
+
+  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3771.2190639681626!2d72.8761124749768!3d19.054103682145982!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c9d64f276d21%3A0x61fc2f00382682f4!2sNSTI%20Mumbai!5e0!3m2!1sen!2sin!4v1719815577008!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+
+</div>
+
+<div class="row contact-rooo no-margin">
+    <div class="container">
+        <div class="row">
+
+
+            <div style="padding:20px" class="col-sm-7">
+                <h2 >Contact Form</h2> <br>
+                <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+                  <div class="row cont-row">
+                    <div class="col-sm-3"><label>Enter Name</label><span>:</span></div>
+                    <div class="col-sm-8">
+                      <input type="text" placeholder="Enter Name" class="form-control input-sm" formControlName="name" />
+                      <div *ngIf="contactForm.get('name')?.invalid && contactForm.get('name')?.touched" class="text-danger">
+                        Name is required.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row cont-row">
+                    <div class="col-sm-3"><label>Email Address</label><span>:</span></div>
+                    <div class="col-sm-8">
+                      <input type="email" placeholder="Enter Email Address" class="form-control input-sm" formControlName="email" />
+                      <div *ngIf="contactForm.get('email')?.invalid && contactForm.get('email')?.touched" class="text-danger">
+                        Please enter a valid email address.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row cont-row">
+                    <div class="col-sm-3"><label>Mobile Number</label><span>:</span></div>
+                    <div class="col-sm-8">
+                      <input type="text" placeholder="Enter Mobile Number" class="form-control input-sm" formControlName="phone" />
+                      <div *ngIf="contactForm.get('phone')?.invalid && contactForm.get('phone')?.touched" class="text-danger">
+                        Phone number is required.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row cont-row">
+                    <div class="col-sm-3"><label>Enter Message</label><span>:</span></div>
+                    <div class="col-sm-8">
+                      <textarea rows="5" placeholder="Enter Your Message" class="form-control input-sm" formControlName="message"></textarea>
+                      <div *ngIf="contactForm.get('message')?.invalid && contactForm.get('message')?.touched" class="text-danger">
+                        Message is required.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div style="margin-top: 10px" class="row">
+                    <div class="col-sm-3"><label></label></div>
+                    <div class="col-sm-8">
+                      <button type="submit" class="btn btn-primary btn-sm" [disabled]="contactForm.invalid">Send Message</button>
+                    </div>
+                  </div>
+
+                  <div *ngIf="submissionMessage" class="alert alert-info" style="margin-top: 15px;">
+                    {{ submissionMessage }}
+                  </div>
+                </form>
+            </div>
+            <div class="col-sm-5">
+
+                <div style="margin:50px" class="serv">
+
+
+
+
+
+                    <h2 style="margin-top:10px;">Address</h2>
+
+                    V.N. Purav Marg, <br>
+                    Chunabhatti, Sion East, <br>
+                    Mumbai, Maharashtra 400022<br>
+                    Phone:+91 9159669599<br>
+                    Email:supportsherise.com<br>
+                    Website:www.sherise.com<br>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+
+
+

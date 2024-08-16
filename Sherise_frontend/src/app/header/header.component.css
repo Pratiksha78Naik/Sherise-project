@@ -1,0 +1,35 @@
+.header-top, .header-bottom {
+    position: fixed;
+    width: 100%;
+    left: 0;
+    z-index: 1000; /* Ensure it appears above other content */
+}
+
+/* Ensure header-top has a visible height and background */
+.header-top {
+    top: 0;
+    background-color: #f8f9fa; /* Adjust to match your design */
+    padding: 10px 0; /* Adjust padding as needed */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Optional: Add a shadow for better separation */
+}
+
+/* Ensure header-bottom is positioned correctly */
+.header-bottom {
+    top: 50px; /* Adjust if needed, based on .header-top height */
+    background-color: #ffffff; /* Adjust to match your design */
+}
+
+/* Ensure content below the header is not hidden under it */
+body {
+    margin-top: 150px; /* Adjust based on combined height of header-top and header-bottom */
+}
+
+/* Adjust layout for responsiveness */
+@media (max-width: 767px) {
+    .header-top {
+        padding: 5px 0; /* Adjust for smaller screens */
+    }
+    .header-bottom {
+        top: 50px; /* Adjust if needed */
+    }
+}

@@ -1,0 +1,141 @@
+@charset "utf-8";
+@font-face {
+    font-family: 'JosefinSans-Regular_ey_1';
+    src: url('/doc-asset/font/af0a5293f709ecfed1c4a9e9c15055450aa5fe36.woff') format('woff');
+    font-display: swap;
+}
+@font-face {
+    font-family: 'JosefinSans-Regular_ey_2';
+    src: url('/doc-asset/font/2d378158cd245ef6ade49f9f1c0268d06b7765eb.woff') format('woff');
+    font-display: swap;
+}
+@font-face {
+    font-family: 'JosefinSans-Regular_ey_3';
+    src: url('/doc-asset/font/d19a825ab0f98656869a7e3dc6a466cfe940ade1.woff') format('woff');
+    font-display: swap;
+}
+@font-face {
+    font-family: 'JosefinSans-Regular_ey_4';
+    src: url('/doc-asset/font/625e93b17f5e93ba144328df99e6e2add4ade363.woff') format('woff');
+    font-display: swap;
+}
+@font-face {
+    font-family: 'JosefinSans-Regular_ey_5';
+    src: url('/doc-asset/font/a18d6dcbdc8374b5709cb51ffa27908c83435df8.woff') format('woff');
+    font-display: swap;
+}
+@font-face {
+    font-family: 'JosefinSans-Regular_g5_6';
+    src: url('/doc-asset/font/b6500bf1ea835b8920d96881027f71df409e90d2.woff') format('woff');
+    font-display: swap;
+}
+@font-face {
+    font-family: 'JosefinSans-Regular_g5_7';
+    src: url('/doc-asset/font/80227a690901d608698d1aa8790d705098081e5a.woff') format('woff');
+    font-display: swap;
+}
+@font-face {
+    font-family: 'JosefinSans-Regular_g5_8';
+    src: url('/doc-asset/font/10376649df45c9aafd178fd8db4d5068f04c16ee.woff') format('woff');
+    font-display: swap;
+}
+@font-face {
+    font-family: 'JosefinSans-Regular_g5_9';
+    src: url('/doc-asset/font/a62055f45205b6b2a4300712cbce825dfdbb32c6.woff') format('woff');
+    font-display: swap;
+}
+@font-face {
+    font-family: 'JosefinSans-Regular_hj_11';
+    src: url('/doc-asset/font/19db9f321427f6d4f7955e576ca66a1bc51f97f4.woff') format('woff');
+    font-display: swap;
+}
+@font-face {
+    font-family: 'JosefinSans-Regular_hj_13';
+    src: url('/doc-asset/font/699c602efd927109ac2a18fdac186107a37485c7.woff') format('woff');
+    font-display: swap;
+}
+@font-face {
+    font-family: 'JosefinSans-Regular_hj_14';
+    src: url('/doc-asset/font/2f290408a7cbe68dbb653a1d2ff517626720f59f.woff') format('woff');
+    font-display: swap;
+}
+@font-face {
+    font-family: 'JosefinSans-Regular_ir_16';
+    src: url('/doc-asset/font/b66d89b4c40673380e173ebfae66334e597204e5.woff') format('woff');
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Montserrat-Bold_fj_4';
+    src: url('/doc-asset/font/ae3685c2697560faca595f6e094e1fd4ef7b658c.woff') format('woff');
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Montserrat-Bold_ge_7';
+    src: url('/doc-asset/font/942d8ee35e81de31f5771d84898e4c9a5986b77f.woff') format('woff');
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Montserrat-Bold_ge_8';
+    src: url('/doc-asset/font/0e37c8606cc086f4f94c3a670c7e56e7cef35c1b.woff') format('woff');
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Montserrat-Bold_ge_9';
+    src: url('/doc-asset/font/c0c7d57211e8f83af0dc011fd8ec3c428854391b.woff') format('woff');
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Montserrat-Bold_hh_11';
+    src: url('/doc-asset/font/20e7c72a45f2f6ab7091240a93d44bf5a2d001b1.woff') format('woff');
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Montserrat-Bold_hh_12';
+    src: url('/doc-asset/font/b793753de6759f0c7a56c4dc5fcfc0fe317354b4.woff') format('woff');
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Montserrat-ExtraBold_e-_1';
+    src: url('/doc-asset/font/a19243478eb738872f53b567c60ccdf4c40eaf56.woff') format('woff');
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Montserrat-ExtraBold_e-_2';
+    src: url('/doc-asset/font/21e9e0e9ba41dde0c6df30bdae56c2f0615797f1.woff') format('woff');
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Montserrat-ExtraBold_ix_17';
+    src: url('/doc-asset/font/38a2b6917134e2aa413a2b1fee750fd1ee523e1a.woff') format('woff');
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Montserrat-SemiBold_f9_3';
+    src: url('/doc-asset/font/19d2a1bc3acea309f6bb318078c02538324160f2.woff') format('woff');
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Montserrat-SemiBold_f9_5';
+    src: url('/doc-asset/font/f3d65d07562bd8d68e02561ebbced70079244577.woff') format('woff');
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Montserrat-SemiBold_g3_6';
+    src: url('/doc-asset/font/86c88429c6be6c46837988e46f007f607fb79b41.woff') format('woff');
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Montserrat-SemiBold_i5_13';
+    src: url('/doc-asset/font/a8d4688874ea40d857c4e50803aced4db14f390b.woff') format('woff');
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Montserrat-SemiBold_i5_14';
+    src: url('/doc-asset/font/ed0bc633a46dbee89c8948fbe11de9a36521fed9.woff') format('woff');
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Montserrat-SemiBold_i5_15';
+    src: url('/doc-asset/font/b3fa005c41191e92268bf740b07187dffcb87959.woff') format('woff');
+    font-display: swap;
+}

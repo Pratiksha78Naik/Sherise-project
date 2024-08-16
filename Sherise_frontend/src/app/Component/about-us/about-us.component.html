@@ -1,0 +1,77 @@
+
+  
+  
+
+<!--  ************************* Page Title Starts Here ************************** -->
+    
+<div class="page-nav no-margin row">
+    <div class="container">
+        <div class="row">
+            <h2>About Us</h2>
+            <ul>
+                <li> <a routerLink="/"><i class="fas fa-home"></i> Home</a></li>
+                <li><i class="fas fa-angle-double-right"></i> About Us</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+ <!--  ************************* About Us Starts Here ************************** -->    
+   
+<div class="about-us container-fluid">
+<div class="container">
+</div>
+</div>     
+
+
+
+<!-- ################# Mission Vision Start Here #######################--->
+
+<section class="container-fluid mission-vision">
+  <div class="container">
+      <div class="row mission">
+          <div class="col-md-6 mv-det text-part">
+              <h1>Our Mission</h1>
+              <h2> Raising Awareness About Menstruation in Rural Areas</h2>
+              <p>Our mission is to break the silence and dismantle the stigma surrounding menstruation in rural areas through comprehensive education and community engagement. We aim to empower individuals, particularly young girls and women, with accurate information about menstrual health, hygiene practices, and the importance of menstrual equity. By providing accessible educational programs, we strive to foster an environment where menstruation is understood as a natural and healthy part of life, free from shame and misconceptions.</p>
+          </div>
+          <div class="col-md-6 mv-img mt-5">
+              <img src="assets/images/Home-page/Indian_women_420.jpg" alt="">
+          </div>
+      </div>
+      <div class="row vision">
+          <div class="col-md-6 mv-img">
+               <img src="assets/images/Home-page/menstrual-hygeine-R-2.jpg" alt="">
+          </div>
+          <div class="col-md-6 mv-det text-part">
+               <h1>Our Vision</h1>
+               <p>We envision a future where all individuals in rural areas have the knowledge and resources to manage their menstruation with dignity and confidence. By raising awareness and providing the necessary support, we aim to reduce absenteeism in schools, improve overall health, and promote gender equality. Through our dedicated efforts, we strive to create a world where menstruation is no longer a barrier to education, health, or social participation.</p>
+          </div>
+      </div>
+  </div>
+</section>   
+
+
+  <!----------------Journey-------------->
+  <div class="container my-5 text-part ">
+    <h1 class=" text-center">Our Journey</h1>
+    <p class="text-center">Have a look at our journey towards achieving milestones, and discover how we've made a meaningful impact along the way.</p>
+
+    
+    <div class="timeline">
+      <div class="timeline-item" *ngFor="let event of timelineEvents">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">
+          <h4>{{ event.date }}</h4>
+        </div>
+        <div class="timeline-content">
+          <img [src]="event.icon" alt="Event Icon" class="timeline-img">
+          <p>{{ event.description }}</p>
+        </div>
+      </div>
+    </div>
+</div>          
+
+      
+

@@ -1,0 +1,201 @@
+
+.container2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px;
+}
+
+.text-content {
+    width: 50%;
+    padding: 20px;
+    background-color: #fee;
+    color: #600;
+}
+
+.image-content {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-content img {
+    width: 70%; 
+    height: auto;
+    border-radius: 10px;
+}
+
+@media (max-width: 768px) {
+    .container2 {
+        flex-direction: column;
+    }
+
+    .text-content, .image-content {
+        width: 100%;
+    }
+
+    .image-content img {
+        max-width: 100%;
+        height: auto;
+    }
+}
+      
+.workshop-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.workshop-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.workshop-list li {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-left: 4px solid #f00;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+.workshop-list li b {
+    color: #d40000;
+}
+
+.workshop-list hr {
+    border: 0;
+    border-top: 1px solid #eee;
+    margin: 10px 0;
+}
+
+.text-primary {
+    color: #d40000;
+}
+
+.text-2xl {
+    font-size: 1.5em;
+}
+
+.font-semibold {
+    font-weight: 600;
+}
+
+.mb-2 {
+    margin-bottom: 0.5rem;
+}
+
+.mb-4 {
+    margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+    .md\\:col-span-2 {
+        grid-column: span 2;
+    }
+}
+
+
+
+        blockquote img {
+            border-radius: 50%;
+            margin-top: 1em;
+            width: 80px;
+            height: 80px;
+        }
+
+        /* New styles for Our Departments section */
+        #departments {
+            text-align: center;
+            padding: 2em 0;
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        #departments h2 {
+            margin-bottom: 1em;
+            font-size: 2em;
+            color: #ff0000;
+        }
+
+        .department {
+            display: inline-block;
+            width: 22%;
+            margin:1%;
+            padding: 1em;
+            border: 1px solid #ff0000;
+            border-radius: 8px;
+            background-color: #f8f8f8;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .department:hover {
+            background-color: #ffe6e6;
+        }
+
+        .department img {
+            max-width: 100%;
+            margin-bottom: 1em;
+        }
+
+        .department h3 {
+            color: #ff0000;
+            margin-bottom: 0.5em;
+        }
+
+        .department p {
+            color: #000000;
+        }
+
+        .view-all-btn {
+            display: inline-block;
+            margin-top: 2em;
+            padding: 0.7em 1.5em;
+            border: 1px solid #ff0000;
+            border-radius: 4px;
+            background-color: #ff0000;
+            color: white;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+          
+        }
+
+        .view-all-btn:hover {
+            background-color: #cc0000;
+        }
+        .hr-effect:hover{
+    background-color: rgb(255, 255, 255);
+    border: 2px solid gray;
+   
+
+}
+
+    .scrolling-text {
+        height: 100px; /* Set the height for the scrolling area */
+        overflow: hidden;
+        position: relative;
+        color: red;
+    }
+    
+    .scrolling-text ul {
+        position: absolute;
+        width: 100%;
+        animation: scroll-up 10s linear infinite;
+    }
+#details{
+    margin: 8%;
+}
+    
+    @keyframes scroll-up {
+        0% {
+            top: 100%;
+        }
+        100% {
+            top: -100%;
+        }
+    }

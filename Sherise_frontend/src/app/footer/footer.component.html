@@ -1,0 +1,54 @@
+
+<footer class="footer mt-5"  *ngIf="showFooter">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-sm-12">
+                <h2>About Us</h2>
+                <p>
+                    In rural areas, period poverty is a significant issue exacerbated by economic, educational, and infrastructural challenges. Many individuals in these regions face financial constraints that make purchasing menstrual products such as pads, tampons, or menstrual cups unaffordable. This often forces them to resort to using unhygienic alternatives like rags, leaves, or even sand, leading to serious health risks such as infections and reproductive health problems.
+                </p>
+                <p>The lack of comprehensive menstrual health education further perpetuates misinformation and stigma surrounding menstruation, making it difficult for girls and women to manage their periods effectively.  </p>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <h2>Useful Links</h2>
+                <ul class="list-unstyled link-list">
+                    <li><a ui-sref="about" routerLink="/about">About us</a><i class="fa fa-angle-right"></i></li>
+                    <li><a ui-sref="portfolio" routerLink="/products">Product</a><i class="fa fa-angle-right"></i></li>
+                    <li><a ui-sref="products" routerLink="/join">join</a><i class="fa fa-angle-right"></i></li>
+                    <li><a ui-sref="gallery" routerLink="/login">Login</a><i class="fa fa-angle-right"></i></li>
+                    <li><a ui-sref="contact" routerLink="/contact">Contact us</a><i class="fa fa-angle-right"></i></li>
+                </ul>
+            </div>
+            <div class="col-md-4 col-sm-12 map-img">
+                <h2>Contact Us</h2>
+                <address class="md-margin-bottom-40">
+                    NSTI Mumbai <br>
+                    Mumbai<br>
+                    Maharashtra, IND <br>
+                    Phone: +91 9159669599 <br>
+                    Email: <a routerLink="sheRise@anybiz.com" class="">sherisegmail.com</a><br>
+
+                </address>
+
+            </div>
+        </div>
+
+
+    </div>
+
+
+</footer>
+<div class="copy"  *ngIf="showFooter">
+        <div class="container">
+            <a routerLink="">2015 &copy; All Rights Reserved | Designed and Developed by SheRise</a>
+
+            <span>
+            <a><i class="fab fa-github"></i></a>
+            <a><i class="fab fa-google-plus-g"></i></a>
+            <a><i class="fab fa-pinterest-p"></i></a>
+            <a><i class="fab fa-twitter"></i></a>
+            <a><i class="fab fa-facebook-f"></i></a>
+    </span>
+        </div>
+
+    </div>
