@@ -1,15 +1,8 @@
-/* =======================================================================
-Template Name: Youtubers
-Author:  SmartEye Technologies
-Author URI: www.smarteyeapps.com
-Version: 1.0
-coder name:Prabin Raja
-Description: This Template is created for Youtubers
-======================================================================= */
-/* ===================================== Import Variables ================================== */
-@import url(https://fonts.googleapis.com/css?family=Montserrat:300,400,600,700);
-@import url(https://fonts.googleapis.com/css?family=Arimo:300,400,400italic,700,700italic);
-/* ===================================== Basic CSS ==================================== */
+
+html {
+  scroll-behavior: smooth;
+}
+
 * {
   margin: 0px;
   padding: 0px;
@@ -84,7 +77,7 @@ p {
   padding: 0px; }
 
 h1, h2, h3, h4, h5, h6 {
-  color: #746e6e; }
+  color: #010101; }
 
 body {
   background-color: #f1f1f145 !important;
@@ -289,7 +282,7 @@ header {
       float: right; }
       header .header-top .col-det .ulright li {
         float: left;
-        padding: 10px;
+        padding: 5px;
         color: #d3d7ce;
         font-size: 1rem;
         font-weight: 600; }
@@ -308,6 +301,10 @@ header {
         padding: 5px 23px;
         border-radius: 50px;
         margin-left: 5px; }
+
+
+
+
   header .header-bottom {
     padding: 6px;
     background-color: #fff; }
@@ -321,15 +318,18 @@ header {
         max-width: 230px; } }
   header .nav-col .navbad {
     display: block;
-    float: right; }
+    float: right;
+   }
     @media screen and (max-width: 991px) {
       header .nav-col .navbad {
-        width: 100%; } }
+        width: 100%;
+       } }
     header .nav-col .navbad li {
       padding: 10px 10px;
       font-weight: 600;
       font-size: .5rem;
-      float: left; }
+      float: left; 
+    }
       @media screen and (max-width: 1005px) {
         header .nav-col .navbad li {
           padding: 15px 12px; } }
@@ -372,6 +372,7 @@ header {
     .navbar-toggler {
       top: -50px; } }
 
+
 .scroll-to-fixed-fixed {
   background-color: #FFF;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12); }
@@ -379,129 +380,29 @@ header {
 .scroll-to-fixed-fixed {
   padding: 5px!important;}
 
-/* =================== Slider Style Starts Here =================== */
-.slider {
-  position: relative; }
-
-.slider-captions {
-  position: absolute;
-  bottom: 132px;
-  text-align: center; }
-
-@media screen and (max-width: 1050px) {
-  .slider-captions {
-    bottom: 100px !important; }
-
-  /* width: 90%;
-  text-align: center;
-  float: none;
-  margin: auto;
-   */
-  .slider-captions .slider-title {
-    font-size: 42px; }
-  }
-@media screen and (max-width: 810px) {
-  .slider-captions {
-    bottom: 50px !important; }
-
-  .slider-captions .slider-title {
-    font-size: 32px; } }
-@media screen and (max-width: 572px) {
-  .slider-captions {
-    display: none; } }
-.slider-title {
-  font-size: 66px;
-  font-weight: 600;
-  color: #fff;
-  letter-spacing: -3px;
- }
-
-.slider-text {
-  margin-bottom: 20px;
-  color: #fff; }
-
-.slider-img {
-  background: -moz-linear-gradient(top, rgba(45, 32, 44, 0.3) 0%, rgba(45, 32, 44, 0.1) 100%);
-  background: -webkit-linear-gradient(top, rgba(45, 32, 44, 0.3) 0%, rgba(45, 32, 44, 0.1) 100%);
-  background: linear-gradient(to bottom, rgba(45, 32, 44, 0.3) 0%, rgba(45, 32, 44, 0.1) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#cc1b2429', endColorstr='#cc1b2429', GradientType=0);
-  position: relative; }
 
 
-.slider-img img {
-  position: relative;
-  z-index: -1;
-}
 
 
-.slider .owl-nav .owl-prev,
-.slider .owl-nav .owl-next {
-  color: #fff;
-  display: inline-block;
-  zoom: 1;
-  margin: 5px;
-  padding: 6px 12px;
-  font-size: 22px;
-  -webkit-border-radius: 23px;
-  -moz-border-radius: 23px;
-  border-radius: 23px;
-  background: transparent;
-  filter: Alpha(Opacity=50);
-  line-height: 1;
-  border: 2px solid #fff; }
 
-.owl-controls.clickable .owl-buttons div:hover {
-  filter: Alpha(Opacity=100);
-  opacity: 1;
-  text-decoration: none;
-  background-color: #fff; }
 
-.slider .owl-nav .owl-prev {
-  position: absolute;
-  top: 40%;
-  left: 25px; }
 
-.slider .owl-nav .owl-next {
-  position: absolute;
-  top: 40%;
-  right: 25px; }
 
-.slider .owl-dots .owl-dot {
-  position: relative;
-  text-align: center;
-  bottom: 40px;
-  max-width: 1140px;
-  margin: 0 auto; }
+  
 
-.slider .owl-dots .owl-dot span {
-  display: block;
-  width: 14px;
-  height: 14px;
-  margin: 0px 0px 10px 10px;
-  filter: Alpha(Opacity=50);
-  /*IE7 fix*/
-  opacity: 0.8;
-  -webkit-border-radius: 20px;
-  -moz-border-radius: 20px;
-  border-radius: 20px;
-  border: 2px solid #fff;
-  float: left; }
 
-.slider .owl-dots .owl-dot.active span {
-  background-color: #fff; }
 
-.slider .owl-dots .owl-dot.active span,
-.slider .owl-controls.clickable .owl-page:hover span {
-  background-color: #fff;
-  filter: Alpha(Opacity=100);
-  /*IE7 fix*/
-  opacity: 1; }
 
-.slider .col-lg-offset-2 {
-  float: none;
-  margin: auto; }
+
 
   /*navigation dropdown css Start */
+
+
+
+
+
+
+
 
   .navbar {
     list-style-type: none;
@@ -624,11 +525,17 @@ header {
   .events {
     padding: 30px 10px; } }
 .events .event-ro .event-box {
-  text-align: center;
+  text-align: justify;
   margin-bottom: 20px; }
 
 .events .event-ro .event-box img {
-  margin-bottom: 20px; }
+ 
+  margin-bottom: 20px;
+  width: 100%; /* Ensures the image takes up the full width of the container */
+  height: 250px; /* Adjust this height as needed */
+  object-fit: cover;
+
+}
 
 .events .event-ro .event-box h4 {
   font-size: 18px; }
@@ -699,16 +606,19 @@ color: rgb(237, 49, 49);
 
 /* ===================================== Charity Number CSS ================================== */
 .doctor-message {
-  background-image: url("../images/slider/slider-2.jpg");
+
   background-attachment: fixed;
   background-size: cover; }
   .doctor-message .session-title h2 {
-    color: #FFF; }
+    color: #FFF;
+    font-size: 30px;
+  }
 
 .doctor-message .inner-lay {
   background-color: rgba(0, 0, 0, 0.8);
   padding: 50px;
-  color: #FFF; }
+  color: #FFF;
+ }
 
 @media screen and (max-width: 940px) {
   .doctor-message .inner-lay {
@@ -723,6 +633,10 @@ color: rgb(237, 49, 49);
   border-bottom: 1px solid #CCC;
   margin-bottom: 20px;
   color: #FFF; }
+
+  .doctor-message .inner-lay p{
+    margin-left: 20%;
+  }
 
 /* ===================================== Our Blog CSS ================================== */
 .our-blog {
@@ -743,6 +657,28 @@ color: rgb(237, 49, 49);
 .our-blog .single-blog .blog-detail {
   padding: 15px; }
 
+  .our-blog .single-blog figure img {
+    width: 100%;
+    height: auto; 
+    object-fit: cover; 
+    aspect-ratio: 1 / 1;
+}
+
+.our-blog .single-blog figure {
+    position: relative;
+    padding-bottom: 60%;
+    overflow: hidden;
+}
+
+.our-blog .single-blog figure img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80%;
+    object-fit: cover; 
+}
+
 .our-blog .single-blog small {
   color:#DD2323;
   font-size: 12px; }
@@ -752,13 +688,20 @@ color: rgb(237, 49, 49);
   margin-bottom: 10px;
   margin-top: 10px; }
 
+  .our-blog .session-title p {
+  margin-left: 20%;
+  }
 .our-blog .single-blog p {
   text-align: justify;
-  text-indent: 20px; }
+  text-indent: 20px;
+ }
 
-.our-blog  h2{
+
+ 
+.our-blog .session-title h2{
   text-align: center;
-font-size: 20px;
+font-size: 30px;
+font-weight: 600;
   color: rgb(226, 50, 50);
 }
 
@@ -958,9 +901,10 @@ font-size: 20px;
   margin-left: 12%;
   margin-right: 30%;
 } */
+
 .sec p{
-  font-weight:600;
-  color: rgba(11, 11, 81, 0.884);
+  
+  color: rgba(92, 92, 96, 0.884);
 }
 .sec h2{
   font-weight: bold;
@@ -969,16 +913,70 @@ font-size: 20px;
 .sec2 {
   position: fixed;
   right: 20px;
-  top: 50%;
-  bottom: 60px;
-  width: 300px;
-  max-height: 80%;
-  overflow-y: auto;
+  top: 50%; 
+  bottom: 60px; 
+  width: 300px; 
+  max-height: 80%; 
+  overflow-y: auto; 
   background: white;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   padding: 20px;
   text-align: center;
 }
+
+.list-unstyled{
+  color: rgba(11, 11, 81, 0.884);;
+}
+
+
+/* Responsive adjustments */
+@media (min-width: 768px) {
+  .band {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+  }
+
+  .item-1,
+  .item-2 {
+      flex: 1;
+      margin-right: 20px;
+  }
+}
+
+/* New full-width section */
+.full-width-section {
+  width: 100%;
+  background: #fff;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  margin-top: 20px;
+}
+
+
+/* Bulletin css for anxiety page  */
+.bullein {
+  list-style-type: none; /* Remove default bullets */
+ 
+}
+.bulletin li {
+  color: rgba(95, 95, 98, 0.884);
+  
+  font-weight: bold;
+  position: relative;
+  padding-left: 20px; /* Space for custom bullet */
+  margin-bottom: 10px; /* Space between list items */
+}
+.bulletin li::before {
+  content: "\2022"; /* Unicode for bullet */
+  position: absolute;
+  left: 0;
+  color: #000; /* Bullet color */
+  font-size: 20px; /* Bullet size */
+  line-height: 1; /* Align bullet vertically */
+}
+
+
 
 
 

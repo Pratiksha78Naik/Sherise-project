@@ -80,11 +80,12 @@
 
 /*** Hero Header ***/
 .hero-header {
-   background: linear-gradient(rgba(248, 223, 173, 0.1), rgba(248, 223, 173, 0.1)), url('/assets/img/hero-img.jpg');
+   background: linear-gradient(rgba(204, 92, 27, 0.892), rgba(210, 152, 35, 0.991));
 
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
+    
 }
 
 .carousel-item {
@@ -127,6 +128,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     height: 32vh;
+    margin-top: 20%;
 }
 
 @media (min-width: 992px) {
