@@ -18,17 +18,16 @@
 
         <h2>Table of Contents</h2>
         <ol class="list-group ol-list">
-            <li class="list-group-item"><a href="#importance">Introduction to Menstrual Hygiene</a></li>
-            <li class="list-group-item"><a href="#Hygiene_Practices">Hygiene Practices</a></li>
-            <li class="list-group-item"><a href="#products">Menstrual Hygiene Products</a></li>
-            <li class="list-group-item"><a href="#essential">Essential Menstrual Hygiene: Practices and Impacts</a>
-            </li>
-            <li class="list-group-item"><a href="#concerns">Health and Safety Concerns</a></li>
+            <li class="list-group-item"><a routerLink="/hygiene" fragment="importance">Introduction to Menstrual Hygiene</a></li>
+            <li class="list-group-item"><a routerLink="/hygiene" fragment="Hygiene_Practices">Hygiene Practices</a></li>
+            <li class="list-group-item"><a routerLink="/hygiene" fragment="products">Menstrual Hygiene Products</a></li>
+            <li class="list-group-item"><a routerLink="/hygiene" fragment="essential">Essential Menstrual Hygiene: Practices and Impacts</a></li>
+            <li class="list-group-item"><a routerLink="/hygiene" fragment="concerns">Health and Safety Concerns</a></li>
       
         </ol>
     </div>
 </div>
-
+x
 
 <div class="con">
     <div class="sec mt-2">
@@ -36,10 +35,10 @@
         <section class="container-fluid mission-vision">
 
             <div class="container">
-                <div class="row mission health">
+                <div id="importance" class="row mission health">
 
                     <div class="col-md-6 mv-det">
-                        <h3 id="importance">Introduction to Menstrual Hygiene</h3>
+                        <h2 >Introduction to Menstrual Hygiene</h2>
                         <p>
                             Menstrual hygiene means the ways women and girls keep clean and comfortable during their
                             periods, using products
@@ -62,12 +61,12 @@
                     </div>
                 </div>
 
-                <div class="row vision mt-2">
+                <div  id="Hygiene_Practices" class="row vision mt-2">
                     <div class="col-md-6 mv-img">
                         <img src="assets/images/hygine/Hygiene-phases-Infographic.png" alt="health Image">
                     </div>
                     <div class="col-md-6 mv-det">
-                        <h3 id="Hygiene_Practices" class="Essential">Hygiene Practices</h3>
+                        <h2 class="Essential">Hygiene Practices</h2>
                         <p>Proper menstrual hygiene is vital for maintaining women's health and comfort during
                             menstruation. It includes
                             essential practices such as regularly changing sanitary products like pads, tampons, or
@@ -93,9 +92,9 @@
                     </div>
 
 
-                    <div class="row vision mt-2">
+                    <div id="products" class="row vision mt-2">
                         <div class="col-md-6 mv-det">
-                            <h3 id="products" class="mt-5">Menstrual Hygiene Products</h3>
+                            <h2  class="mt-5">Menstrual Hygiene Products</h2>
                             <p>
                                 Menstrual hygiene products cater to diverse needs during menstruation. Sanitary
                                 pads, available in disposable and
@@ -121,12 +120,12 @@
                     </div>
 
 
-                    <div class="row vision mt-2">
+                    <div  id="essential" class="row vision mt-2">
                         <div class="col-md-6 mv-img">
                             <img src="assets/images/hygine/efect.png" alt="health">
                         </div>
                         <div class="col-md-6 mv-det">
-                            <h3 id="essential">Essential Menstrual Hygiene: Practices and Impacts</h3>
+                            <h2 >Essential Menstrual Hygiene: Practices and Impacts</h2>
                             <p>Not maintaining menstrual hygiene can lead to several health risks and discomforts.
                                 Failure to change sanitary
                                 products regularly can promote bacterial growth, potentially causing infections like
@@ -151,10 +150,10 @@
                         </div>
 
                     </div>
-                    <div class="row vision mt-2">
+                    <div  id="concerns" class="row vision mt-2">
 
                         <div class="col-md-6 mv-det">
-                            <h3 id="concerns">Health and Safety Concerns</h3>
+                            <h2>Health and Safety Concerns</h2>
                             <p>Maintaining menstrual health involves several key precautions. It's crucial to change
                                 sanitary products regularly to
                                 avoid bacterial growth and reduce the risk of infections. Particularly with tampons,
@@ -226,12 +225,9 @@
                                 if untreated. Altering the pH balance of vaginal flora increases the risk of
                                 bacterial vaginosis, impacting fertility
                                 for women trying to conceive. Maintaining proper menstrual hygiene, including
-                                regular product changes and thorough
-                                cleaning, is crucial to prevent these health issues and ensure overall well-being
-                                during menstruation. </p>
+                                regular product changes. </p>
                             <div class="link">
-                                <a routerLink="/common">Read more </a><i
-                                    class="fas fa-long-arrow-alt-right"></i>
+                                <a routerLink="/common">Read more </a><i class="fas fa-long-arrow-alt-right"></i>
                             </div>
                         </div>
                     </div>
