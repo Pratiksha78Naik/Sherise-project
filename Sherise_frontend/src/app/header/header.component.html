@@ -12,7 +12,7 @@
               <li>
                 <i class="fas fa-phone-volume"></i>
                 +876 987 666 5433
-              </li>2
+              </li>
             </ul>
           </div>
           <div class="col-lg-3 col-md-6 folouws">
@@ -89,13 +89,11 @@
       </div>
     </div>
   </header>
-<<<<<<< HEAD
-  
-  <mat-toolbar *ngIf="showHeader && isAdminLoggedIn">
-    <span class="navbar-brand">Sherise - Admin</span>
-=======
 
-  <mat-toolbar *ngIf="showHeader && isAdminLoggedIn" class="toolbar">
+
+
+<mat-toolbar *ngIf="showHeader && isAdminLoggedIn">
+  <span class="navbar-brand">Sherise - Admin</span>
     <a routerLink="/index">
       <img src="assets/images/logo-no-background.png" alt="" style="height: 80px;">
     </a>
@@ -103,7 +101,7 @@
       <i class="fas d-block d-lg-none small-menu fa-bars"></i>
     </a>
     <span class="navbar-brand">Admin</span>
->>>>>>> 8d1764cdc9be3e5d1de2c83748fca2a13f40c195
+
     <span class="spacer"></span>
     <button mat-button routerLink="/admin/dashboard" routerLinkActive="active">Dashboard</button>
     <button mat-button routerLink="/admin/category" routerLinkActive="active">Category</button>
@@ -111,10 +109,6 @@
     <button mat-button (click)="logout()">Logout</button>
   </mat-toolbar>
   
-<<<<<<< HEAD
-=======
-
->>>>>>> 8d1764cdc9be3e5d1de2c83748fca2a13f40c195
   <header class="continer-fluid mb-3" *ngIf="isCustomerLoggedIn" color="primary">
     <div id="menu-jk" class="header-top">
       <div class="container">
