@@ -75,17 +75,27 @@
 }
 
 
-
+.one{
+    margin-top:9%;
+}
 
 
 /*** Hero Header ***/
 .hero-header {
-   background: linear-gradient(rgba(204, 92, 27, 0.892), rgba(210, 152, 35, 0.991));
+  background-image: url('/assets/images/product/proback.jpg');
 
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
-    
+    backdrop-filter: blur(10px);
+ 
+
+
+}
+.carousel-image {
+    width: 100%;
+    height: 400px; /* Set a fixed height */
+    object-fit: cover; /* Ensures the image covers the entire area without distortion */
 }
 
 .carousel-item {
@@ -141,7 +151,7 @@
 @media (max-width: 992px) {
     .hero-header,
     .page-header {
-        margin-top: 97px !important;
+        margin-top: 9% !important;
     }
 }
 /*** Hero Header end ***/
@@ -311,13 +321,16 @@
 }
 
 .counter h4 {
-    color: var(--bs-primary);
+    color: rgb(20, 18, 18);
     letter-spacing: 1px;
     text-transform: uppercase;
+    font-weight: 900;
 }
 
 .counter h1 {
     margin-bottom: 0;
+    color: #100f0f;
+    font-weight: 900;
 }
 /*** Facts End ***/
 

@@ -4,6 +4,20 @@
     justify-content: space-between;
     align-items: center;
     margin: 20px;
+  
+}
+#intro {
+    width: 80%;
+    margin-left: 10%;
+}
+.page-nav ul{
+    margin-left: 37%;
+}
+.page-nav{
+    margin-top: 9%;
+}
+.page-nav ul{
+    margin-left: 42%;
 }
 
 .text-content {
