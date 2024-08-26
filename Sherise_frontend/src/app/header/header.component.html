@@ -22,7 +22,7 @@
               </li>
               <li><i class="fab fa-facebook-square"></i></li>
               <li><i class="fab fa-twitter-square"></i></li>
-              <li><i class="fab fa-instagram"></i></li>
+              <li><a href="https://www.instagram.com/sherise_development?igsh=N3FtNWNrMWtkOGVo"><i class="fab fa-instagram"></i></a></li>
               <li><i class="fab fa-linkedin"></i></li>
             </ul>
           </div>
@@ -98,14 +98,21 @@
     </div>
   </header>
 
-  <mat-toolbar *ngIf="showHeader && isAdminLoggedIn">
-    <span class="navbar-brand">Sherise - Admin</span>
+  <mat-toolbar *ngIf="showHeader && isAdminLoggedIn" class="toolbar">
+    <a routerLink="/index">
+      <img src="assets/images/logo-no-background.png" alt="" style="height: 80px;">
+    </a>
+    <a data-toggle="collapse" data-target="#menu" routerLink="#menu" tabindex="0" role="button">
+      <i class="fas d-block d-lg-none small-menu fa-bars"></i>
+    </a>
+    <span class="navbar-brand">Admin</span>
     <span class="spacer"></span>
     <button mat-button routerLink="/admin/dashboard" routerLinkActive="active">Dashboard</button>
     <button mat-button routerLink="/admin/category" routerLinkActive="active">Category</button>
     <button mat-button routerLink="/admin/user" routerLinkActive="active">Users</button>
     <button mat-button (click)="logout()">Logout</button>
   </mat-toolbar>
+  
 
   <header class="continer-fluid mb-3" *ngIf="isCustomerLoggedIn" color="primary">
     <div id="menu-jk" class="header-top">

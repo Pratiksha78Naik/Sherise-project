@@ -6,6 +6,7 @@
     color: white; 
     padding: 20px; 
     height: 50%;
+    margin-top: 9%;
         }
 .page-nav h2, .page-nav ul, .page-nav li, .page-nav a {
     color: white; 
@@ -16,6 +17,7 @@
     padding: 20px;
     margin-bottom: 20px;
     background-color: #fff;
+  
     
 }
 

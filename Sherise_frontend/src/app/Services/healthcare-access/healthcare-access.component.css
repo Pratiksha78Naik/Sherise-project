@@ -5,19 +5,12 @@
 }
 
 .card{
-    border: 1px solid greenyellow;
+    border: 3px solid rgb(225, 147, 147);
 }
 .hr-effect{
-    border: 1px solid greenyellow;
+    border: 3px solid rgb(222, 153, 138);
 }
-.hr-effect:hover{
-background-color: rgb(255, 255, 255);
-border-top: 5px solid rgb(250, 247, 212);
-border-right: 2px solid gray;
-border-left: 5px solid gray;
-border-bottom: 2px solid gray;
 
-}
 
 .scrolling-text {
     height: 100px; /* Set the height for the scrolling area */
@@ -96,6 +89,12 @@ border-bottom: 2px solid gray;
     background-repeat: no-repeat;
 }
 
+.intro2 {
+    background: url('/assets/images/women-talk-about-first-periods.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
 @media (max-width: 768px) {
     #intro {
         display: grid; /* Stack items vertically */
@@ -108,13 +107,27 @@ border-bottom: 2px solid gray;
     }
 }
 
+.page-nav ul{
+    margin-left: 37%;
+}
+.page-nav{
+    margin-top: 9%;
+}
+.page-nav ul{
+    margin-left: 42%;
+}
+
 .news{
     border: 1px ridge grey;
 }
 .second {
     text-align: center;
     padding: 2em;
-    background-color: #f8f9fa;
+    background-color: #f0492c;
+    margin-top: 9%;
+}
+.second h1 {
+    color: white;
 }
     section {
         padding: 2em;
@@ -147,7 +160,7 @@ border-bottom: 2px solid gray;
     .form-section {
         background-color: #f8f9fa;
         padding: 2em;
-        border-radius: 8px;
+        border-radius: 2px;
     }
     main{
       padding-left: 0;
