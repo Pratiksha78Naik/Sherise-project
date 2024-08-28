@@ -1,1 +1,43 @@
-<p>dashboard works!</p>
+<!-- dashboard.component.html -->
+<div class="container mt-4">
+    <!-- Search Form -->
+    <form [formGroup]="searchProductForm" class="search-form mb-4" (ngSubmit)="submitForm()">
+      <div class="input-group search-input">
+        <input type="text" class="form-control" formControlName="title" placeholder="Enter Keyword to search" />
+        <button class="btn btn-primary" type="submit" [disabled]="searchProductForm.invalid">
+          <i class="bi bi-search"></i> <!-- Bootstrap search icon -->
+        </button>
+      </div>
+    </form>
+  
+    <!-- Product List -->
+    <div class="row">
+      <div class="col-md-4 col-sm-6 mb-4" *ngFor="let product of products">
+        <div class="card product-card h-100">
+          <img [src]="product.processedImg" class="card-img-top" alt="{{product.name}}" />
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">{{product.name}}</h5>
+            <p class="card-text">{{product.description}}</p>
+            <hr />
+            <div class="product-info mb-3">
+              <div class="info-row">
+                <strong>Price:</strong> {{product.price | currency}}
+              </div>
+              <div class="info-row">
+                <strong>Category:</strong> {{product.categoryName}}
+              </div>
+            </div>
+            <div class="actions mt-auto">
+              <a class="btn btn-primary" [routerLink]="'/admin/faq/' + product.id">FAQ</a>
+              <a class="btn btn-primary" [routerLink]="'/admin/product/' + product.id">Update</a>
+              <button class="btn btn-danger" (click)="deleteProduct(product.id)">Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Add these styles in your CSS file -->
+  
+  
