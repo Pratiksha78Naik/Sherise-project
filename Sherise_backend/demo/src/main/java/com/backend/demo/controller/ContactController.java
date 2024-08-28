@@ -1,6 +1,5 @@
 package com.backend.demo.controller;
 
-
 import com.backend.demo.Entity.ContactForm;
 import com.backend.demo.services.ContactService;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +17,7 @@ public class ContactController {
     private final ContactService contactService;
 
     @PostMapping("/ContactForm")
-    public ResponseEntity<ContactForm> postContactForm(@RequestBody ContactForm contactForm){
+    public ResponseEntity<ContactForm> postContactForm(@RequestBody ContactForm contactForm) {
         try {
             ContactForm savedContact = contactService.postContactForm(contactForm);
             return new ResponseEntity<>(savedContact, HttpStatus.CREATED);
@@ -26,10 +25,6 @@ public class ContactController {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-
-
-}
-
-
-}
+        }
+    }
 }
