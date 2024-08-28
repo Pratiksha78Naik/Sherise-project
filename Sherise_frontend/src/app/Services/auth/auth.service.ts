@@ -35,4 +35,9 @@ export class AuthService {
       })
     );
   }
+
+  isLoggedIn(): boolean {
+    // Implement logic to check if the user is logged in
+    return !!localStorage.getItem('token'); // Example using localStorage
+  }
 }
