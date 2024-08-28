@@ -1,14 +1,14 @@
-<div class="container">
-    <h1>Quiz App</h1>
+<div class="full-page">
+  <div class="container">
     <div *ngIf="currentQuestion < quizData.length; else resultTemplate" id="quiz">
-      <div class="question">{{ quizData[currentQuestion].question }}</div>
+      <div class="question">{{ quizData[currentQuestion].question }}</div> <!-- Ensure the question is displayed -->
       <div class="options">
-        <label *ngFor="let option of shuffledOptions">
-          <input type="radio" name="quiz" [value]="option" [(ngModel)]="selectedOption">
-          {{ option }}
-        </label>
+        <div class="option" *ngFor="let option of shuffledOptions">
+          <input type="radio" name="quiz" [value]="option" [(ngModel)]="selectedOption" id="{{option}}">
+          <label [for]="option">{{ option }}</label>
+        </div>
       </div>
-      <button (click)="checkAnswer()" class="button">Submit</button>
+      <button (click)="checkAnswer()" class="button">Next</button>
     </div>
     <ng-template #resultTemplate>
       <div id="result" class="result">
@@ -17,7 +17,6 @@
           <p>Incorrect Answers:</p>
           <div *ngFor="let answer of incorrectAnswers">
             <p>
-              <strong>Question:</strong> {{ answer.question }}<br>
               <strong>Your Answer:</strong> {{ answer.incorrectAnswer }}<br>
               <strong>Correct Answer:</strong> {{ answer.correctAnswer }}
             </p>
@@ -28,3 +27,4 @@
       </div>
     </ng-template>
   </div>
+</div>

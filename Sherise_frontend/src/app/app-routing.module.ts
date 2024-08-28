@@ -29,6 +29,7 @@ import { ProductsComponent } from './Services/products/products.component';
 import { CartComponent } from './Services/cart/cart.component';
 import { CheckoutComponent } from './Services/checkout/checkout.component';
 
+
 import { SakhiyaComponent } from './Events/sakhiya/sakhiya.component';
 import { AarogyaComponent } from './Events/aarogya/aarogya.component';
 import { NayidishaComponent } from './Events/nayidisha/nayidisha.component';
@@ -40,6 +41,8 @@ import { QuizComponent } from './LearnwithUs/quiz/quiz.component';
 import { HygQuizComponent } from './LearnwithUs/hygquiz/hygquiz.component';
 import { SignupComponent } from './signup/signup.component';
 import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './auth.guard'; // Adjust the path if necessary
+
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -49,7 +52,7 @@ const routes: Routes = [
   { path: 'mcycle', component: McycleComponent },
   { path: 'hygiene', component: HygieneComponent },
   { path: 'pshy', component: PshyComponent },
-  { path: 'education', component: EducationComponent },
+ { path: 'education', component: EducationComponent, canActivate: [AuthGuard], data: { role: 'CUSTOMER' } },
   { path: 'healthcare-access', component: HealthcareAccessComponent },
   { path: 'hcamps', component: HcampsComponent },
   { path: 'parents', component: ParentsComponent },
