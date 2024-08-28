@@ -97,4 +97,16 @@ body {
     height: 13%;
     background-color: #dadada;
   }
+
+  .spacer {
+    flex-grow: 1;
+  }
+  
+  .button-group {
+    display: flex;
+    gap: 10px;
+  }
+  .navbar-brand{
+    font-weight: 800;
+  }
   

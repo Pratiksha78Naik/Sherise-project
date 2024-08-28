@@ -90,11 +90,14 @@
     </div>
   </header>
 
+
+
+
+
   
  
 
-    <mat-toolbar *ngIf="showHeader && isAdminLoggedIn">
-      <span class="navbar-brand">Sherise - Admin</span>
+    <mat-toolbar *ngIf="showHeader && isAdminLoggedIn" class="toolbar">
     <a routerLink="/index">
       <img src="assets/images/logo-no-background.png" alt="" style="height: 80px;">
     </a>
@@ -106,11 +109,12 @@
     <span class="spacer"></span>
     <button mat-button routerLink="/admin/dashboard" routerLinkActive="active">Dashboard</button>
     <button mat-button routerLink="/admin/category" routerLinkActive="active">Category</button>
-    <button mat-button routerLink="/admin/product" routerLinkActive="active">Product Add</button>
     <button mat-button routerLink="/admin/user" routerLinkActive="active">Users</button>
     <button mat-button (click)="logout()">Logout</button>
   </mat-toolbar>
   
+
+
 
 
   <header class="continer-fluid mb-3" *ngIf="isCustomerLoggedIn" color="primary">
