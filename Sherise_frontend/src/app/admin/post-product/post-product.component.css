@@ -1,0 +1,16 @@
+.circle-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.preview-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
