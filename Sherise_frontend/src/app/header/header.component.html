@@ -90,10 +90,11 @@
     </div>
   </header>
 
+  
+ 
 
-
-<mat-toolbar *ngIf="showHeader && isAdminLoggedIn">
-  <span class="navbar-brand">Sherise - Admin</span>
+    <mat-toolbar *ngIf="showHeader && isAdminLoggedIn">
+      <span class="navbar-brand">Sherise - Admin</span>
     <a routerLink="/index">
       <img src="assets/images/logo-no-background.png" alt="" style="height: 80px;">
     </a>
@@ -110,6 +111,8 @@
     <button mat-button (click)="logout()">Logout</button>
   </mat-toolbar>
   
+
+
   <header class="continer-fluid mb-3" *ngIf="isCustomerLoggedIn" color="primary">
     <div id="menu-jk" class="header-top">
       <div class="container">

@@ -69,6 +69,11 @@ export class UserStorageService {
     return role === 'CUSTOMER';
   }
 
+
+  public isLoggedIn(): boolean {
+    return this.getToken() !== null;
+  }
+
   public signOut(): void {
     if (this.isBrowser()) {
       window.localStorage.removeItem(TOKEN);
