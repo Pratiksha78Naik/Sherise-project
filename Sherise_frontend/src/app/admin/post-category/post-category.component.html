@@ -1,0 +1,56 @@
+<div class="container mt-4">
+    <h2>Categories</h2>
+
+    <!-- Section to display the list of categories -->
+    <div class="mt-4">
+        <h3>Existing Categories</h3>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Actions</th> <!-- New column for actions -->
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let category of listofCategories; let i = index">
+                    <th scope="row">{{ i + 1 }}</th>
+                    <td>{{ category.name }}</td>
+                    <td>{{ category.description }}</td>
+                    <td>
+                        <button class="btn btn-danger btn-sm" (click)="deleteCategory(category.id)">
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Button to toggle the form visibility -->
+    <button class="btn btn-primary my-3" (click)="toggleForm()">
+        {{ showForm ? 'Hide Form' : 'Add New Category' }}
+    </button>
+
+    <!-- Add Category form, initially hidden -->
+    <form *ngIf="showForm" [formGroup]="categoryForm" (ngSubmit)="addCategory()">
+        <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" id="name" class="form-control" placeholder="Name" formControlName="name" />
+            <div *ngIf="categoryForm.get('name')?.hasError('required')" class="text-danger">
+                Field is required
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <input type="text" id="description" class="form-control" placeholder="Description" formControlName="description" />
+            <div *ngIf="categoryForm.get('description')?.hasError('required')" class="text-danger">
+                Field is required
+            </div>
+        </div>
+
+        <button class="btn btn-primary" type="submit">Add Category</button>
+    </form>
+</div>

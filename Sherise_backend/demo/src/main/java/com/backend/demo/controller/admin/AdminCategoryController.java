@@ -28,4 +28,17 @@ public class AdminCategoryController {
     public ResponseEntity<List<Category>>getAllCategories(){
         return ResponseEntity.ok(categoryService.getAllCategories());
     }
+
+    @DeleteMapping("/category/{categoryId}")
+    public ResponseEntity<Void> deleteCategory(@PathVariable Long categoryId) {
+        boolean deleted = categoryService.deleteCategory(categoryId); // Corrected service call
+
+        if (deleted) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
 }
