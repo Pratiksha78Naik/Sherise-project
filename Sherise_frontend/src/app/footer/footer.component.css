@@ -1,0 +1,15 @@
+#google_translate_element {
+    transform: scale(1.5); /* Scale the element */
+    transform-origin: top left; /* Adjust the origin to keep the scaling from the top left corner */
+  }
+  
+  .goog-te-gadget-simple {
+    font-size: 10px; /* Increase the font size */
+    line-height: 2; /* Adjust line height for better spacing */
+    padding: 10px; /* Add padding for better spacing */
+  }
+  
+  .goog-te-gadget-simple img {
+    width: 24px; /* Increase the size of the flag or icon */
+    height: 24px;
+  }
