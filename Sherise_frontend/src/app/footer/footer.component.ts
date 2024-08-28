@@ -16,7 +16,7 @@ export class FooterComponent implements OnInit {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         // Check the current route and update showFooter property
-        this.showFooter = !(event.url === '/login' || event.url === '/signup' || event.url === '/admin/dashboard');
+        this.showFooter =  !(event.url === '/login' || event.url === '/signup' || event.url.startsWith('/admin'));
       }
     });
   }
