@@ -83,6 +83,8 @@
               <li class="nav-item">
                 <a class="nav-link" routerLink="/contact" tabindex="0">Contact US</a>
               </li>
+
+
             </ul>
           </div>
         </div>
@@ -107,6 +109,9 @@
     <span class="navbar-brand">Admin</span>
 
     <span class="spacer"></span>
+
+      <span class="user-name" *ngIf="userName"> welcome,{{ userName }}</span>
+
     <button mat-button routerLink="/admin/dashboard" routerLinkActive="active">Dashboard</button>
     <button mat-button routerLink="/admin/category" routerLinkActive="active">Category</button>
       <button mat-button routerLink="/admin/product" routerLinkActive="active">Product Add</button>
@@ -170,6 +175,10 @@
               </li>
               <li class="nav-item">
                 <a class="nav-item" (click)="logout()" tabindex="0">Logout</a>
+              </li>
+
+              <li class="nav-item">
+                <span class="user-name" *ngIf="userName"> welcome,{{ userName }}</span>
               </li>
             </ul>
           </div>

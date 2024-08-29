@@ -39,12 +39,20 @@ onSubmit(): void {
 
   this.authService.login(username, password).subscribe(
     (res) => {
-      if (this.userStorageService.isAdminLoggedIn()) {
-        this.router.navigateByUrl('admin/dashboard');
-      } else if (this.userStorageService.isCustomerLoggedIn()) {
-        this.router.navigateByUrl('home');
-      } else {
-        this.router.navigateByUrl('/');  // Redirect to a default route or error page
+      // Assuming 'res' contains the token and user information
+      if (res.token && res.user) {
+        // Save the token and user data to local storage
+        this.userStorageService.saveToken(res.token);
+        this.userStorageService.saveUser(res.user);
+
+        // Redirect based on user role
+        if (this.userStorageService.isAdminLoggedIn()) {
+          this.router.navigateByUrl('admin/dashboard');
+        } else if (this.userStorageService.isCustomerLoggedIn()) {
+          this.router.navigateByUrl('home');
+        } else {
+          this.router.navigateByUrl('/');  // Redirect to a default route or error page
+        }
       }
     },
     (error) => {
@@ -52,6 +60,7 @@ onSubmit(): void {
     }
   );
 }
+
 
 
 }

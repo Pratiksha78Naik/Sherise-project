@@ -48,6 +48,14 @@ export class UserStorageService {
     return user ? user.userId : '';
   }
 
+
+  public getUserName(): string {
+    const user = this.getUser();
+    return user ? user.name : '';
+  }
+
+
+
   public getUserRole(): string {
     const user = this.getUser();
     return user ? user.role : '';

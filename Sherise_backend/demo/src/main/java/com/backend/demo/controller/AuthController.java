@@ -62,6 +62,7 @@ public class AuthController {
             response.getWriter().write(new JSONObject()
                     .put("UserId", optionalUser.get().getId())
                     .put("role", optionalUser.get().getRole())
+                    .put("name", optionalUser.get().getName())
                     .toString()
             );
 

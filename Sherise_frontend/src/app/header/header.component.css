@@ -93,7 +93,7 @@ body {
 }
 
 .toolbar{
-   
+
     height: 13%;
     background-color: #dadada;
   }
@@ -101,7 +101,7 @@ body {
   .spacer {
     flex-grow: 1;
   }
-  
+
   .button-group {
     display: flex;
     gap: 10px;
@@ -109,4 +109,20 @@ body {
   .navbar-brand{
     font-weight: 800;
   }
-  
+
+  .toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+  }
+
+  .spacer {
+    flex: 1;
+  }
+
+  .user-name {
+    margin-right: 15px;
+    font-weight: bold;
+  }
+
