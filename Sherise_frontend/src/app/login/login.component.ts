@@ -8,7 +8,7 @@ import { UserStorageService } from '../Services/storage/user-storage.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']  // Corrected from 'styleUrl' to 'styleUrls'
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
@@ -19,12 +19,12 @@ export class LoginComponent implements OnInit {
     private snackBar: MatSnackBar,
     private authService: AuthService,
     private router: Router,
-    private userStorageService: UserStorageService  // Injecting UserStorageService
+    private userStorageService: UserStorageService
   ) { }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
-      email: [null, [Validators.required]],
+      email: [null, [Validators.required, Validators.email]], // Added email validation
       password: [null, Validators.required],
     });
   }
@@ -33,25 +33,38 @@ export class LoginComponent implements OnInit {
     this.hidePassword = !this.hidePassword;
   }
 
-onSubmit(): void {
-  const username = this.loginForm.get('email')!.value;
-  const password = this.loginForm.get('password')!.value;
+  onSubmit(): void {
+    if (this.loginForm.valid) {
+      const username = this.loginForm.get('email')!.value;
+      const password = this.loginForm.get('password')!.value;
 
-  this.authService.login(username, password).subscribe(
-    (res) => {
-      if (this.userStorageService.isAdminLoggedIn()) {
-        this.router.navigateByUrl('admin/dashboard');
-      } else if (this.userStorageService.isCustomerLoggedIn()) {
-        this.router.navigateByUrl('home');
-      } else {
-        this.router.navigateByUrl('/');  // Redirect to a default route or error page
-      }
-    },
-    (error) => {
-      this.snackBar.open('Bad credentials', 'ERROR', { duration: 5000 });
+      this.authService.login(username, password).subscribe(
+        (response) => {
+          if (response) {
+            const { token, user } = response;
+            if (token && user) {
+              this.userStorageService.saveToken(token); // Save token
+              this.userStorageService.saveUser(user);   // Save user info
+
+              if (this.userStorageService.isAdminLoggedIn()) {
+                this.router.navigateByUrl('admin/dashboard');
+              } else if (this.userStorageService.isCustomerLoggedIn()) {
+                this.router.navigateByUrl('home');
+              }
+            } else {
+              this.snackBar.open('Login failed. Please check your credentials.', 'Close', { duration: 5000 });
+            }
+          } else {
+            this.snackBar.open('Login failed. Please check your credentials.', 'Close', { duration: 5000 });
+          }
+        },
+        (error) => {
+          this.snackBar.open('Login error. Please try again later.', 'Close', { duration: 5000 });
+          console.error('Login error:', error); // Log error for debugging
+        }
+      );
+    } else {
+      this.snackBar.open('Please enter a valid email and password.', 'Close', { duration: 5000 });
     }
-  );
-}
-
-
+  }
 }

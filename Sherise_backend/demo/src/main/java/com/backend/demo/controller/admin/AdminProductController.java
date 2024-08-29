@@ -48,5 +48,11 @@ public class AdminProductController {
 
     }
 
+    @GetMapping("/category/{categoryId}")
+    public ResponseEntity<List<ProductDto>> getProductsByCategory(@PathVariable Long categoryId) {
+        List<ProductDto> productDtos = adminProductService.getAllProductsByCategory(categoryId);
+        return ResponseEntity.ok(productDtos);
+    }
+
 
 }

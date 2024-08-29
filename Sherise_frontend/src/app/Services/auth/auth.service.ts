@@ -18,26 +18,17 @@ export class AuthService {
     return this.http.post<any>(BASIC_URL + "sign-up", signupRequest);
   }
 
-  login(username: string, password: string): Observable<boolean> {
+  login(username: string, password: string): Observable<{ token: string; user: any }> {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
     const body = { username, password };
 
-    return this.http.post(BASIC_URL + 'authenticate', body, { headers, observe: 'response' }).pipe(
+    return this.http.post<{ token: string; user: any }>(BASIC_URL + 'authenticate', body, { headers, observe: 'response' }).pipe(
       map((res) => {
-        const token = res.headers.get('authorization')?.substring(7);
+        const token = res.headers.get('authorization')?.substring(7) || '';
         const user = res.body;
-        if (token && user) {
-          this.userStorageService.saveToken(token);
-          this.userStorageService.saveUser(user);
-          return true;
-        }
-        return false;
+        console.log('Login response user:', user); // Debugging line
+        return { token, user };
       })
     );
-  }
-
-  isLoggedIn(): boolean {
-    // Implement logic to check if the user is logged in
-    return !!localStorage.getItem('token'); // Example using localStorage
   }
 }

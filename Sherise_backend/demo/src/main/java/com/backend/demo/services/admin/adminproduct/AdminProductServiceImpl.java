@@ -55,4 +55,9 @@ public class AdminProductServiceImpl implements AdminProductService{
         }
         return false;
     }
+
+    public List<ProductDto> getAllProductsByCategory(Long categoryId) {
+        List<Product> products = productRepository.findByCategoryId(categoryId);
+        return products.stream().map(Product::getDto).collect(Collectors.toList());
+    }
 }

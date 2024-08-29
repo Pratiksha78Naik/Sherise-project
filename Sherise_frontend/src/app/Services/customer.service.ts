@@ -33,24 +33,38 @@ export class CustomerService {
     );
   }
 
-  // addToCart(productId: number): Observable<any> {
-  //   const userId = this.userStorageService.getUserId();
-  //   const cartDto = {
-  //     productId: productId,
-  //     userId: userId
-  //   };
+  addToCart(productId: number): Observable<any> {
+    const userId = this.userStorageService.getUserId();
+    const cartDto = {
+      productId: productId,
+      userId: userId
+    };
 
-  //   if (!userId) {
-  //     console.error('User ID is not available.');
-  //     return throwError(() => new Error('User ID is missing'));
-  //   }
+    if (!userId) {
+      console.error('User ID is not available.');
+      return throwError(() => new Error('User ID is missing'));
+    }
 
-  //   return this.http.post<any>(`${BASIC_URL}api/customer/cart`, cartDto, {
-  //     headers: this.createAuthorizationHeader(),
-  //   }).pipe(
-  //     catchError(this.handleError)
-  //   );
-  // }
+    return this.http.post<any>(`${BASIC_URL}api/customer/cart`, cartDto, {
+      headers: this.createAuthorizationHeader(),
+    }).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  getAllCategory(): Observable<any> {
+    return this.http.get(BASIC_URL + 'api/admin/categories', {
+      headers: this.createAuthorizationHeader(),
+    });
+  }
+
+  getProductsByCategory(categoryId: number): Observable<any> {
+    return this.http.get<any>(`${BASIC_URL}api/admin/category/${categoryId}`, {
+      headers: this.createAuthorizationHeader(),
+    }).pipe(
+      catchError(this.handleError)
+    );
+  }
 
   private createAuthorizationHeader(): HttpHeaders {
     const token = this.userStorageService.getToken();

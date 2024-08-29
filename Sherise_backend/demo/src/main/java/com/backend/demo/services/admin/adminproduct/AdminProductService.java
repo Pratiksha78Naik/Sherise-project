@@ -13,6 +13,7 @@ public interface AdminProductService {
 
     List<ProductDto> getAllProductByName(String name);
 
+    List<ProductDto> getAllProductsByCategory(Long categoryId);
 
     boolean deleteProduct(Long id);
 }
