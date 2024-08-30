@@ -14,6 +14,8 @@ export class HeaderComponent implements OnInit {
   isAdminLoggedIn: boolean = false;
   showHeader: boolean = false;
    userName: string | null = null; // Corrected property declaration
+     userProfilePicture: string = 'assets/images/slider/avatar-profile.svg'; // Default profile picture
+
 
   constructor(
     private router: Router,
