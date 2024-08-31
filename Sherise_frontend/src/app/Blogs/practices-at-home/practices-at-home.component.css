@@ -1,46 +1,4 @@
-@media (max-width: 768px) {
-    .header h1 {
-        font-size: 2em;
-    }
-}
-
-@media (max-width: 576px) {
-    .header h1 {
-        font-size: 1.5em;
-    }
-}
-
-.row {
-    display: flex;
-    flex-wrap: wrap;
-    margin: 0 -15px;
-}
-
-.col {
-    flex: 1;
-    padding: 15px;
-}
-
-.blog_image {
-    width: 100%;
-    height: auto;
-    max-width: 100%;
-}
-
-.text-center {
-    text-align: center;
-}
-
-.w3-large {
-    font-size: 1.25em;
-    list-style: circle;
-}
-
-.w3-large li {
-    list-style: circle;
-}
-
-.head1 {
+.header-main {
     padding: 30px;
     font-size: 40px;
     text-align: center;
@@ -53,65 +11,70 @@
     color: white;
 }
 
-.head1 h2 {
-    color: #e6e6e6;
+.content-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -15px;
 }
 
-.leftcolumn {
-    float: left;
-    width: 75%;
-    padding: 2px;
+.main-column {
+    flex: 3;
+    padding: 15px;
 }
 
 .rightcolumn {
-    float: left;
-    width: 25%;
-    padding-left: 20px;
-    margin-top: 4%;
-}
-
-.fakeimg {
-    background-color: #fdfdfd;
-    width: 100%;
-}
-
-.blog_image {
-    width: 60%;
-}
-
-.card1 {
-    background-color: white;
-    padding: 30px;
-    margin-top: 20px;
-
+    flex: 1;
+    padding: 15px;
 }
 
 .card {
     background-color: white;
-    padding: 100px;
+    padding: 30px;
     margin-top: 20px;
-
+    border-radius: 8px;
+    margin-left: 3%;
 }
 
-.row:after {
-    content: "";
-    display: table;
-    clear: both;
-}
-
-.head2 {
-    color: #111116;
+.subheading {
     font-weight: 700;
+    color: #df4e4e;
+    margin-top: 20px;
 }
 
-.card p {
-    font-weight: 600;
-    color: rgba(11, 11, 81, 0.884);
-
+.blog_image {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    border-radius: 8px;
 }
 
-.blog-con {
-    font-weight: 600;
-    color: rgba(5, 5, 62, 0.884);
+.image-container {
+    background-color: #fdfdfd;
+    padding: 10px;
+    margin-top: 20px;
+}
 
+p {
+    margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+    .header-main h1 {
+        font-size: 6em;
+    }
+
+    .content-wrapper {
+        flex-direction: column;
+    }
+
+    .main-column, .rightcolumn {
+        width: 100%;
+        padding: 0 15px;
+    }
+}
+
+@media (max-width: 576px) {
+    .header-main h1 {
+        font-size: 1.5em;
+    }
 }

@@ -1,149 +1,90 @@
-@media (max-width: 768px) {
-    .header h1 {
-      font-size: 2em;
-    }
-  }
 
-  @media (max-width: 576px) {
-    .header h1 {
-      font-size: 1.5em;
-    }
-  }
 
-  .row {
-    display: flex;
-    flex-wrap: wrap;
-    margin: 0 -15px;
-  }
-
-  .col {
-    flex: 1;
-    padding: 15px;
-  }
-
-  .blog_image {
-    width: 100%;
-    height: auto;
-    max-width: 100%;
-  }
-
-  .text-center {
-    text-align: center;
-  }
-
-  .w3-large {
-    font-size: 1.25em;
-    list-style: circle;
-  }
-
-  .w3-large li {
-    list-style: circle;
-  }
-
-  .head1 {
-    padding: 30px;
-    font-size: 40px;
-    text-align: center;
+.header-main {
+  padding: 30px;
+  font-size: 40px;
+  text-align: center;
     background: url('/assets/images/blog/anxiety-blog1.webp') no-repeat center center;
     background-size: cover;
     height: 100vh;
-    /* Adjust the height as needed */
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
-    /* Ensure text is readable against the background */
+    margin-top: 3%;
   }
 
-  .head1 h2 {
-    color: #e6e6e6;
-  }
+  .content-wrapper {
+    display: flex;
+    flex-wrap: nowrap; /* Ensures columns stay in a single row */
+    justify-content: space-between;
+    margin: 20px; /* Adjust margin if needed */
+}
 
-  .leftcolumn {
-    float: left;
-    width: 75%;
-    padding: 2px;
-  }
+.sidebar {
+    width: 23%;
+    margin-top: 8px;
+    box-sizing: border-box; /* Ensure padding and border are included in the width */
+}
 
-  .rightcolumn {
-    float: left;
-    width: 25%;
-    padding-left: 20px;
-    margin-top: 4%;
-  }
+.main-column {
+    width: 75%; /* Adjust width if needed */
+    box-sizing: border-box; /* Ensure padding and border are included in the width */
+}
 
-  .fakeimg {
-    background-color: #fdfdfd;
-    width: 100%;
-  }
-
-  .blog_image {
-    width: 60%;
-  }
-
-  .card1 {
+.card {
     background-color: white;
     padding: 30px;
     margin-top: 20px;
-  }
+    border-radius: 8px;
+}
 
-  .card {
-    background-color: white;
-    padding: 100px;
-    margin-top: 20px;
-  }
-
-  .row:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
-
-  .head2 {
-    color: #111116;
+.subheading {
     font-weight: 700;
-  }
+    color: #df4e4e;
+    margin-top: 20px;
+}
 
-  .card p {
-    font-weight: 600;
-    color: rgba(11, 11, 81, 0.884);
-  }
+.blog-image {
+    width: 20%;
+    height: auto;
+    border-radius: 8px;
+}
 
-  .blog-con {
-    font-weight: 600;
-    color: rgba(5, 5, 62, 0.884);
-  }
+.image-container {
+    background-color: #fdfdfd;
+    padding: 10px;
+    margin-top: 20px;
+}
 
-  .fphase {
-    font-style: italic;
-    font-weight: 400;
-    font-size: x-large;
-  }
+/* Removing whitespace under <p> tags */
+p {
+    margin-bottom: 0;
+}
 
+/* Ensuring consistent heading styles */
+.subheading h2 {
+    color: #df4e4e;
+}
 
+@media (max-width: 768px) {
+    .header-main h1 {
+        font-size: 6em;
+    }
 
-  .blog-ul {
-    list-style-type: none;
-    padding-left: 0;
-  }
+    .content-wrapper {
+        flex-direction: column;
+    }
 
-  .blog-ul li::before {
-    content: '•';
-    color: #ff1493;
-    /* pink color */
-    font-weight: bold;
-    display: inline-block;
-    width: 1em;
-    margin-left: -1em;
-  }
+    .main-column, .sidebar {
+        width: 100%;
+        padding: 0 15px;
+        margin: 0;
+    }
+}
 
-  .blog-ul li {
-
-    color: #071070;
-
-  }
-
-  .highlight {
-    color: #00bfff;
-    /* blue color */
-  }
+@media (max-width: 576px) {
+    .header-main h1 {
+        font-size: 1.5em;
+    }
+}
