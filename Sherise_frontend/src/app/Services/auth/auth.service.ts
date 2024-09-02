@@ -5,6 +5,15 @@ import { UserStorageService } from '../storage/user-storage.service';
 
 const BASIC_URL = "http://localhost:8080/";
 
+export interface LoginResponse {
+  token: string;
+  user: {
+    username: string;
+  };
+}
+
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -17,6 +26,9 @@ export class AuthService {
   register(signupRequest: any): Observable<any> {
     return this.http.post<any>(BASIC_URL + "sign-up", signupRequest);
   }
+
+
+
 
 
 login(username: string, password: string): Observable<any> {
@@ -36,6 +48,7 @@ login(username: string, password: string): Observable<any> {
     })
   );
 }
+
 
 
 

@@ -45,6 +45,18 @@ onSubmit(): void {
         this.userStorageService.saveToken(res.token);
         this.userStorageService.saveUser(res.user);
 
+      // Get the user's name from the storage
+            const userName = this.userStorageService.getUserName();
+
+            // Display the welcome message
+            this.snackBar.open(`Welcome, ${userName || 'Friend'}! 🎉 We're glad to see you!`, 'Close', {
+              duration: 3000,
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+              panelClass: ['welcome-snackbar']
+            });
+
+
         // Redirect based on user role
         if (this.userStorageService.isAdminLoggedIn()) {
           this.router.navigateByUrl('admin/dashboard');
@@ -60,6 +72,7 @@ onSubmit(): void {
     }
   );
 }
+
 
 
 
