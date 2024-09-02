@@ -173,28 +173,40 @@
               <li class="nav-item">
                 <a class="nav-link" routerLink="/contact" tabindex="0">Contact US</a>
               </li>
-<!--              <li class="nav-item">-->
-<!--                <a class="nav-item" (click)="logout()" tabindex="0">Logout</a>-->
-<!--              </li>-->
 
-<!--              <li class="nav-item">-->
-<!--                <span class="user-name" *ngIf="userName"> welcome,{{ userName }}</span>-->
-<!--              </li>-->
 
-              <li class="nav-item dropdown profile-dropdown">
-                <a class="nav-link" tabindex="0" role="button" aria-expanded="false">
-                  <div class="profile-icon">
-                    <img [src]="userProfilePicture" alt="Profile Picture">
+
+              <div class="profile-container d-flex align-items-center justify-content-end">
+                <div class="dropdown">
+                  <img [src]="userProfilePicture" alt="Profile Picture" class="profile-icon dropdown-toggle" (click)="toggleDropdown()" />
+                  <div class="dropdown-menu" [ngClass]="{'show': dropdownVisible}">
+                    <a class="dropdown-item">Welcome, {{ userName }}</a>
+                    <a class="dropdown-item" (click)="logout()">Logout</a>
                   </div>
-                  <span>{{ userName }}</span>
-                </a>
-                <div class="dropdown-content">
-                  <a class="dropdown-item" (click)="logout()">Logout</a>
                 </div>
-              </li>
+              </div>
             </ul>
+
+
+
+
+
+
+
+
+
+
+
           </div>
+
+
+
+
+
+
         </div>
+
+
       </div>
     </div>
   </header>

@@ -15,6 +15,8 @@ export class HeaderComponent implements OnInit {
   showHeader: boolean = false;
    userName: string | null = null; // Corrected property declaration
      userProfilePicture: string = 'assets/images/slider/avatar-profile.svg'; // Default profile picture
+      // Added variable to manage dropdown visibility
+       dropdownVisible: boolean = false;
 
 
   constructor(
@@ -34,6 +36,12 @@ export class HeaderComponent implements OnInit {
                  }
       }
     });
+  }
+
+
+  // Added method to toggle dropdown visibility
+  toggleDropdown(): void {
+    this.dropdownVisible = !this.dropdownVisible;
   }
 
   logout(): void {
