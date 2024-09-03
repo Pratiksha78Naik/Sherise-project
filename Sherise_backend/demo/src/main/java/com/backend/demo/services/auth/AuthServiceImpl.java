@@ -38,7 +38,6 @@ public class AuthServiceImpl implements AuthService{
         User createdUser = userRepository.save(user);
 
         Order order = new Order();
-
         order.setAmount(0L);
         order.setTotalAmount(0L);
         order.setDiscount(0L);

@@ -26,11 +26,24 @@ public class AdminProductController {
         return ResponseEntity.status(HttpStatus.CREATED).body(productDto1);
     }
 
+
     @GetMapping("/products")
     public ResponseEntity<List<ProductDto>> getAllProducts(){
         List<ProductDto> productDtos = adminProductService.getAllProducts();
         return ResponseEntity.ok(productDtos);
     }
+
+    @PutMapping("/product/{id}")
+    public ResponseEntity<ProductDto> updateProduct(@PathVariable("id") Long id, @RequestBody ProductDto productDto) throws IOException {
+        // Call the service layer to handle the update logic
+        ProductDto updatedProductDto = adminProductService.updateProduct(id, productDto);
+
+        // Return the updated product with HTTP status 200 OK
+        return ResponseEntity.ok(updatedProductDto);
+    }
+
+
+
 
     @GetMapping("/search/{name}")
     public ResponseEntity<List<ProductDto>> getAllByName(@PathVariable String name){

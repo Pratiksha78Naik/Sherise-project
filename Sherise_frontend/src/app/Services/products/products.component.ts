@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CustomerService } from '../customer.service';
 import { UserStorageService } from '../storage/user-storage.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-products',
@@ -20,7 +21,8 @@ export class ProductsComponent implements OnInit {
     private customerService: CustomerService,
     private fb: FormBuilder,
     private snackbar: MatSnackBar,
-    private userStorageService: UserStorageService
+    private userStorageService: UserStorageService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -117,24 +119,19 @@ export class ProductsComponent implements OnInit {
 
 
   addToCart(productId: number): void {
-    const token = this.userStorageService.getToken();
-    const userId = this.userStorageService.getUserId();
-
-    console.log('Retrieved Token:', token);
-    console.log('Retrieved User ID:', userId);
-
-    if (token && userId) {
-      this.customerService.addToCart(productId).subscribe(
-        res => {
-          this.snackbar.open('Product added to cart successfully', 'Close', { duration: 5000 });
-        },
-        error => {
-          console.error('Error adding product to cart', error);
-          this.snackbar.open('Failed to add product to cart', 'Close', { duration: 5000 });
-        }
-      );
-    } else {
-      this.snackbar.open('User not logged in', 'Close', { duration: 5000 });
-    }
+    this.customerService.addToCart(productId).subscribe(
+      res => {
+        // Assuming `res` indicates success
+        console.log('Response from addToCart:', res);
+        this.snackbar.open('Product added to cart successfully', 'Close', { duration: 5000 });
+        this.router.navigate(['/cart']);
+      },
+      error => {
+        // Handle error from service
+        console.error('Error adding product to cart:', error);
+        this.snackbar.open('Failed to add product to cart', 'Close', { duration: 5000 });
+      }
+    );
   }
-}
+  
+} 
