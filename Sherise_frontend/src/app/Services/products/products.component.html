@@ -116,7 +116,18 @@
                                 <span class="text-danger" style="width: 130px;">All Products</span>
                             </a>
                         </li>
-                        <li class="nav-item">
+
+                        <li class="nav-item" *ngFor="let category of listofCategories">
+                            <a class="nav-link d-flex py-2 m-2 bg-light rounded-pill" 
+                               [class.active]="category.id === selectedCategoryId"
+                               (click)="filterByCategory(category.id)"
+                               data-bs-toggle="pill" 
+                               [attr.data-bs-target]="'#tab-' + category.id">
+                              <span class="text-danger" style="width: 130px;">{{ category.name }}</span>
+                            </a>
+                          </li>                          
+
+                        <!-- <li class="nav-item">
                             <a class="d-flex py-2 m-2 bg-light rounded-pill" data-bs-toggle="pill" href="#tab-2">
                                 <span class="text-danger" style="width: 130px;">Sanitary Pads</span>
                             </a>
@@ -135,7 +146,7 @@
                             <a class="d-flex m-2 py-2 bg-light rounded-pill" data-bs-toggle="pill" href="#tab-5">
                                 <span class="text-danger" style="width: 130px;">Menstrual Hygiene Kits</span>
                             </a>
-                        </li>
+                        </li> -->
                     </ul>
                 </div>
             </div>
@@ -152,148 +163,26 @@
                                         <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">
                                             {{product.name}}
                                         </div>
-                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">
+                                        <div class="p-4 border border-top-0 rounded-bottom">
                                             <h4>{{product.name}}</h4>
                                             <p>{{product.description}}</p>
-                                            <p class="text-dark fs-5 fw-bold mb-0">{{product.price}} RS</p>
+                                            <p class="fs-5 fw-bold mb-0">{{ product.price | currency:'INR':'symbol':'1.0-0' }}</p>
+
                                             <div class="d-flex justify-content-between flex-lg-wrap">
-                                                <button class="btn border border-secondary rounded-pill px-3 text-primary" >
-                                                    <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
+                                                <button
+                                                  class="btn border border-secondary rounded-pill px-3 text-primary"
+                                                  (click)="addToCart(product.id)"
+                                                  aria-label="Add to cart"
+                                                >
+                                                  <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
                                                 </button>
-                                            </div>
+                                              </div>
+                                              
                                         </div>
                                     </div>
                                 </div>
                                 
-                                <div class="col-md-6 col-lg-4 col-xl-3">
-                                    <div class="rounded position-relative product-item">
-                                        <div class="product-img">
-                                            <img src="assets/images/product/product4.webp" class="img-fluid w-100 rounded-top" alt="">
-                                        </div>
-                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Sanitary Pads</div>
-                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                            <h4>Pads</h4>
-                                            <p>Our high-quality sanitary pads ensure comfort and hygiene during menstruation. </p>
-                                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                                <p class=" fs-5 fw-bold mb-0">20 RS</p>
-                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> 
-                                <div class="col-md-6 col-lg-4 col-xl-3">
-                                    <div class="rounded position-relative product-item">
-                                        <div class="product-img">
-                                            <img src="assets/images/product/product6.webp" class="img-fluid w-100 rounded-top" alt="">
-                                        </div>
-                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Sanitary Pads</div>
-                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                            <h4>Pads</h4>
-                                            <p>Experience superior comfort and protection with our reliable sanitary pads.</p>
-                                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                                <p class="text-dark fs-5 fw-bold mb-0">30 RS</p>
-                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-lg-4 col-xl-3">
-                                    <div class="rounded position-relative product-item">
-                                        <div class="product-img">
-                                            <img src="assets/images/product/product7.jpg" class="img-fluid w-100 rounded-top" alt="">
-                                        </div>
-                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Hot Water Bag</div>
-                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                            <h4>Hot Water Bag</h4>
-                                            <p>Relieve cramps with soothing warmth, designed for comfort pain relief.</p>
-                                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                                <p class="text-dark fs-5 fw-bold mb-0">50Rs</p>
-                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-lg-4 col-xl-3">
-                                    <div class="rounded position-relative product-item">
-                                        <div class="product-img">
-                                            <img src="assets/images/product/product8.jpg" class="img-fluid w-100 rounded-top" alt="">
-                                        </div>
-                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Reusable Cloth Pads</div>
-                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                            <h4>Reusable Cloth Pads</h4>
-                                            <p>Eco-friendly washable pads for sustainable menstrual hygiene  Designed for comfort and durability.</p>
-                                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                                <p class="text-dark fs-5 fw-bold mb-0">80Rs</p>
-                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-lg-4 col-xl-3">
-                                    <div class="rounded position-relative product-item">
-                                        <div class="product-img">
-                                            <img src="assets/images/product/product9.webp" class="img-fluid w-100 rounded-top" alt="">
-                                        </div>
-                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Hot Water Bag</div>
-                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                            <h4>Hot Water Bag</h4>
-                                            <p>Our high-quality hot water bag provides soothing warmth to relieve menstrual cramps ensuring comfort. and relaxation during tough days.</p>
-                                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                                <p class="text-dark fs-5 fw-bold mb-0">100Rs </p>
-                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-lg-4 col-xl-3">
-                                    <div class="rounded position-relative product-item">
-                                        <div class="product-img">
-                                            <img src="assets/images/product/product11.jpg" class="img-fluid w-100 rounded-top" alt="">
-                                        </div>
-                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Books</div>
-                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                            <h4>Books</h4>
-                                            <p>Educational materials on menstrual health and hygiene.</p>
-                                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                                <p class="text-dark fs-5 fw-bold mb-0">120Rs </p>
-                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-lg-4 col-xl-3">
-                                    <div class="rounded position-relative product-item">
-                                        <div class="product-img">
-                                            <img src="assets/images/product/product10.jpg" class="img-fluid w-100 rounded-top" alt="">
-                                        </div>
-                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Books</div>
-                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                            <h4>Book</h4>
-                                            <p>Empower yourself with knowledge on menstrual health and hygiene.</p>
-                                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                                <p class="text-dark fs-5 fw-bold mb-0">140RS</p>
-                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-lg-4 col-xl-3">
-                                    <div class="rounded position-relative product-item">
-                                        <div class="product-img">
-                                            <img src="assets/images/product/product12.jpg" class="img-fluid w-100 rounded-top" alt="">
-                                        </div>
-                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Menstrual Hygiene kit</div>
-                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                            <h4>Hygiene kit</h4>
-                                            <p>Complete kit for menstrual health which includes high-quality pads and a convenient storage bag.This kit ensures you have everything you need forcleanliness,during your period.</p>
-                                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                                <p class="text-dark fs-5 fw-bold mb-0">170 RS</p>
-                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                             </div>
                         </div>
                     </div>
                 </div>
@@ -308,313 +197,49 @@
 
 
 
-
-
-                <div id="tab-2" class="tab-pane fade show p-0">
-                    <div class="row g-4">
-                        <div class="col-lg-12">
+                <div class="tab-content">
+                    <ng-container *ngFor="let category of listofCategories">
+                      <div id="{{ category.id }}" class="tab-pane fade show p-0">
+                        <div class="row g-4">
+                          <div class="col-lg-12">
                             <div class="row g-4">
-                                <div class="col-md-6 col-lg-4 col-xl-3">
-                                    <div class="rounded position-relative product-item">
-                                        <div class="product-img">
-                                            <img src="assets/images/product/product4.webp" class="img-fluid w-100 rounded-top" alt="">
-                                        </div>
-                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Sanitary Pads</div>
-                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                            <h4>Pads</h4>
-                                            <p>Our high-quality sanitary pads ensure comfort and hygiene during menstruation. Designed with ultra-absorbent materials, they provide leak-proof protection</p>
-                                            <p class="text-dark fs-5 fw-bold mb-0">20 RS</p>
-                                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                                
-                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                            </div>
-                                        </div>
+                              <!-- Use ng-container to handle *ngIf and *ngFor separately -->
+                              <ng-container *ngIf="selectedCategoryId === category.id">
+                                <div class="col-md-6 col-lg-4 col-xl-3" *ngFor="let product of products">
+                                  <div class="rounded position-relative product-item">
+                                    <div class="product-img">
+                                      <img [src]="product.processedImg" class="img-fluid w-100 rounded-top" alt="{{ product.name }}" />
                                     </div>
-                                </div>
-                                <div class="col-md-6 col-lg-4 col-xl-3">
-                                    <div class="rounded position-relative product-item">
-                                        <div class="product-img">
-                                            <img src="assets/images/product/product8.jpg" class="img-fluid w-100 rounded-top" alt="">
-                                        </div>
-                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Reusable Cloth Pads</div>
-                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                            <h4>Reusable Cloth Pads</h4>
-                                            <p>Eco-friendly washable pads for sustainable menstrual hygiene  Designed for comfort and durability, these pads are perfect for reducing waste and promoting health.</p>
-                                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                                <p class="text-dark fs-5 fw-bold mb-0">80Rs</p>
-                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                            </div>
-                                        </div>
+                                    <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">
+                                      {{ product.name }}
                                     </div>
-                                </div>
-                                <div class="col-md-6 col-lg-4 col-xl-3">
-                                    <div class="rounded position-relative product-item">
-                                        <div class="product-img">
-                                            <img src="assets/images/product/product14.webp" class="img-fluid w-100 rounded-top" alt="">
-                                        </div>
-                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Sanitary Pads</div>
-                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                            <h4>Pads</h4>
-                                            <p>Ensure comfort and protection with our high-quality sanitary pads, crafted to promote menstrual health and hygiene with superior absorbency and reliability.</p>
+                                    <div class="p-4 border border-secondary border-top-0 rounded-bottom">
+                                      <h4>{{ product.name }}</h4>
+                                      <p>{{ product.description }}</p>
+                                      <!-- Removed unnecessary inline style -->
+                                      <p class="fs-5 fw-bold mb-0">{{ product.price | currency:'INR':'symbol':'1.0-0' }}</p>
 
-                                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                                <p class="text-danger fs-5 fw-bold mb-0">50 RS</p>
-                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                            </div>
-                                        </div>
+                                      <div class="d-flex justify-content-between flex-lg-wrap">
+                                        <button
+                                          class="btn border border-secondary rounded-pill px-3 text-primary"
+                                          (click)="addToCart(product.id)"
+                                          aria-label="Add to cart"
+                                        >
+                                          <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
+                                        </button>
+                                      </div>
+                                      
                                     </div>
+                                  </div>
                                 </div>
-                                <div class="col-md-6 col-lg-4 col-xl-3">
-                                    <div class="rounded position-relative product-item">
-                                        <div class="product-img">
-                                            <img src="assets/images/product/product15.webp" class="img-fluid w-100 rounded-top" alt="">
-                                        </div>
-                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Sanitary Pads</div>
-                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                            <h4>Pads</h4>
-                                            <p>Stay confident and comfortable all day with our ultra-absorbent sanitary pads, designed for optimal menstrual care.</p>
-
-
-                                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                                <p class="text-dark fs-5 fw-bold mb-0">50 RS</p>
-                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                              </ng-container>
                             </div>
+                          </div>
                         </div>
-                    </div>
-                </div>
-                <div id="tab-3" class="tab-pane fade show p-0">
-                    <div class="row g-4">
-                        <div class="col-lg-12">
-                            <div class="row g-4">
-                                <div class="col-md-6 col-lg-4 col-xl-3">
-                                    <div class="rounded position-relative product-item">
-                                        <div class="product-img">
-                                            <img src="assets/images/product/product7.jpg" class="img-fluid w-100 rounded-top" alt="">
-                                        </div>
-                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Hot Water Bag</div>
-                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                            <h4>Hot Water Bag</h4>
-                                            <p>Relieve cramps with soothing warmth, designed for comfort pain relief.</p>
-                                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                                <p class="text-dark fs-5 fw-bold mb-0">50Rs</p>
-                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-lg-4 col-xl-3">
-                                    <div class="rounded position-relative product-item">
-                                        <div class="product-img">
-                                            <img src="assets/images/product/product9.webp" class="img-fluid w-100 rounded-top" alt="">
-                                        </div>
-                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Hot Water Bag</div>
-                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                            <h4>Hot Water Bag</h4>
-                                            <p>Our high-quality hot water bag provides soothing warmth to relieve menstrual cramps ensuring comfort and relaxation during tough days.</p>
-                                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                                <p class="text-dark fs-5 fw-bold mb-0">100Rs </p>
-                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6 col-lg-4 col-xl-3">
-                                    <div class="rounded position-relative product-item">
-                                        <div class="product-img">
-                                            <img src="assets/images/product/product16.jpg" class="img-fluid w-100 rounded-top" alt="">
-                                        </div>
-                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Hot Water Bag</div>
-                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                            <h4>Hot Water Bag</h4>
-                                            <p>Enjoy comforting relief with our reliable hot water bag, designed to ease menstrual cramps and promote relaxation throughout challenging days.</p>
-
-                                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                                <p class="text-dark fs-5 fw-bold mb-0">100Rs </p>
-                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-lg-4 col-xl-3">
-                                    <div class="rounded position-relative product-item">
-                                        <div class="product-img">
-                                            <img src="assets/images/product/product17.jpg" class="img-fluid w-100 rounded-top" alt="">
-                                        </div>
-                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Hot Water Bag</div>
-                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                            <h4>Hot Water Bag</h4>
-                                            <p>Our dependable hot water bag offers soothing warmth, perfect for easing menstrual cramps and promoting relaxation during challenging times.</p>
-
-
-                                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                                <p class="text-dark fs-5 fw-bold mb-0">100Rs </p>
-                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div id="tab-4" class="tab-pane fade show p-0">
-                    <div class="row g-4">
-                        <div class="col-lg-12">
-                            <div class="row g-4">
-                                <div class="col-md-6 col-lg-4 col-xl-3">
-                                    <div class="rounded position-relative product-item">
-                                        <div class="product-img">
-                                            <img src="assets/images/product/product11.jpg" class="img-fluid w-100 rounded-top" alt="">
-                                        </div>
-                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Books</div>
-                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                            <h4>Books</h4>
-                                            <p>Educational materials on menstrual health and hygiene.</p>
-                                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                                <p class="text-dark fs-5 fw-bold mb-0">120Rs </p>
-                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-lg-4 col-xl-3">
-                                    <div class="rounded position-relative product-item">
-                                        <div class="product-img">
-                                            <img src="assets/images/product/product10.jpg" class="img-fluid w-100 rounded-top" alt="">
-                                        </div>
-                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Books</div>
-                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                            <h4>Book</h4>
-                                            <p>Empower yourself with knowledge on menstrual health and hygiene.</p>
-                                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                                <p class="text-dark fs-5 fw-bold mb-0">140RS</p>
-                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-lg-4 col-xl-3">
-                                    <div class="rounded position-relative product-item">
-                                        <div class="product-img">
-                                            <img src="assets/images/product/product18.jpg" class="img-fluid w-100 rounded-top" alt="">
-                                        </div>
-                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Books</div>
-                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                            <h4>Book</h4>
-                                         <p>Equip yourself with essential knowledge about menstrual health empower your well-being.</p>
-
-                                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                                <p class="text-dark fs-5 fw-bold mb-0">160RS</p>
-                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6 col-lg-4 col-xl-3">
-                                    <div class="rounded position-relative product-item">
-                                        <div class="product-img">
-                                            <img src="assets/images/product/product19.jpg" class="img-fluid w-100 rounded-top" alt="">
-                                        </div>
-                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Books</div>
-                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                            <h4>Book</h4>
-                                         <p>Equip yourself with essential knowledge about menstrual health empower your well-being.</p>
-
-                                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                                <p class="text-dark fs-5 fw-bold mb-0">160RS</p>
-                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div id="tab-5" class="tab-pane fade show p-0">
-                    <div class="row g-4">
-                        <div class="col-lg-12">
-                            <div class="row g-4">
-                                <div class="col-md-6 col-lg-4 col-xl-3">
-                                    <div class="rounded position-relative product-item">
-                                        <div class="product-img">
-                                            <img src="assets/images/product/product12.jpg" class="img-fluid w-100 rounded-top" alt="">
-                                        </div>
-                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Menstrual Hygiene kit</div>
-                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                            <h4>Hygiene kit</h4>
-                                            <p>Complete kit for menstrual health which includes high-quality pads and a convenient storage bag.This kit ensures you have everything you need forcleanliness,during your period.</p>
-                                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                                <p class="text-dark fs-5 fw-bold mb-0">170 RS</p>
-                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-lg-4 col-xl-3">
-                                    <div class="rounded position-relative product-item">
-                                        <div class="product-img">
-                                            <img src="assets/images/product/product20.jpg" class="img-fluid w-100 rounded-top" alt="">
-                                        </div>
-                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Menstrual Hygiene kit</div>
-                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                            <h4>Hygiene kit</h4>
-                                            <p>This all-in-one menstrual health kit includes premium pads and a handy storage bag, ensuring cleanliness and convenience throughout your period.</p>
-
-                                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                                <p class="text-dark fs-5 fw-bold mb-0">170 RS</p>
-                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-lg-4 col-xl-3">
-                                    <div class="rounded position-relative product-item">
-                                        <div class="product-img">
-                                            <img src="assets/images/product/product21.jpg" class="img-fluid w-100 rounded-top" alt="">
-                                        </div>
-                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Menstrual Hygiene kit</div>
-                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                            <h4>Hygiene kit</h4>
-                                            <p>Our comprehensive menstrual health kit features superior pads and a practical storage bag, providing hygiene during your cycle.</p>
-
-
-                                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                                <p class="text-dark fs-5 fw-bold mb-0">170 RS</p>
-                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-lg-4 col-xl-3">
-                                    <div class="rounded position-relative product-item">
-                                        <div class="product-img">
-                                            <img src="assets/images/product/product22.jpeg" class="img-fluid w-100 rounded-top" alt="">
-                                        </div>
-                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Menstrual Hygiene kit</div>
-                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                            <h4>Hygiene kit</h4>
-                                            <p>Our complete menstrual care kit includes top-quality pads and a convenient storage bag, ensuring hygiene and ease throughout your period.</p>
-
-
-                                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                                <p class="text-dark fs-5 fw-bold mb-0">170 RS</p>
-                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                      </div>
+                    </ng-container>
+                  </div>
+                 
             </div>
         </div>      
     </div>

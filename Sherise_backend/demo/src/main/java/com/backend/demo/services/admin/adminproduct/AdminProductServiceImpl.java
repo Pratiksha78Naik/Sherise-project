@@ -5,6 +5,7 @@ import com.backend.demo.Entity.Product;
 import com.backend.demo.dto.ProductDto;
 import com.backend.demo.repository.CategoryRepository;
 import com.backend.demo.repository.ProductRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +38,37 @@ public class AdminProductServiceImpl implements AdminProductService{
     }
 
 
+    public ProductDto updateProduct(Long productId, ProductDto productDto) throws IOException {
+        // Fetch the existing product from the repository
+        Product existingProduct = productRepository.findById(productId)
+                .orElseThrow(() -> new EntityNotFoundException("Product not found with id: " + productId));
+
+        // Update fields if they are present in the incoming DTO
+        if (productDto.getName() != null) {
+            existingProduct.setName(productDto.getName());
+        }
+        if (productDto.getDescription() != null) {
+            existingProduct.setDescription(productDto.getDescription());
+        }
+        if (productDto.getPrice() != null) {
+            existingProduct.setPrice(productDto.getPrice());
+        }
+        if (productDto.getImg() != null) {
+            existingProduct.setImg(productDto.getImg().getBytes());
+        }
+        if (productDto.getCategoryId() != null) {
+            Category category = categoryRepository.findById(productDto.getCategoryId())
+                    .orElseThrow(() -> new EntityNotFoundException("Category not found with id: " + productDto.getCategoryId()));
+            existingProduct.setCategory(category);
+        }
+
+        // Save the updated product back to the repository
+        Product updatedProduct = productRepository.save(existingProduct);
+
+        return updatedProduct.getDto();
+    }
+
+
     public List<ProductDto> getAllProducts(){
         List<Product> products = productRepository.findAll();
         return products.stream().map(Product::getDto).collect(Collectors.toList());
@@ -54,5 +86,10 @@ public class AdminProductServiceImpl implements AdminProductService{
             return true;
         }
         return false;
+    }
+
+    public List<ProductDto> getAllProductsByCategory(Long categoryId) {
+        List<Product> products = productRepository.findByCategoryId(categoryId);
+        return products.stream().map(Product::getDto).collect(Collectors.toList());
     }
 }

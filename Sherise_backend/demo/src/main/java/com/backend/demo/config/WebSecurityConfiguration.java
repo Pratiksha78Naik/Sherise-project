@@ -32,6 +32,7 @@ public class WebSecurityConfiguration {
                         .requestMatchers("/authenticate", "/sign-up", "/order/**","/contact/**","/appoint/**","/regi/**","/form/**","/questions/**","/parent-queries/**","/boys-queries/**").permitAll()
                         .requestMatchers("/admin/**").permitAll()
                         .requestMatchers("/api/admin/**").permitAll()
+                        .requestMatchers("/api/admin/coupons/**").permitAll()
                         .requestMatchers("/api/customer/**").permitAll()
                         .requestMatchers("/api/**").authenticated()
                 )

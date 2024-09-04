@@ -1,0 +1,76 @@
+<div class="container mt-4">
+  <h2>Coupons</h2>
+
+  <!-- Section to display the list of coupons -->
+  <div class="mt-4">
+    <h3>Existing Coupons</h3>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Code</th>
+          <th scope="col">Discount</th>
+          <th scope="col">Expiration Date</th>
+          <th scope="col">Actions</th> <!-- New column for actions -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let coupon of listOfCoupons; let i = index">
+          <th scope="row">{{ i + 1 }}</th>
+          <td>{{ coupon.name }}</td>
+          <td>{{ coupon.code }}</td>
+          <td>{{ coupon.discount }}%</td>
+          <td>{{ coupon.expirationDate | date:'MM/dd/yyyy' }}</td>
+          <!-- <td>
+            <button class="btn btn-danger btn-sm" (click)="deleteCoupon(coupon.id)">
+              Delete
+            </button>
+          </td> -->
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Button to toggle the form visibility -->
+  <button class="btn btn-primary my-3" (click)="toggleForm()">
+    {{ showForm ? 'Hide Form' : 'Add New Coupon' }}
+  </button>
+
+  <!-- Add Coupon form, initially hidden -->
+  <form *ngIf="showForm" [formGroup]="couponForm" (ngSubmit)="addCoupon()">
+    <div class="mb-3">
+      <label for="name" class="form-label">Name</label>
+      <input type="text" id="name" class="form-control" placeholder="Name" formControlName="name" />
+      <div *ngIf="couponForm.get('name')?.hasError('required')" class="text-danger">
+        Field is required
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="code" class="form-label">Code</label>
+      <input type="text" id="code" class="form-control" placeholder="Code" formControlName="code" />
+      <div *ngIf="couponForm.get('code')?.hasError('required')" class="text-danger">
+        Field is required
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="discount" class="form-label">Discount</label>
+      <input type="number" id="discount" class="form-control" placeholder="Discount" formControlName="discount" />
+      <div *ngIf="couponForm.get('discount')?.hasError('required')" class="text-danger">
+        Field is required
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="expirationDate" class="form-label">Expiration Date</label>
+      <input type="date" id="expirationDate" class="form-control" formControlName="expirationDate" />
+      <div *ngIf="couponForm.get('expirationDate')?.hasError('required')" class="text-danger">
+        Field is required
+      </div>
+    </div>
+
+    <button class="btn btn-primary" type="submit">Add Coupon</button>
+  </form>
+</div>

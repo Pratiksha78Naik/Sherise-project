@@ -11,6 +11,8 @@ import { PostCategoryComponent } from './post-category/post-category.component';
 import { PostProductComponent } from './post-product/post-product.component';
 import { DemoAngularMaterialModule } from '../DemoAngularMaterial';
 import { provideHttpClient, withFetch } from '@angular/common/http';
+import { PostCouponComponent } from './post-coupon/post-coupon.component';
+
 
 
 @NgModule({
@@ -20,7 +22,8 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
     UserComponent,
     UpdateuserComponent,
     PostCategoryComponent,
-    PostProductComponent
+    PostProductComponent,
+    PostCouponComponent
   ],
   imports: [
     CommonModule,

@@ -3,22 +3,26 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CustomerService } from '../customer.service';
 import { UserStorageService } from '../storage/user-storage.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
-  styleUrl: './products.component.css'
+  styleUrls: ['./products.component.css'] // Fixed 'styleUrl' to 'styleUrls'
 })
 export class ProductsComponent implements OnInit {
   products: any[] = [];
   searchProductForm!: FormGroup;
+  listofCategories: any[] = []; // Changed to array
   userId: string | null = null;
+  selectedCategoryId: number | null = null; // Track selected category
 
   constructor(
     private customerService: CustomerService,
     private fb: FormBuilder,
     private snackbar: MatSnackBar,
-    private userStorageService: UserStorageService
+    private userStorageService: UserStorageService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -27,6 +31,7 @@ export class ProductsComponent implements OnInit {
 
     this.initializeForm();
     this.getAllProducts();
+    this.getAllCategories();  // Added call to fetch categories
   }
 
   initializeForm() {
@@ -74,25 +79,60 @@ export class ProductsComponent implements OnInit {
     }
   }
 
-  // addToCart(productId: number): void {
-  //   const token = this.userStorageService.getToken();
-  //   const userId = this.userStorageService.getUserId();
-  
-  //   console.log('Retrieved Token:', token);
-  //   console.log('Retrieved User ID:', userId);
-  
-  //   if (token && userId) {
-  //     this.customerService.addToCart(productId).subscribe(
-  //       res => {
-  //         this.snackbar.open('Product added to cart successfully', 'Close', { duration: 5000 });
-  //       },
-  //       error => {
-  //         console.error('Error adding product to cart', error);
-  //         this.snackbar.open('Failed to add product to cart', 'Close', { duration: 5000 });
-  //       }
-  //     );
-  //   } else {
-  //     this.snackbar.open('User not logged in', 'Close', { duration: 5000 });
-  //   }
-  // }
+
+
+  getAllCategories(): void {
+    this.customerService.getAllCategory().subscribe(
+      res => {
+        this.listofCategories = res;
+        console.log('Fetched Categories:', this.listofCategories);
+      },
+      error => {
+        console.error('Error fetching categories', error);
+        this.snackbar.open("Failed to load categories", "Close", { duration: 5000 });
+      }
+    );
+  }
+
+  filterByCategory(categoryId: number) {
+    this.selectedCategoryId = categoryId;
+    if (this.selectedCategoryId !== null) {
+      this.getProductsByCategory(this.selectedCategoryId);
+    }
+  }
+
+  getProductsByCategory(categoryId: number) {
+    this.customerService.getProductsByCategory(categoryId).subscribe(
+      res => {
+        this.products = res.map((element: { processedImg: string; byteImg: string; }) => {
+          element.processedImg = 'data:image/jpeg;base64,' + element.byteImg;
+          return element;
+        });
+        console.log(this.products);
+      },
+      error => {
+        console.error('Error fetching products by category', error);
+        this.snackbar.open("Failed to load products by category", "Close", { duration: 5000 });
+      }
+    );
+  }
+
+
+  addToCart(productId: number): void {
+    this.customerService.addToCart(productId).subscribe(
+      res => {
+        // Assuming `res` indicates success
+        console.log('Response from addToCart:', res);
+        this.snackbar.open('Product added to cart successfully', 'Close', { duration: 5000 });
+        this.router.navigate(['/cart']);
+      },
+      error => {
+        // Handle error from service
+        console.error('Error adding product to cart:', error);
+        this.snackbar.open('Failed to add product to cart', 'Close', { duration: 5000 });
+        this.router.navigate(['/cart']);
+      }
+    );
+  }
+
 }
