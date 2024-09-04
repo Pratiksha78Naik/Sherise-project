@@ -79,7 +79,7 @@ export class ProductsComponent implements OnInit {
     }
   }
 
-  
+
 
   getAllCategories(): void {
     this.customerService.getAllCategory().subscribe(
@@ -130,8 +130,9 @@ export class ProductsComponent implements OnInit {
         // Handle error from service
         console.error('Error adding product to cart:', error);
         this.snackbar.open('Failed to add product to cart', 'Close', { duration: 5000 });
+        this.router.navigate(['/cart']);
       }
     );
   }
-  
-} 
+
+}
