@@ -44,41 +44,7 @@ export class QuizComponent {
       ],
       answer: 'Gestational diabetes',
     },
-    {
-      question: 'What is the primary cause of PCOS?',
-      options: ['Genetic factors', 'Bacterial infection', 'Viral infection', 'Poor diet'],
-      answer: 'Genetic factors',
-    },
-    {
-      question: 'Which diagnostic test is commonly used to diagnose PCOS?',
-      options: [
-        'Blood pressure measurement',
-        'Ultrasound',
-        'MRI',
-        'X-ray',
-      ],
-      answer: 'Ultrasound',
-    },
-    {
-      question: 'Which lifestyle change is often recommended for managing PCOS symptoms?',
-      options: ['High-fat diet', 'Weight management', ' Increased sugar intake', 'Sedentary lifestyle'],
-      answer: 'Weight management',
-    },
-    {
-      question: 'Which of the following is NOT a symptom of PCOD (Polycystic Ovarian Disease)?',
-      options: [
-        ' Irregular periods',
-        'Excessive sweating',
-        'Acne',
-        ' Infertility',
-      ],
-      answer: 'Excessive sweating',
-    },
-    {
-      question: 'Which animal is known as the King of the Jungle?',
-      options: ['Lion', 'Tiger', 'Elephant', 'Giraffe'],
-      answer: 'Lion',
-    },
+    
   ];
 
   currentQuestion = 0;

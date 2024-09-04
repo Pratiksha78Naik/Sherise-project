@@ -86,35 +86,32 @@
         </div>
     </div>
 
-    
-    <div class=" learn-query mb-4">
-        
+    <div class="learn-query mb-4">
         <div class="container1">
-        
             <h2>Enter Your <span style="color: #e60073;">Question</span>, Concern or Query</h2>
-            <form action="#" method="post">
+            <form (ngSubmit)="onSubmit()">
                 <label for="email">Your Email ID</label>
-                <input type="email" id="email" name="email" placeholder="Enter your email ID" required>
+                <input type="email" id="email" name="email" [(ngModel)]="formData.email" placeholder="Enter your email ID"
+                    required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" />
                 <label for="question">Your Question</label>
-                <textarea id="question" name="question" placeholder="Write your question here..." required></textarea>
-                <div class="recaptcha">
-                    <div class="g-recaptcha" data-sitekey="your_site_key"></div>
-                </div>
-                <button type="submit">Submit</button>
+                <textarea id="question" name="question" [(ngModel)]="formData.question"
+                    placeholder="Write your question here..." required
+                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"></textarea>
+                <button type="submit" class="w-full text-white">Submit </button>
             </form>
-    
-
-           
         </div>
+  
+           
+        
 
         <div class="right-image">
             <img src="/assets/images/doctor.jpeg" alt="Doctor">
         </div>
 
-        
+    </div>
    
 
-    </div>
+    
 
 
 

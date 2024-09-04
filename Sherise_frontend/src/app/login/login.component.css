@@ -47,6 +47,15 @@ mat-card-title {
   color: #333;
 }
 
+.welcome-snackbar {
+  background-color: #4caf50; /* Green background */
+  color: #fff; /* White text color */
+  font-weight: bold; /* Bold text */
+  border-radius: 4px; /* Rounded corners */
+  padding: 10px; /* Padding around text */
+}
+
+
 /* Styling the form fields */
 mat-form-field {
   width: 100%;

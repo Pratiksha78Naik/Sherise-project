@@ -7,7 +7,7 @@
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
+
   margin: 0;
   display: flex;
   justify-content: center;
@@ -25,14 +25,12 @@ body {
 }
 
 .container {
-  width: 100%;
   max-width: 600px;
   padding: 30px;
-  background-color: #ffffff;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   border-radius: 15px;
   text-align: center;
-  margin-top: 100px;
+  margin-top: 75px; /* Ensure this is enough for the top content to be visible */
+  margin-bottom: 50px; /* Provide space at the bottom */
 }
 
 .question {
@@ -71,30 +69,47 @@ body {
   margin-right: 15px;
 }
 
+#result {
+  font-size: 1.5rem;
+  color: #333333;
+  text-align: left;
+  padding: 20px;
+  background-color: #ffe6e1;
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  position: relative;
+  top: 60px;
+  margin-bottom: 30px; /* Increase margin at the bottom to avoid footer overlap */
+}
+
+
+
+#result p {
+  margin-top: 10px; /* Reduced margin for closer spacing between paragraphs */
+  font-size: 1rem; /* Slightly smaller font size for additional information */
+  color: #555555; /* Neutral color for secondary text */
+  line-height: 1.5; /* Increase line height for better readability */
+}
+
+.result strong {
+  color: #ff6f61; /* Highlight important text (like "Correct Answer") */
+}
+
 .button {
   display: inline-block;
-  padding: 12px 24px;
-  background-color: #428bca;
-  color: #ffffff;
+  padding: 10px 20px; /* Adjust padding for button size consistency */
+  background-color: #428bca; /* Button color */
+  color: #ffffff; /* Text color */
   border: none;
   cursor: pointer;
-  font-size: 16px;
-  border-radius: 25px;
+  font-size: 1rem; /* Font size for buttons */
+  border-radius: 25px; /* Rounded button corners */
   transition: background-color 0.3s;
-  margin: 5px 0;
+  margin-bottom: 9%;
+
 }
 
 .button:hover {
-  background-color: #3071a9;
-}
-
-.result {
-  font-size: 1.5rem;
-  color: #333333;
-}
-
-.result p {
-  margin-top: 10px;
-  font-size: 1rem;
-  color: #555555;
+  background-color: #3071a9; /* Hover effect for button */
 }
