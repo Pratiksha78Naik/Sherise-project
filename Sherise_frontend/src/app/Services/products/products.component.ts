@@ -1,26 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { CustomerService } from '../customer.service';
 import { UserStorageService } from '../storage/user-storage.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
-  styleUrls: ['./products.component.css'] // Fixed 'styleUrl' to 'styleUrls'
+  styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements OnInit {
   products: any[] = [];
   searchProductForm!: FormGroup;
-  listofCategories: any[] = []; // Changed to array
+  listofCategories: any[] = [];
   userId: string | null = null;
-  selectedCategoryId: number | null = null; // Track selected category
+  selectedCategoryId: number | null = null;
 
   constructor(
     private customerService: CustomerService,
     private fb: FormBuilder,
-    private snackbar: MatSnackBar,
     private userStorageService: UserStorageService,
     private router: Router
   ) {}
@@ -31,7 +30,7 @@ export class ProductsComponent implements OnInit {
 
     this.initializeForm();
     this.getAllProducts();
-    this.getAllCategories();  // Added call to fetch categories
+    this.getAllCategories();
   }
 
   initializeForm() {
@@ -52,7 +51,7 @@ export class ProductsComponent implements OnInit {
       },
       error => {
         console.error('Error fetching products', error);
-        this.snackbar.open("Failed to load products", "Close", { duration: 5000 });
+        Swal.fire('Error', 'Failed to load products', 'error');
       }
     );
   }
@@ -71,15 +70,13 @@ export class ProductsComponent implements OnInit {
         },
         error => {
           console.error('Error searching for products', error);
-          this.snackbar.open("Failed to search for products", "Close", { duration: 5000 });
+          Swal.fire('Error', 'Failed to search for products', 'error');
         }
       );
     } else {
-      this.snackbar.open("Please enter a valid product title", "Close", { duration: 5000 });
+      Swal.fire('Warning', 'Please enter a valid product title', 'warning');
     }
   }
-
-
 
   getAllCategories(): void {
     this.customerService.getAllCategory().subscribe(
@@ -89,7 +86,7 @@ export class ProductsComponent implements OnInit {
       },
       error => {
         console.error('Error fetching categories', error);
-        this.snackbar.open("Failed to load categories", "Close", { duration: 5000 });
+        Swal.fire('Error', 'Failed to load categories', 'error');
       }
     );
   }
@@ -112,24 +109,21 @@ export class ProductsComponent implements OnInit {
       },
       error => {
         console.error('Error fetching products by category', error);
-        this.snackbar.open("Failed to load products by category", "Close", { duration: 5000 });
+        Swal.fire('Error', 'Failed to load products by category', 'error');
       }
     );
   }
 
-
   addToCart(productId: number): void {
     this.customerService.addToCart(productId).subscribe(
       res => {
-        // Assuming `res` indicates success
         console.log('Response from addToCart:', res);
-        this.snackbar.open('Product added to cart successfully', 'Close', { duration: 5000 });
+        Swal.fire('Success', 'Product added to cart successfully', 'success');
         this.router.navigate(['/cart']);
       },
       error => {
-        // Handle error from service
         console.error('Error adding product to cart:', error);
-        this.snackbar.open('Failed to add product to cart', 'Close', { duration: 5000 });
+        Swal.fire('Error', 'Failed to add product to cart', 'error');
         this.router.navigate(['/cart']);
       }
     );

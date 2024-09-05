@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router'; // Correct Router import
 import { AuthService } from '../Services/auth/auth.service'; // Ensure correct path
+import Swal from 'sweetalert2'; // Import SweetAlert
 
 @Component({
   selector: 'app-signup',
@@ -15,12 +15,11 @@ export class SignupComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private snackBar: MatSnackBar,
     private authService: AuthService,
     private router: Router
   ) { }
 
-  ngOnInit(): void { // Corrected method name
+  ngOnInit(): void {
     this.signupForm = this.fb.group({
       name: [null, Validators.required],
       email: [null, [Validators.required, Validators.email]],
@@ -39,13 +38,25 @@ export class SignupComponent implements OnInit {
 
     this.authService.register(this.signupForm.value).subscribe(
       (response) => {
-        this.snackBar.open('Sign up successful!', 'Close', { duration: 5000 });
+        // SweetAlert for success notification
+        Swal.fire({
+          icon: 'success',
+          title: 'Sign up successful!',
+          text: 'Welcome aboard! Redirecting you to the login page...',
+          timer: 3000,
+          showConfirmButton: false
+        });
+
+        // Navigate to the login page after success
         this.router.navigateByUrl("/login");
       },
       (error) => {
-        this.snackBar.open('Email Id Already Registered.', 'Close', {
-          duration: 5000,
-          panelClass: 'error-snackbar'
+        // SweetAlert for error notification
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Email ID already registered. Please try a different one!',
+          confirmButtonText: 'OK'
         });
       }
     );
