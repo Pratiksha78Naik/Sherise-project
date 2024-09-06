@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';  // Import SweetAlert
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']  // Corrected from 'styleUrl' to 'styleUrls'
+  styleUrl: './login.component.css'
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
