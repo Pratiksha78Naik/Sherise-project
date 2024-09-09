@@ -86,8 +86,8 @@ body {
 
 
 #result p {
-  margin-top: 10px; /* Reduced margin for closer spacing between paragraphs */
-  font-size: 1rem; /* Slightly smaller font size for additional information */
+  margin-top: 10px;  
+  font-size: 0.9rem; 
   color: #555555; /* Neutral color for secondary text */
   line-height: 1.5; /* Increase line height for better readability */
 }
@@ -95,21 +95,33 @@ body {
 .result strong {
   color: #ff6f61; /* Highlight important text (like "Correct Answer") */
 }
-
 .button {
   display: inline-block;
-  padding: 10px 20px; /* Adjust padding for button size consistency */
-  background-color: #428bca; /* Button color */
-  color: #ffffff; /* Text color */
+  padding: 12px 24px; /* Slightly larger padding for a more substantial button */
+  background-color: #ff6f61; /* Align button color with theme */
+  color: #ffffff;
   border: none;
   cursor: pointer;
-  font-size: 1rem; /* Font size for buttons */
-  border-radius: 25px; /* Rounded button corners */
-  transition: background-color 0.3s;
-  margin-bottom: 9%;
-
+  font-size: 1.1rem; /* Larger font for buttons */
+  border-radius: 30px; /* Smooth, pill-shaped button */
+  transition: background-color 0.3s, transform 0.2s ease; /* Animation on hover */
+  margin-bottom: 15px; /* More space between buttons */
 }
 
 .button:hover {
-  background-color: #3071a9; /* Hover effect for button */
+  background-color: #ff8c6f; /* Lighter hover color */
+  transform: translateY(-3px); /* Slight lift effect on hover */
+}
+
+.button:active {
+  transform: translateY(1px); /* Subtle press effect */
+}
+
+.incorrect-answers p {
+  background-color: #ffe6e1; /* Light background for incorrect answers */
+  padding: 15px;
+  border-radius: 10px;
+  margin-top: 15px;
+  color: #2bd50a;
+  border-left: 4px solid #ff6f61; /* Accent border */
 }
