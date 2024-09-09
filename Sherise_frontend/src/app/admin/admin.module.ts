@@ -12,6 +12,7 @@ import { PostProductComponent } from './post-product/post-product.component';
 import { DemoAngularMaterialModule } from '../DemoAngularMaterial';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { PostCouponComponent } from './post-coupon/post-coupon.component';
+import { OrdersComponent } from './orders/orders.component';
 
 
 
@@ -23,7 +24,8 @@ import { PostCouponComponent } from './post-coupon/post-coupon.component';
     UpdateuserComponent,
     PostCategoryComponent,
     PostProductComponent,
-    PostCouponComponent
+    PostCouponComponent,
+    OrdersComponent
   ],
   imports: [
     CommonModule,

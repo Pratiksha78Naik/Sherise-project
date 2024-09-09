@@ -18,11 +18,26 @@ public class CartController {
     private final CartService cartService;
 
     @PostMapping("/cart")
-    public ResponseEntity<?> addProductToCart(@RequestBody AddProductInCartDto addProductInCartDto){
+    public ResponseEntity<?> addProductToCart(@RequestBody AddProductInCartDto addProductInCartDto) {
+        try {
+            // Validate the input DTO (if needed)
+            if (addProductInCartDto.getUserId() == null || addProductInCartDto.getProductId() == null) {
+                return ResponseEntity.badRequest().body("User ID and Product ID are required.");
+            }
 
-        return cartService.addProductToCart(addProductInCartDto);   
+            // Delegate the addition to the service
+            ResponseEntity<?> response = cartService.addProductToCart(addProductInCartDto);
 
+            // Forward the response from the service method
+            return response;
+        } catch (Exception e) {
+            // Log the exception
+            System.err.println("Error adding product to cart: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while adding the product to the cart.");
+        }
     }
+
+
 
     @GetMapping("/cart/{userId}")
     public ResponseEntity<?> addProductToCart(@PathVariable Long userId){

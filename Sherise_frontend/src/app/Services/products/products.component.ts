@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import Swal from 'sweetalert2'; // Import SweetAlert2
 import { CustomerService } from '../customer.service';
 import { UserStorageService } from '../storage/user-storage.service';
 import { Router } from '@angular/router';
@@ -8,19 +8,18 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
-  styleUrls: ['./products.component.css'] // Fixed 'styleUrl' to 'styleUrls'
+  styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements OnInit {
   products: any[] = [];
   searchProductForm!: FormGroup;
-  listofCategories: any[] = []; // Changed to array
+  listofCategories: any[] = [];
   userId: string | null = null;
-  selectedCategoryId: number | null = null; // Track selected category
+  selectedCategoryId: number | null = null;
 
   constructor(
     private customerService: CustomerService,
     private fb: FormBuilder,
-    private snackbar: MatSnackBar,
     private userStorageService: UserStorageService,
     private router: Router
   ) {}
@@ -31,7 +30,7 @@ export class ProductsComponent implements OnInit {
 
     this.initializeForm();
     this.getAllProducts();
-    this.getAllCategories();  // Added call to fetch categories
+    this.getAllCategories();
   }
 
   initializeForm() {
@@ -44,15 +43,22 @@ export class ProductsComponent implements OnInit {
     this.products = [];
     this.customerService.getAllProducts().subscribe(
       res => {
-        this.products = res.map((element: { processedImg: string; byteImg: string; }) => {
-          element.processedImg = 'data:image/jpeg;base64,' + element.byteImg;
+        this.products = res.map((element: any) => {
+          if (element.byteImg) {
+            element.processedImg = 'data:image/jpeg;base64,' + element.byteImg;
+          }
           return element;
         });
         console.log(this.products);
       },
       error => {
         console.error('Error fetching products', error);
-        this.snackbar.open("Failed to load products", "Close", { duration: 5000 });
+        Swal.fire({
+          icon: 'error',
+          title: 'Failed to load products',
+          text: error.message,
+          confirmButtonText: 'Close'
+        });
       }
     );
   }
@@ -63,23 +69,33 @@ export class ProductsComponent implements OnInit {
       const title = this.searchProductForm.get('title')!.value;
       this.customerService.getAllProductsByName(title).subscribe(
         res => {
-          this.products = res.map((element: { processedImg: string; byteImg: string; }) => {
-            element.processedImg = 'data:image/jpeg;base64,' + element.byteImg;
+          this.products = res.map((element: any) => {
+            if (element.byteImg) {
+              element.processedImg = 'data:image/jpeg;base64,' + element.byteImg;
+            }
             return element;
           });
           console.log(this.products);
         },
         error => {
           console.error('Error searching for products', error);
-          this.snackbar.open("Failed to search for products", "Close", { duration: 5000 });
+          Swal.fire({
+            icon: 'error',
+            title: 'Failed to search for products',
+            text: error.message,
+            confirmButtonText: 'Close'
+          });
         }
       );
     } else {
-      this.snackbar.open("Please enter a valid product title", "Close", { duration: 5000 });
+      Swal.fire({
+        icon: 'warning',
+        title: 'Invalid Input',
+        text: 'Please enter a valid product title',
+        confirmButtonText: 'Close'
+      });
     }
   }
-
-  
 
   getAllCategories(): void {
     this.customerService.getAllCategory().subscribe(
@@ -89,7 +105,12 @@ export class ProductsComponent implements OnInit {
       },
       error => {
         console.error('Error fetching categories', error);
-        this.snackbar.open("Failed to load categories", "Close", { duration: 5000 });
+        Swal.fire({
+          icon: 'error',
+          title: 'Failed to load categories',
+          text: error.message,
+          confirmButtonText: 'Close'
+        });
       }
     );
   }
@@ -104,34 +125,59 @@ export class ProductsComponent implements OnInit {
   getProductsByCategory(categoryId: number) {
     this.customerService.getProductsByCategory(categoryId).subscribe(
       res => {
-        this.products = res.map((element: { processedImg: string; byteImg: string; }) => {
-          element.processedImg = 'data:image/jpeg;base64,' + element.byteImg;
+        this.products = res.map((element: any) => {
+          if (element.byteImg) {
+            element.processedImg = 'data:image/jpeg;base64,' + element.byteImg;
+          }
           return element;
         });
         console.log(this.products);
       },
       error => {
         console.error('Error fetching products by category', error);
-        this.snackbar.open("Failed to load products by category", "Close", { duration: 5000 });
+        Swal.fire({
+          icon: 'error',
+          title: 'Failed to load products by category',
+          text: error.message,
+          confirmButtonText: 'Close'
+        });
       }
     );
   }
-
 
   addToCart(productId: number): void {
     this.customerService.addToCart(productId).subscribe(
-      res => {
-        // Assuming `res` indicates success
-        console.log('Response from addToCart:', res);
-        this.snackbar.open('Product added to cart successfully', 'Close', { duration: 5000 });
-        this.router.navigate(['/cart']);
+      response => {
+        if (response.status === 201) {
+          console.log('Product added to cart successfully:', response.body);
+          Swal.fire({
+            icon: 'success',
+            title: 'Product added to cart successfully',
+            text: 'Redirecting to cart...',
+            timer: 2000,
+            showConfirmButton: false
+          }).then(() => {
+            this.router.navigate(['/cart']); // Redirect to cart
+          });
+        } else {
+          console.log('Unexpected status code:', response.status);
+          Swal.fire({
+            icon: 'info',
+            title: 'Product added to cart',
+            text: 'Product added to cart, but unexpected response',
+            confirmButtonText: 'Close'
+          });
+        }
       },
       error => {
-        // Handle error from service
         console.error('Error adding product to cart:', error);
-        this.snackbar.open('Failed to add product to cart', 'Close', { duration: 5000 });
+        Swal.fire({
+          icon: 'error',
+          title: 'Failed to add product to cart',
+          text: error.message,
+          confirmButtonText: 'Close'
+        });
       }
     );
   }
-  
-} 
+}
