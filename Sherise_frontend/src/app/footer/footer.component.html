@@ -35,10 +35,10 @@
                 <div class="footer-column">
             
                  
-                    <form class="subscribe-form">
-                        <input type="email" placeholder="Enter your email ID">
+                    <form class="subscribe-form" (submit)="onSubscribe()">
+                        <input type="email" placeholder="Enter your email ID" [(ngModel)]="subscriberEmail" name="email" required>
                         <button type="submit">Subscribe</button>
-                    </form>
+                      </form>
                 </div>
                 <div id="google_translate_element"></div>
             </div>
