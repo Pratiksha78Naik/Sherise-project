@@ -1,12 +1,10 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-
 import { catchError, tap } from 'rxjs/operators';
 import { UserStorageService } from './storage/user-storage.service';
 
 const BASIC_URL = "http://localhost:8080/";
-
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +20,6 @@ export class CustomerService {
     const token = this.userStorageService.getToken();
     return !!token; // Return true if token exists
   }
-
 
   getAllProducts(): Observable<any> {
     return this.http.get<any>(`${BASIC_URL}api/customer/products`, {
@@ -46,28 +43,30 @@ export class CustomerService {
       productId: productId,
       userId: userId
     };
-
+  
     if (!userId) {
       console.error('User ID is not available.');
       return throwError(() => new Error('User ID is missing'));
     }
-
-    return this.http.post<any>(`${BASIC_URL}api/customer/cart`, cartDto, {
+  
+    return this.http.post(`${BASIC_URL}api/customer/cart`, cartDto, {
       headers: this.createAuthorizationHeader(),
+      observe: 'response', // Get the full HTTP response
+      responseType: 'text' // Handle response as plain text if JSON is not expected
     }).pipe(
-      tap(response => {
-        // Log the successful response for debugging
-        console.log('Add to cart response:', response);
-        // Handle any additional success actions here
+      tap((response: HttpResponse<string>) => {
+        if (response.status === 201) {
+          console.log('Product added to cart successfully');
+          this.showSnackbar('Product added to cart successfully');
+        } else {
+          console.log('Unexpected status code:', response.status);
+          this.showSnackbar('Unexpected status code: ' + response.status);
+        }
       }),
-      catchError(error => {
-        // Log the error for debugging
-        console.error('Error in addToCart:', error);
-        // Return a user-friendly error message
-        return throwError(() => new Error('Failed to add product to cart.'));
-      })
+      catchError(this.handleError)
     );
   }
+  
 
   increaseProductQuantity(productId: number): Observable<any> {
     const userId = this.userStorageService.getUserId();
@@ -106,51 +105,50 @@ export class CustomerService {
       catchError(this.handleError)
     );
   }
-  
+
   deleteProductFromCart(productId: number): Observable<any> {
     const userId = this.userStorageService.getUserId();
     const cartDto = {
       productId: productId,
       userId: userId
     };
-  
+
     if (!userId) {
       console.error('User ID is not available.');
       return throwError(() => new Error('User ID is missing'));
     }
-  
+
     return this.http.post<any>(`${BASIC_URL}api/customer/delete`, cartDto, {
       headers: this.createAuthorizationHeader(),
     }).pipe(
       catchError(this.handleError)
     );
   }
-  
 
   getCartByUserId(): Observable<any> {
     const userId = this.userStorageService.getUserId();
-  
+
     if (!userId) {
       console.error('User ID is not available.');
       return throwError(() => new Error('User ID is missing'));
     }
-  
+
     return this.http.get<any>(`${BASIC_URL}api/customer/cart/${userId}`, {
       headers: this.createAuthorizationHeader(),
     }).pipe(
       catchError(this.handleError)
     );
   }
-  
-  applyCoupon(code:any): Observable<any> {
+
+  applyCoupon(code: any): Observable<any> {
     const userId = this.userStorageService.getUserId();
-  
+
     if (!userId) {
       console.error('User ID is not available.');
       return throwError(() => new Error('User ID is missing'));
     }
-  
-    return this.http.get<any>(`${BASIC_URL}api/customer/cart/${userId}/${code}`, {
+
+    return this.http.get<any>(`${BASIC_URL}api/customer/coupon/${userId}/${code}`, {
       headers: this.createAuthorizationHeader(),
     }).pipe(
       catchError(this.handleError)
@@ -158,27 +156,28 @@ export class CustomerService {
   }
 
   placeOrder(orderDto: any): Observable<any> {
-    const userId = this.userStorageService.getUserId(); // Get the userId from the service
-    
+    const userId = this.userStorageService.getUserId();
+
     if (!userId) {
       console.error('User ID is not available.');
       return throwError(() => new Error('User ID is missing'));
     }
-  
-    orderDto.userId = userId; // Assign the userId to orderDto
-  
+
+    orderDto.userId = userId;
+
     return this.http.post<any>(`${BASIC_URL}api/customer/placeOrder`, orderDto, {
       headers: this.createAuthorizationHeader(),
     }).pipe(
       catchError(this.handleError)
     );
   }
-  
 
   getAllCategory(): Observable<any> {
-    return this.http.get(BASIC_URL + 'api/admin/categories', {
+    return this.http.get<any>(`${BASIC_URL}api/admin/categories`, {
       headers: this.createAuthorizationHeader(),
-    });
+    }).pipe(
+      catchError(this.handleError)
+    );
   }
 
   getProductsByCategory(categoryId: number): Observable<any> {
@@ -199,18 +198,21 @@ export class CustomerService {
     }
   }
 
-  private handleError(error: any): Observable<never> {
+  private handleError(error: HttpErrorResponse): Observable<never> {
     let errorMessage = 'An unknown error occurred!';
     
     if (error.error instanceof ErrorEvent) {
-      // Client-side error
       errorMessage = `Client-side error: ${error.error.message}`;
     } else {
-      // Server-side error
       errorMessage = `Server-side error: ${error.status} - ${error.message || 'No error message'}`;
     }
     
     console.error(errorMessage, error);
     return throwError(() => new Error(errorMessage));
+  }
+
+  private showSnackbar(message: string): void {
+    // Implement the snackbar logic here
+    console.log(message);
   }
 }
