@@ -28,6 +28,7 @@ import { PshyHormonesBlogComponent } from './Blogs/pshy-hormones-blog/pshy-hormo
 import { ProductsComponent } from './Services/products/products.component';
 import { CartComponent } from './Services/cart/cart.component';
 import { CheckoutComponent } from './Services/checkout/checkout.component';
+import { MyOrdersComponent } from './Services/my-orders/my-orders.component';
 
 
 import { SakhiyaComponent } from './Events/sakhiya/sakhiya.component';
@@ -78,6 +79,7 @@ const routes: Routes = [
   { path: 'cart', component: CartComponent, canActivate: [AuthGuard] },
   { path: 'checkout', component: CheckoutComponent },
   { path:'donate',component:DonateComponent},
+  { path:'my-orders',component:MyOrdersComponent},
 
 
 
