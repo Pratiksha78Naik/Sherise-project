@@ -165,10 +165,18 @@
                                         </div>
                                         <div class="p-4 border border-top-0 rounded-bottom">
                                             <h4>{{product.name}}</h4>
-                                            <p>{{product.description}}</p>
-                                            <p class="fs-5 fw-bold mb-0">{{ product.price | currency:'INR':'symbol':'1.0-0' }}</p>
 
-                                            <div class="d-flex justify-content-between flex-lg-wrap">
+                                            <div class="row d-flex justify-content-between">
+                                                <div class="col text-start">
+                                                    <p class="mb-0" style="font-size: 20px;">{{ product.description }}</p>
+                                                </div>
+                                                <div class="col-auto text-end">
+                                                    <p class="fs-5 fw-bold mb-0">{{ product.price | currency:'INR':'symbol':'1.0-0' }}</p>
+                                                </div>
+                                            </div>
+                                            
+                                            
+                                            <div class="d-flex justify-content-center flex-lg-wrap mt-4">
                                                 <button
                                                   class="btn border border-secondary rounded-pill px-3 text-primary"
                                                   (click)="addToCart(product.id)"
@@ -176,7 +184,8 @@
                                                 >
                                                   <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
                                                 </button>
-                                              </div>
+                                            </div>
+                                            
                                               
                                         </div>
                                     </div>
