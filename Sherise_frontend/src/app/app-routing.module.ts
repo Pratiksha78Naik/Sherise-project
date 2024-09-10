@@ -74,8 +74,8 @@ const routes: Routes = [
   { path: 'pshy-hormones-blog', component: PshyHormonesBlogComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
-  { path: 'products', component: ProductsComponent },
-  { path: 'cart', component: CartComponent, canActivate: [AuthGuard] },
+  { path: 'products', component: ProductsComponent, },
+  { path: 'cart', component: CartComponent, canActivate: [AuthGuard], data: { role: 'CUSTOMER'} },
   { path: 'checkout', component: CheckoutComponent },
   { path:'donate',component:DonateComponent},
 
