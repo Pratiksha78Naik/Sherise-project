@@ -1,45 +1,46 @@
-<div class="container">
-  <mat-card>
-    <mat-card-title>Signup</mat-card-title>
+<div class="modal-wrapper">
+  <div class="modal-content">
+    <li><a routerLink="/"><i class="fas fa-home"></i></a></li>
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+      <h2>Sign Up</h2>
 
-    <mat-card-content>
-      <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
-        <mat-form-field appearance="outline">
-          <mat-label>Name</mat-label>
-          <input matInput formControlName="name"  required>
-          <mat-error *ngIf="signupForm.get('name')!.invalid && signupForm.get('name')!.touched">
-            Please enter a valid name.
-          </mat-error>
-        </mat-form-field>
+      <div class="input-field">
+        <input type="text" formControlName="name" required placeholder="Enter your name">
+        <div *ngIf="signupForm.get('name')!.invalid && signupForm.get('name')!.touched" class="error-message">
+          Please enter a valid name.
+        </div>
+      </div>
 
-        <mat-form-field appearance="outline">
-          <mat-label>Email</mat-label>
-          <input matInput formControlName="email"  required>
-          <mat-error *ngIf="signupForm.get('email')!.invalid && signupForm.get('email')!.touched">
-            Please enter a valid email.
-          </mat-error>
-        </mat-form-field>
+      <div class="input-field">
+        <input type="email" formControlName="email" required placeholder="Enter your email">
+        <div *ngIf="signupForm.get('email')!.invalid && signupForm.get('email')!.touched" class="error-message">
+          Please enter a valid email.
+        </div>
+      </div>
 
-        <mat-form-field appearance="outline">
-          <mat-label>Password</mat-label>
-          <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password"  required>
+      <div class="input-field">
+        <input type="text" formControlName="phone" required placeholder="Enter your phone number">
+        <div *ngIf="signupForm.get('phone')!.invalid && signupForm.get('phone')!.touched" class="error-message">
+          Please enter a valid phone number.
+        </div>
+      </div>
 
-          <mat-error *ngIf="signupForm.get('password')!.invalid && signupForm.get('password')!.touched">
-            Please enter a valid password.
-          </mat-error>
-        </mat-form-field>
+      <div class="input-field">
+        <input [type]="hidePassword ? 'password' : 'text'" formControlName="password" required placeholder="Enter your password">
+        <div *ngIf="signupForm.get('password')!.invalid && signupForm.get('password')!.touched" class="error-message">
+          Please enter a valid password.
+        </div>
+      </div>
 
-        <button mat-raised-button color="primary" type="submit" [disabled]="signupForm.invalid">Sign Up</button>
-      </form>
+      <button type="submit" [disabled]="signupForm.invalid">Sign Up</button>
 
-      <mat-card-actions>
-        <button mat-button color="accent" routerLink="/login">Already have an Account? Login</button>
-      </mat-card-actions>
-    </mat-card-content>
-  </mat-card>
+      <div class="register">
+        <p>Already have an account? <a routerLink="/login">Login</a></p>
+      </div>
+    </form>
+  </div>
 
-  <div class="signimg">
-    <img src="assets/images/girl-hold-huge-tampon-hands.webp">
-    </div>
-
+  <!-- <div class="modal-image">
+    <img src="assets/images/girl-hold-huge-tampon-hands.webp" alt="Signup Image">
+  </div> -->
 </div>

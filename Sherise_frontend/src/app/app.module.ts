@@ -54,7 +54,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { DemoAngularMaterialModule } from './DemoAngularMaterial';
 import { SignupComponent } from './signup/signup.component';
 import { PlaceOrderComponent } from './Services/place-order/place-order.component';
-import { MyOrdersComponent } from './Services/my-orders/my-orders.component';
+import { DonateComponent } from './donate/donate.component';
 
 
 @NgModule({
@@ -107,7 +107,7 @@ import { MyOrdersComponent } from './Services/my-orders/my-orders.component';
     SignupComponent,
     LoginComponent,
     PlaceOrderComponent,
-    MyOrdersComponent
+    DonateComponent
 
   ],
   imports: [

@@ -42,7 +42,7 @@ import { HygQuizComponent } from './LearnwithUs/hygquiz/hygquiz.component';
 import { SignupComponent } from './signup/signup.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth.guard'; // Adjust the path if necessary
-import { MyOrdersComponent } from './Services/my-orders/my-orders.component';
+import { DonateComponent } from './donate/donate.component';
 
 
 const routes: Routes = [
@@ -54,8 +54,8 @@ const routes: Routes = [
   { path: 'hygiene', component: HygieneComponent },
   { path: 'pshy', component: PshyComponent },
  { path: 'education', component: EducationComponent, canActivate: [AuthGuard], data: { role: 'CUSTOMER' } },
-  { path: 'healthcare-access', component: HealthcareAccessComponent },
-  { path: 'hcamps', component: HcampsComponent },
+  { path: 'healthcare-access', component: HealthcareAccessComponent, canActivate: [AuthGuard], data: { role: 'CUSTOMER'} },
+  { path: 'hcamps', component: HcampsComponent, canActivate: [AuthGuard], data: { role: 'CUSTOMER'}},
   { path: 'parents', component: ParentsComponent },
   { path: 'boys', component: BoysComponent },
   { path: 'menstrual-myths', component: MenstrualMythsComponent },
@@ -77,7 +77,7 @@ const routes: Routes = [
   { path: 'products', component: ProductsComponent },
   { path: 'cart', component: CartComponent, canActivate: [AuthGuard] },
   { path: 'checkout', component: CheckoutComponent },
-  { path:'my_orders', component:MyOrdersComponent, canActivate:[AuthGuard]},
+  { path:'donate',component:DonateComponent},
 
 
 
