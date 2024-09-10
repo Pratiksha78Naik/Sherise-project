@@ -42,6 +42,7 @@ import { HygQuizComponent } from './LearnwithUs/hygquiz/hygquiz.component';
 import { SignupComponent } from './signup/signup.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth.guard'; // Adjust the path if necessary
+import { MyOrdersComponent } from './Services/my-orders/my-orders.component';
 
 
 const routes: Routes = [
@@ -76,6 +77,7 @@ const routes: Routes = [
   { path: 'products', component: ProductsComponent },
   { path: 'cart', component: CartComponent, canActivate: [AuthGuard] },
   { path: 'checkout', component: CheckoutComponent },
+  { path:'my_orders', component:MyOrdersComponent, canActivate:[AuthGuard]},
 
 
 

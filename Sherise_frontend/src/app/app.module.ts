@@ -54,6 +54,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { DemoAngularMaterialModule } from './DemoAngularMaterial';
 import { SignupComponent } from './signup/signup.component';
 import { PlaceOrderComponent } from './Services/place-order/place-order.component';
+import { MyOrdersComponent } from './Services/my-orders/my-orders.component';
 
 
 @NgModule({
@@ -105,7 +106,8 @@ import { PlaceOrderComponent } from './Services/place-order/place-order.componen
     AccessibilityComponent,
     SignupComponent,
     LoginComponent,
-    PlaceOrderComponent
+    PlaceOrderComponent,
+    MyOrdersComponent
 
   ],
   imports: [

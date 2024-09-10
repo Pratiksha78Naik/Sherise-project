@@ -157,20 +157,81 @@ export class CustomerService {
 
   placeOrder(orderDto: any): Observable<any> {
     const userId = this.userStorageService.getUserId();
-
+  
     if (!userId) {
       console.error('User ID is not available.');
       return throwError(() => new Error('User ID is missing'));
     }
-
+  
     orderDto.userId = userId;
-
+  
     return this.http.post<any>(`${BASIC_URL}api/customer/placeOrder`, orderDto, {
+      headers: this.createAuthorizationHeader(),
+    }).pipe(
+      tap(response => {
+        // Check if response contains the orderId and amount
+        if (response && response.orderId && response.amount) {
+          this.initiateRazorpayPayment(response.orderId, response.amount);
+        } else {
+          console.error('Payment details not found in response');
+        }
+      }),
+      catchError(error => {
+        console.error('Error placing order:', error);
+        return throwError(() => new Error('Error placing order.'));
+      })
+    );
+  }
+  
+  private initiateRazorpayPayment(orderId: string, amount: number) {
+    const options = {
+      key: 'rzp_test_GbzMAhkysTbe34', // Replace with your Razorpay key
+      amount: amount * 100, // Amount in paise
+      currency: 'INR',
+      name: 'SheRise',
+      description: 'Order Payment',
+      order_id: orderId, // Order ID from your backend
+      handler: (response: any) => {
+        console.log('Payment successful', response);
+        this.showSnackbar('Payment successful');
+        // Optionally, send payment confirmation to backend here
+      },
+      prefill: {
+        name: 'Customer Name',
+        email: 'customer@example.com',
+        contact: '1234567890'
+      },
+      theme: {
+        color: '#3399cc'
+      },
+      modal: {
+        ondismiss: () => {
+          console.log('Payment modal closed');
+          // Handle modal close event if needed
+        }
+      }
+    };
+  
+    const paymentObject = new Razorpay(options);
+    paymentObject.open();
+  }
+  
+
+  getOrdersByUserId(): Observable<any> {
+    const userId = this.userStorageService.getUserId();
+    
+    if (!userId) {
+      console.error('User ID is not available.');
+      return throwError(() => new Error('User ID is missing'));
+    }
+  
+    return this.http.get(`${BASIC_URL}api/customer/myOrders/${userId}`, {
       headers: this.createAuthorizationHeader(),
     }).pipe(
       catchError(this.handleError)
     );
   }
+  
 
   getAllCategory(): Observable<any> {
     return this.http.get<any>(`${BASIC_URL}api/admin/categories`, {
@@ -216,3 +277,6 @@ export class CustomerService {
     console.log(message);
   }
 }
+
+
+

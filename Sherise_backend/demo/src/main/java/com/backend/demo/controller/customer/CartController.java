@@ -6,9 +6,13 @@ import com.backend.demo.dto.PlaceOrderDto;
 import com.backend.demo.exceptions.ValidationException;
 import com.backend.demo.services.customer.cart.CartService;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/customer")
@@ -84,8 +88,30 @@ public class CartController {
 
 
     @PostMapping("/placeOrder")
-    public ResponseEntity<OrderDto> placeOrder(@RequestBody PlaceOrderDto placeOrderDto){
-        return ResponseEntity.status(HttpStatus.CREATED).body(cartService.placeOrder(placeOrderDto));
+    public ResponseEntity<?> placeOrder(@RequestBody PlaceOrderDto placeOrderDto) {
+        try {
+            // Validate the input DTO
+            if (placeOrderDto.getUserId() == null) {
+                return ResponseEntity.badRequest().body("User ID is required.");
+            }
+
+            // Delegate the placement to the service
+            ResponseEntity<?> response = cartService.placeOrder(placeOrderDto);
+
+            // Forward the response from the service method
+            return response;
+        } catch (Exception e) {
+            // Log the exception using a logger
+            Logger logger = LoggerFactory.getLogger(this.getClass());
+            logger.error("Error placing order", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while placing the order.");
+        }
+    }
+
+    @GetMapping("/myOrders/{userId}")
+    public ResponseEntity<List<OrderDto>> getMyPlacedOrders(@PathVariable Long userId) {
+        // Calls the service to get the user's placed orders and returns them with an HTTP 200 OK status
+        return ResponseEntity.ok(cartService.getMyPlacedOrders(userId));
     }
 
 

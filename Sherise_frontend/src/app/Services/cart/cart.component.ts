@@ -7,7 +7,7 @@ import { PlaceOrderComponent } from '../place-order/place-order.component';
 import { MatDialog } from '@angular/material/dialog';
 
 interface CartItem {
-  processedImg: string;
+  processedImg:string;
   returnedImg: string;
   productName: string;
   price: number;
@@ -24,7 +24,7 @@ interface Order {
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
-  styleUrls: ['./cart.component.css'],
+  styleUrl: './cart.component.css',
 })
 export class CartComponent implements OnInit {
   cartItems: CartItem[] = [];
@@ -156,9 +156,14 @@ export class CartComponent implements OnInit {
     );
   }
 
-  placeOrder() {
-    this.dialog.open(PlaceOrderComponent);
+ placeOrder() {
+  if (this.order) {
+    this.dialog.open(PlaceOrderComponent, {
+      data: { totalAmount: this.order.totalAmount }
+    });
   }
+}
+
 
   proceedToCheckout(): void {
     this.snackbar.open('Proceeding to checkout...', 'Close', { duration: 3000 });
