@@ -1,6 +1,5 @@
 package com.backend.demo.Entity;
 
-
 import com.backend.demo.dto.OrderDto;
 import com.backend.demo.enums.OrderStatus;
 import jakarta.persistence.*;
@@ -28,10 +27,11 @@ public class Order {
     private Long discount;
     private UUID trackingId;
 
+    private String razorpayOrderId; // Add this field
+
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
-
 
     @OneToOne
     @JoinColumn(name = "coupon_id", referencedColumnName = "id")
@@ -40,8 +40,7 @@ public class Order {
     @OneToMany(mappedBy = "order")
     private List<CartItems> cartItems;
 
-    public OrderDto getOrderDto(){
-
+    public OrderDto getOrderDto() {
         OrderDto orderDto = new OrderDto();
 
         orderDto.setId(id);
@@ -51,11 +50,16 @@ public class Order {
         orderDto.setAmount(amount);
         orderDto.setDate(date);
         orderDto.setOrderStatus(orderStatus);
-        orderDto.setUserName(user.getName());
-        if (coupon != null){
-            orderDto.setCouponName(coupon.getName());
+        orderDto.setRazorpayOrderId(razorpayOrderId); // Include Razorpay order ID in DTO
 
+        if (user != null) {
+            orderDto.setUserName(user.getName());
         }
+
+        if (coupon != null) {
+            orderDto.setCouponName(coupon.getName());
+        }
+
         return orderDto;
     }
 }

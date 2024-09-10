@@ -9,6 +9,10 @@ import com.backend.demo.dto.PlaceOrderDto;
 import com.backend.demo.enums.OrderStatus;
 import com.backend.demo.exceptions.ValidationException;
 import com.backend.demo.repository.*;
+import com.backend.demo.services.razorpay.RazorpayService;
+import com.razorpay.RazorpayException;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +42,12 @@ public class CartServiceImpl implements CartService {
 
     @Autowired
     private CouponRepository couponRepository;
+
+
+    @Autowired
+    private RazorpayService razorpayService;
+
+
 
 
     public ResponseEntity<?> addProductToCart(AddProductInCartDto addProductInCartDto) {
@@ -284,31 +294,58 @@ public class CartServiceImpl implements CartService {
     }
 
 
-    public OrderDto placeOrder(PlaceOrderDto placeOrderDto){
-        Order activeOrder = orderRepository.findByUserIdAndOrderStatus(placeOrderDto.getUserId(), OrderStatus.Pending);
-        Optional<User> optionalUser = userRepository.findById(placeOrderDto.getUserId());
-        if(optionalUser.isPresent()){
-            activeOrder.setOrderDescription(placeOrderDto.getOrderDescription());
-            activeOrder.setAddress(placeOrderDto.getAddress());
-            activeOrder.setDate(new Date());
-            activeOrder.setOrderStatus(OrderStatus.Placed);
-            activeOrder.setTrackingId(UUID.randomUUID());
+    public ResponseEntity<?> placeOrder(PlaceOrderDto placeOrderDto) {
+        try {
+            // Find the active order for the user
+            Order activeOrder = orderRepository.findByUserIdAndOrderStatus(placeOrderDto.getUserId(), OrderStatus.Pending);
 
+            if (activeOrder == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No pending order found for this user.");
+            }
+
+            // Set additional details from placeOrderDto
+            activeOrder.setAddress(placeOrderDto.getAddress());
+            activeOrder.setOrderDescription(placeOrderDto.getOrderDescription());
+
+            // Generate a unique tracking ID
+            UUID trackingId = UUID.randomUUID();
+
+            // Process payment through Razorpay
+            JSONObject razorpayOrder = razorpayService.createOrder(activeOrder.getAmount());
+            JSONObject razorpayOrderJson = new JSONObject(razorpayOrder.toString());
+            String razorpayOrderId = razorpayOrderJson.getString("id"); // Extract Razorpay Order ID
+
+            // Set the Razorpay Order ID and tracking ID in your Order entity
+            activeOrder.setRazorpayOrderId(razorpayOrderId);
+            activeOrder.setTrackingId(trackingId);
+
+            // Set date and payment details
+            activeOrder.setDate(new Date()); // Set current date
+            activeOrder.setPayment("Razorpay"); // Set payment type
+
+            // Update order status to 'Processing'
+            activeOrder.setOrderStatus(OrderStatus.Placed);
             orderRepository.save(activeOrder);
 
-            Order order = new Order();
-            order.setAmount(0L);
-            order.setTotalAmount(0L);
-            order.setDiscount(0L);
-            order.setUser(optionalUser.get());
-            order.setOrderStatus(OrderStatus.Pending);
-            orderRepository.save(order);
-
-            return activeOrder.getOrderDto();
-
-
+            // Return response with the tracking ID and other details
+            return ResponseEntity.status(HttpStatus.CREATED).body("Order placed successfully. Tracking ID: " + trackingId.toString());
+        } catch (RazorpayException | JSONException e) {
+            // Handle exceptions appropriately
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred while placing the order.");
         }
-        return null;
     }
+
+    public List<OrderDto> getMyPlacedOrders(Long userId) {
+        // Define the valid order statuses
+        List<OrderStatus> orderStatusList = List.of(OrderStatus.Placed, OrderStatus.Shipped, OrderStatus.Delivered);
+
+        // Call the corrected method from OrderRepository and map Orders to OrderDto
+        return orderRepository.findAllByUserIdAndOrderStatusIn(userId, orderStatusList)
+                .stream()
+                .map(Order::getOrderDto)
+                .collect(Collectors.toList());
+    }
+
+
 
 }

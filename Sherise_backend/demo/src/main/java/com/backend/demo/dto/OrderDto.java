@@ -23,6 +23,7 @@ public class OrderDto {
     private Long totalAmount;
     private Long discount;
     private UUID trackingId;
+    private String RazorpayOrderId;
 
 
     private String userName;
