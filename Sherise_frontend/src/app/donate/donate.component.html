@@ -21,33 +21,36 @@
         <div class="right-section">
             <h3>Payment Details</h3>
 
+          <form [formGroup]="donateForm" (ngSubmit)="pay()">
             <div class="form-group">
-                <label>Choose Your Amount</label>
-                <input type="text" placeholder="₹ Enter Amount" class="input-placeholder">
+              <label for="amount">Choose Your Amount</label>
+              <input id="amount" formControlName="amount" type="text" placeholder="₹ Enter Amount" class="input-placeholder">
             </div>
-
             <div class="form-group">
-                <label>Name</label>
-                <input type="text" placeholder="Enter your name" class="input-placeholder">
+              <label for="name">Name</label>
+              <input id="name" formControlName="name" type="text" placeholder="Enter your name" class="input-placeholder">
             </div>
-
             <div class="form-group">
-                <label>Email</label>
-                <input type="email" placeholder="Enter your email" class="input-placeholder">
+              <label for="email">Email</label>
+              <input id="email" formControlName="email" type="email" placeholder="Enter your email" class="input-placeholder">
             </div>
-
             <div class="form-group">
-                <label>Phone</label>
-                <input type="tel" placeholder="Enter your phone number" class="input-placeholder">
+              <label for="phone">Phone</label>
+              <input id="phone" formControlName="phone" type="tel" placeholder="Enter your phone number" class="input-placeholder">
             </div>
-
-            <button class="pay-button" (click)="pay()">Pay</button>
+            <button type="submit" class="pay-button">Pay</button>
+          </form>
         </div>
     </div>
 </div>
 
 
 
+
+
+
+
+<!--faq container-->
 <div class="learn-container">
   <h2>Frequently Asked Questions (FAQ)</h2>
   <div class="accordion" onclick="toggleAccordion(this)">
