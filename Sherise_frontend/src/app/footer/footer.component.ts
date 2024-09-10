@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { NavigationEnd, Router } from '@angular/router';
+import Swal from 'sweetalert2';  // Import SweetAlert2
 
 @Component({
   selector: 'app-footer',
@@ -30,13 +31,33 @@ export class FooterComponent implements OnInit {
       this.http.post(this.apiUrl, payload)
         .subscribe({
           next: () => {
-            this.message = "You have successfully subscribed!";
+            // Show success alert
+            Swal.fire({
+              icon: 'success',
+              title: 'Subscribed!',
+              text: 'You have successfully subscribed to our newsletter!',
+              confirmButtonText: 'OK'
+            });
             this.subscriberEmail = ''; // Clear the input field
           },
           error: () => {
-            this.message = "Subscription failed. Please try again.";
+            // Show error alert
+            Swal.fire({
+              icon: 'error',
+              title: 'Subscription Failed!',
+              text: 'There was an issue with your subscription. Please try again.',
+              confirmButtonText: 'OK'
+            });
           }
         });
+    } else {
+      // Show an alert if email is empty
+      Swal.fire({
+        icon: 'warning',
+        title: 'Invalid Email!',
+        text: 'Please enter a valid email address.',
+        confirmButtonText: 'OK'
+      });
     }
   }
 }
