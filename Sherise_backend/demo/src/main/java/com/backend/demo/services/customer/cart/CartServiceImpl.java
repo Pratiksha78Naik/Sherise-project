@@ -52,68 +52,81 @@ public class CartServiceImpl implements CartService {
 
     public ResponseEntity<?> addProductToCart(AddProductInCartDto addProductInCartDto) {
         try {
-            // Fetch or create the active order
+            // Fetch the current active order for the user
             Order activeOrder = orderRepository.findByUserIdAndOrderStatus(addProductInCartDto.getUserId(), OrderStatus.Pending);
 
-            if (activeOrder == null) {
-                // Create a new order if none exists
+            // Check if the active order is null or the previous order is completed (Placed, Shipped, Delivered)
+            if (activeOrder == null || isCompletedOrder(activeOrder)) {
+                // Generate a new unique tracking ID
+                UUID newTrackingId = generateUniqueTrackingId();
+
+                // Create a new order for the user
+                User user = userRepository.findById(addProductInCartDto.getUserId())
+                        .orElseThrow(() -> new RuntimeException("User not found"));
                 activeOrder = new Order();
-                User user = userRepository.findById(addProductInCartDto.getUserId()).orElseThrow(() -> new RuntimeException("User not found"));
                 activeOrder.setUser(user);
                 activeOrder.setOrderStatus(OrderStatus.Pending);
                 activeOrder.setTotalAmount(0L);
                 activeOrder.setAmount(0L);
-                activeOrder = orderRepository.save(activeOrder); // Save the new order to the database
+                activeOrder.setTrackingId(newTrackingId);
+                activeOrder = orderRepository.save(activeOrder);
             }
 
             // Fetch the product and user
-            Optional<Product> optionalProduct = productRepository.findById(addProductInCartDto.getProductId());
-            Optional<User> optionalUser = userRepository.findById(addProductInCartDto.getUserId());
+            Product product = productRepository.findById(addProductInCartDto.getProductId())
+                    .orElseThrow(() -> new RuntimeException("Product not found"));
 
-            if (optionalProduct.isPresent() && optionalUser.isPresent()) {
-                Product product = optionalProduct.get();
-                User user = optionalUser.get();
+            User user = userRepository.findById(addProductInCartDto.getUserId())
+                    .orElseThrow(() -> new RuntimeException("User not found"));
 
-                // Check if the product is already in the cart for this order
-                Optional<CartItems> optionalCartItems = cartItemsRepository.findByProductIdAndOrderIdAndUserId(
-                        addProductInCartDto.getProductId(), activeOrder.getId(), addProductInCartDto.getUserId());
+            // Check if the product is already in the cart for this order
+            CartItems cartItem = cartItemsRepository.findByProductIdAndOrderIdAndUserId(
+                            addProductInCartDto.getProductId(), activeOrder.getId(), addProductInCartDto.getUserId())
+                    .orElse(new CartItems());
 
-                CartItems cartItem;
-                if (optionalCartItems.isPresent()) {
-                    // Product is already in the cart, update the quantity and price
-                    cartItem = optionalCartItems.get();
-                    cartItem.setQuantity(cartItem.getQuantity() + 1);
-                    cartItem.setPrice(cartItem.getPrice() + product.getPrice());
-                } else {
-                    // Product is not in the cart, add it as a new item
-                    cartItem = new CartItems();
-                    cartItem.setProduct(product);
-                    cartItem.setPrice(product.getPrice());
-                    cartItem.setQuantity(1L);
-                    cartItem.setUser(user);
-                    cartItem.setOrder(activeOrder);
-                    activeOrder.getCartItems().add(cartItem);
-                }
-
-                // Save the cart item and update the order
-                cartItemsRepository.save(cartItem);
-
-                activeOrder.setTotalAmount(activeOrder.getTotalAmount() + product.getPrice());
-                activeOrder.setAmount(activeOrder.getAmount() + product.getPrice());
-                orderRepository.save(activeOrder);
-
-                return ResponseEntity.status(HttpStatus.CREATED).body("Product added to cart successfully.");
+            if (cartItem.getId() != null) {
+                // Product is already in the cart, update the quantity and price
+                cartItem.setQuantity(cartItem.getQuantity() + 1);
+                cartItem.setPrice(cartItem.getPrice() + product.getPrice());
             } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User or product not found.");
+                // Product is not in the cart, add it as a new item
+                cartItem.setProduct(product);
+                cartItem.setPrice(product.getPrice());
+                cartItem.setQuantity(1L);
+                cartItem.setUser(user);
+                cartItem.setOrder(activeOrder);
+                activeOrder.getCartItems().add(cartItem);
             }
+
+            // Save the cart item and update the order
+            cartItemsRepository.save(cartItem);
+            activeOrder.setTotalAmount(activeOrder.getTotalAmount() + product.getPrice());
+            activeOrder.setAmount(activeOrder.getAmount() + product.getPrice());
+            orderRepository.save(activeOrder);
+
+            return ResponseEntity.status(HttpStatus.CREATED).body("Product added to cart successfully.");
         } catch (Exception e) {
-            // Log the exception
+            // Log the exception for debugging
             System.err.println("Error adding product to cart: " + e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while adding the product to the cart.");
         }
     }
 
+    // Helper method to check if the order is completed
+    private boolean isCompletedOrder(Order order) {
+        return order.getOrderStatus() == OrderStatus.Placed ||
+                order.getOrderStatus() == OrderStatus.Shipped ||
+                order.getOrderStatus() == OrderStatus.Delivered;
+    }
 
+    // Helper method to generate unique tracking ID
+    private UUID generateUniqueTrackingId() {
+        UUID trackingId;
+        do {
+            trackingId = UUID.randomUUID(); // Generate new UUID
+        } while (orderRepository.existsByTrackingId(trackingId)); // Check if it already exists
+        return trackingId;
+    }
 
     public OrderDto getCartByUserId(Long userId){
         Order activeOrder = orderRepository.findByUserIdAndOrderStatus(userId, OrderStatus.Pending);
@@ -349,3 +362,6 @@ public class CartServiceImpl implements CartService {
 
 
 }
+
+
+

@@ -5,6 +5,8 @@ import com.backend.demo.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Entity
 @Data
 @Table(name = "Users")
@@ -33,4 +35,10 @@ public class User {
     @Lob
     @Column(columnDefinition = "longblob")
     private Byte[] img ;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+
+
+    private
+    List<Order> orders;
 }

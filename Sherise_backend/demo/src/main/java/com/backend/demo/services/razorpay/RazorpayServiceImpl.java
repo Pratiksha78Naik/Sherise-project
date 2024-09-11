@@ -27,14 +27,20 @@ public class RazorpayServiceImpl implements RazorpayService {
         JSONObject orderRequest = new JSONObject();
         orderRequest.put("amount", amount * 100); // Amount in paise (1 INR = 100 paise)
         orderRequest.put("currency", "INR");
-        orderRequest.put("receipt", "order_rcptid_11");
+        orderRequest.put("receipt", "order_rcptid_" + System.currentTimeMillis());
 
         try {
-            // Create the order and return the response as a JSONObject
-            return client.Orders.create(orderRequest).toJson();
+            JSONObject orderResponse = client.Orders.create(orderRequest).toJson();
+
+            // Check if the response contains the required fields
+            if (orderResponse.has("id") && orderResponse.has("amount") && orderResponse.has("currency")) {
+                return orderResponse;
+            } else {
+                throw new RazorpayException("Razorpay order creation response is missing required fields.");
+            }
         } catch (RazorpayException e) {
-            // Handle exception appropriately
-            throw new RazorpayException("Error creating Razorpay order", e);
+            // Log the exception and rethrow it with additional context
+            throw new RazorpayException("Error creating Razorpay order: " + e.getMessage(), e);
         }
     }
 }

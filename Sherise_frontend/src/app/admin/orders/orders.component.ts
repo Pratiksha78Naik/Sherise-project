@@ -26,15 +26,20 @@ export class OrdersComponent implements OnInit {
     });
   }
 
-  changeOrderStatus(orderId:number, status:string){
-    this.adminService.changeOrderStatus(orderId,status).subscribe(res =>{
-      if(res.id == null){
-        this.snackBar.open("Order Status change Successfully", "close", {duration:5000});
-        this.getPlacedOrders();
-      }else{
-        this.snackBar.open("Something went wrong", "close", {duration:5000})
+  changeOrderStatus(orderId: number, status: string) {
+    this.adminService.changeOrderStatus(orderId, status).subscribe(
+      (res) => {
+        if (res && res.id) { // Check if the response is valid
+          this.snackBar.open("Order Status changed successfully", "Close", { duration: 5000 });
+          this.getPlacedOrders(); // Refresh the orders list
+        } else {
+          this.snackBar.open("Something went wrong", "Close", { duration: 5000 });
+        }
+      },
+      (err) => {
+        this.snackBar.open("An error occurred: " + err.message, "Close", { duration: 5000 });
       }
-    })
+    );
   }
-
+  
 }

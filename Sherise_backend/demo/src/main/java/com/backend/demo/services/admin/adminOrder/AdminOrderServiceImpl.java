@@ -25,22 +25,24 @@ public class AdminOrderServiceImpl implements AdminOrderService{
 
         return orderList.stream().map(Order::getOrderDto).collect(Collectors.toList());
     }
-    
-    public OrderDto changeOrderStatus(Long orderId, String status){
-        Optional<Order> optionalOrder =orderRepository.findById(orderId);
-        if(optionalOrder.isPresent()){
 
+    public OrderDto changeOrderStatus(Long orderId, String status) {
+        Optional<Order> optionalOrder = orderRepository.findById(orderId);
+        if (optionalOrder.isPresent()) {
             Order order = optionalOrder.get();
 
-            if(Objects.equals(status, "Shipped")){
+            if ("Shipped".equalsIgnoreCase(status)) {
                 order.setOrderStatus(OrderStatus.Shipped);
-            }else{
+            } else if ("Delivered".equalsIgnoreCase(status)) {
                 order.setOrderStatus(OrderStatus.Delivered);
+            } else {
+                return null; // Or throw an appropriate exception if status is invalid
             }
 
             return orderRepository.save(order).getOrderDto();
         }
-        return null;
+        return null; // Return null if the order is not found
     }
+
 
 }
