@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
+import Swal from 'sweetalert2'; // Import SweetAlert
 
 @Component({
   selector: 'app-parents',
@@ -21,10 +22,22 @@ export class ParentsComponent {
     this.submitForm(this.formData).subscribe({
       next: (response: any) => {
         console.log('Query submitted successfully!', response);
+        Swal.fire({
+          icon: 'success',
+          title: 'Submitted!',
+          text: 'Your query has been submitted successfully!',
+          confirmButtonText: 'OK'
+        });
         this.resetForm();
       },
       error: (error: HttpErrorResponse) => {
         console.error('Error submitting query!', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Submission Failed!',
+          text: 'There was an error submitting your query. Please try again.',
+          confirmButtonText: 'OK'
+        });
       }
     });
   }

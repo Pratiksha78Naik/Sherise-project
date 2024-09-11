@@ -97,7 +97,7 @@
                   </button>
                 </div>
               </td>
-              
+
               <td>
                 <p class="mb-0 mt-4">
                   {{ (item.price * item.quantity) | currency:'INR':'symbol':'1.0-0' }}
@@ -112,45 +112,45 @@
                   <i class="fa fa-trash text-danger"></i>
                 </button>
               </td>
-              
+
             </tr>
           </tbody>
         </table>
       </div>
 
       <!-- Coupon Section Start -->
-      <div class="bg-light rounded mb-4 p-4">
-        <form [formGroup]="couponForm" (ngSubmit)="applyCoupon()">
-          <h5 class="mb-3">Have a Coupon?</h5>
-          <div class="input-group">
-            <input
-              type="text"
-              class="form-control p-3"
-              formControlName="code"
-              placeholder="Enter coupon code"
-            />
-            <button
-              type="submit"
-              class="btn btn-primary p-3"
-              [disabled]="couponForm.invalid || isApplyingCoupon"
-            >
-              {{ isApplyingCoupon ? 'Applying...' : 'Apply Coupon' }}
-            </button>
-          </div>
-          <div
-            class="text-danger mt-2"
-            *ngIf="couponForm.get('code')?.invalid && couponForm.get('code')?.touched"
-          >
-            Please enter a valid coupon code.
-          </div>
-        </form>
-        <div
-          class="text-success mt-2"
-          *ngIf="discount > 0 && !isApplyingCoupon"
-        >
-          Coupon applied! You saved {{ discount | currency:'INR':'symbol':'1.0-0' }}.
-        </div>
-      </div>
+<!--      <div class="bg-light rounded mb-4 p-4">-->
+<!--        <form [formGroup]="couponForm" (ngSubmit)="applyCoupon()">-->
+<!--          <h5 class="mb-3">Have a Coupon?</h5>-->
+<!--          <div class="input-group">-->
+<!--            <input-->
+<!--              type="text"-->
+<!--              class="form-control p-3"-->
+<!--              formControlName="code"-->
+<!--              placeholder="Enter coupon code"-->
+<!--            />-->
+<!--            <button-->
+<!--              type="submit"-->
+<!--              class="btn btn-primary p-3"-->
+<!--              [disabled]="couponForm.invalid || isApplyingCoupon"-->
+<!--            >-->
+<!--              {{ isApplyingCoupon ? 'Applying...' : 'Apply Coupon' }}-->
+<!--            </button>-->
+<!--          </div>-->
+<!--          <div-->
+<!--            class="text-danger mt-2"-->
+<!--            *ngIf="couponForm.get('code')?.invalid && couponForm.get('code')?.touched"-->
+<!--          >-->
+<!--            Please enter a valid coupon code.-->
+<!--          </div>-->
+<!--        </form>-->
+<!--        <div-->
+<!--          class="text-success mt-2"-->
+<!--          *ngIf="discount > 0 && !isApplyingCoupon"-->
+<!--        >-->
+<!--          Coupon applied! You saved {{ discount | currency:'INR':'symbol':'1.0-0' }}.-->
+<!--        </div>-->
+<!--      </div>-->
       <!-- Coupon Section End -->
 
       <div class="bg-light rounded p-4">

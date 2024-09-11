@@ -28,6 +28,7 @@ import { PshyHormonesBlogComponent } from './Blogs/pshy-hormones-blog/pshy-hormo
 import { ProductsComponent } from './Services/products/products.component';
 import { CartComponent } from './Services/cart/cart.component';
 import { CheckoutComponent } from './Services/checkout/checkout.component';
+import { MyOrdersComponent } from './Services/my-orders/my-orders.component';
 
 
 import { SakhiyaComponent } from './Events/sakhiya/sakhiya.component';
@@ -43,7 +44,6 @@ import { SignupComponent } from './signup/signup.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth.guard'; // Adjust the path if necessary
 import { DonateComponent } from './donate/donate.component';
-import { MyOrdersComponent } from './Services/my-orders/my-orders.component';
 
 
 const routes: Routes = [
@@ -75,11 +75,11 @@ const routes: Routes = [
   { path: 'pshy-hormones-blog', component: PshyHormonesBlogComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
-  { path: 'products', component: ProductsComponent },
-  { path: 'cart', component: CartComponent, canActivate: [AuthGuard] },
-  { path: 'my_orders', component:MyOrdersComponent, canActivate:[AuthGuard]},
+  { path: 'products', component: ProductsComponent, },
+  { path: 'cart', component: CartComponent, canActivate: [AuthGuard], data: { role: 'CUSTOMER'} },
   { path: 'checkout', component: CheckoutComponent },
   { path:'donate',component:DonateComponent},
+  { path:'my-orders',component:MyOrdersComponent},
 
 
 

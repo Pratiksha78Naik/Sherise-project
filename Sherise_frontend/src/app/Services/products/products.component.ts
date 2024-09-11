@@ -173,7 +173,7 @@ export class ProductsComponent implements OnInit {
         console.error('Error adding product to cart:', error);
         Swal.fire({
           icon: 'error',
-          title: 'Failed to add product to cart',
+          title: 'you need to login first',
           text: error.message,
           confirmButtonText: 'Close'
         });
