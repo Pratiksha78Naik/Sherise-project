@@ -2,8 +2,11 @@ package com.backend.demo.services.razorpay;
 
 import com.razorpay.RazorpayClient;
 import com.razorpay.RazorpayException;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +30,7 @@ public class RazorpayServiceImpl implements RazorpayService {
         JSONObject orderRequest = new JSONObject();
         orderRequest.put("amount", amount * 100); // Amount in paise (1 INR = 100 paise)
         orderRequest.put("currency", "INR");
-        orderRequest.put("receipt", "order_rcptid_" + System.currentTimeMillis());
+        orderRequest.put("receipt", "order_RCPTT_" + System.currentTimeMillis());
 
         try {
             JSONObject orderResponse = client.Orders.create(orderRequest).toJson();
@@ -40,6 +43,8 @@ public class RazorpayServiceImpl implements RazorpayService {
             }
         } catch (RazorpayException e) {
             // Log the exception and rethrow it with additional context
+            Logger logger = LoggerFactory.getLogger(this.getClass());
+            logger.error("Error creating Razorpay order", e);
             throw new RazorpayException("Error creating Razorpay order: " + e.getMessage(), e);
         }
     }

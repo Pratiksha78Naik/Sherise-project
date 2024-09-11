@@ -26,7 +26,13 @@ export class PlaceOrderComponent implements OnInit {
 
   ngOnInit() {
     this.orderForm = this.fb.group({
-      address: [null, [Validators.required]],
+      plotNo: [null, [Validators.required]],
+      street: [null, [Validators.required]],
+      district: [null, [Validators.required]],
+      state: [null, [Validators.required]],
+      pinCode: [null, [Validators.required, Validators.pattern(/^\d{6}$/)]],
+      mobileNo: [null, [Validators.required, Validators.pattern(/^\d{10}$/)]],
+      email: [null, [Validators.required, Validators.email]],
       orderDescription: [null]
     });
 
@@ -39,6 +45,10 @@ export class PlaceOrderComponent implements OnInit {
       return;
     }
 
+    // Consolidate address fields into a single address field
+    const address = `${this.orderForm.value.plotNo}, ${this.orderForm.value.street}, ${this.orderForm.value.district}, ${this.orderForm.value.state} - ${this.orderForm.value.pinCode}, Mobile: ${this.orderForm.value.mobileNo}, Email: ${this.orderForm.value.email}`;
+
+    
     // Configure Razorpay options
     const options: any = {
       key: 'rzp_test_GbzMAhkysTbe34', // Replace with your Razorpay Key ID
@@ -47,12 +57,12 @@ export class PlaceOrderComponent implements OnInit {
       name: 'SheRise',
       description: 'Order Payment',
       handler: (response: any) => {
-        this.placeOrder(response.razorpay_payment_id); // Pass payment ID to the server
+        this.placeOrder(response.razorpay_payment_id, address); // Pass payment ID and address to the server
       },
       prefill: {
         name: '', // Optionally fill in with user details if available
-        email: '',
-        contact: ''
+        email: this.orderForm.value.email,
+        contact: this.orderForm.value.mobileNo
       },
       theme: {
         color: '#3399cc'
@@ -64,15 +74,21 @@ export class PlaceOrderComponent implements OnInit {
       }
     };
 
-    const rzp = new Razorpay(options);
-    rzp.open();
+    try {
+      const rzp = new Razorpay(options);
+      rzp.open();
+    } catch (error) {
+      console.error('Failed to initialize Razorpay:', error);
+      this.snackBar.open('Failed to initialize payment gateway', 'Close', { duration: 5000 });
+    }
   }
 
-  placeOrder(paymentId: string) {
+  placeOrder(paymentId: string, address: string) {
     const orderDto = {
       ...this.orderForm.value,
       paymentId: paymentId, // Attach Razorpay payment ID
-      amount: this.orderAmount // Attach the total amount
+      amount: this.orderAmount, // Attach the total amount
+      address: address // Attach the consolidated address
     };
 
     this.customerService.placeOrder(orderDto).subscribe({
@@ -82,7 +98,7 @@ export class PlaceOrderComponent implements OnInit {
           this.router.navigateByUrl("/my-orders");
           this.closeForm();
         } else {
-          this.snackBar.open("Something went wrong", "Close", { duration: 5000 });
+          this.snackBar.open("Unexpected response from server", "Close", { duration: 5000 });
         }
       },
       error: (err) => {

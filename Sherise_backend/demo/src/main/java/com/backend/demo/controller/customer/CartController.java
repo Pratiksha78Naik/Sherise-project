@@ -20,6 +20,7 @@ import java.util.List;
 public class CartController {
 
     private final CartService cartService;
+    private static final Logger logger = LoggerFactory.getLogger(CartController.class); // Initialize logger
 
     @PostMapping("/cart")
     public ResponseEntity<?> addProductToCart(@RequestBody AddProductInCartDto addProductInCartDto) {
@@ -36,18 +37,15 @@ public class CartController {
             return response;
         } catch (Exception e) {
             // Log the exception
-            System.err.println("Error adding product to cart: " + e.getMessage());
+            logger.error("Error adding product to cart", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while adding the product to the cart.");
         }
     }
 
-
-
     @GetMapping("/cart/{userId}")
-    public ResponseEntity<?> addProductToCart(@PathVariable Long userId){
+    public ResponseEntity<?> getCartByUserId(@PathVariable Long userId){
         OrderDto orderDto = cartService.getCartByUserId(userId);
         return ResponseEntity.status(HttpStatus.OK).body(orderDto);
-
     }
 
     @GetMapping("/coupon/{userId}/{code}")
@@ -55,64 +53,75 @@ public class CartController {
         try {
             OrderDto orderDto = cartService.applyCoupon(userId, code);
             return ResponseEntity.ok(orderDto);
-
-        }catch (ValidationException ex){
+        } catch (ValidationException ex) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
         }
     }
+
     @PostMapping("/addition")
     public ResponseEntity<OrderDto> increaseProductQuantity(@RequestBody AddProductInCartDto addProductInCartDto){
-        System.out.println("Received payload for addition: " + addProductInCartDto);
+        logger.info("Received payload for addition: {}", addProductInCartDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(cartService.increaseProductQuantity(addProductInCartDto));
     }
 
     @PostMapping("/deduction")
     public ResponseEntity<OrderDto> decreaseProductQuantity(@RequestBody AddProductInCartDto addProductInCartDto){
-        System.out.println("Received payload for deduction: " + addProductInCartDto);
+        logger.info("Received payload for deduction: {}", addProductInCartDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(cartService.decreaseProductQuantity(addProductInCartDto));
     }
 
     @PostMapping("/delete")
     public ResponseEntity<OrderDto> deleteProductFromCart(@RequestBody AddProductInCartDto addProductInCartDto) {
-        System.out.println("Received payload for delete: " + addProductInCartDto);
+        logger.info("Received payload for delete: {}", addProductInCartDto);
 
         OrderDto updatedOrder = cartService.deleteProductFromCart(addProductInCartDto);
 
         if (updatedOrder != null) {
-            return ResponseEntity.status(HttpStatus.OK).body(updatedOrder); // Use OK (200) status for successful deletion
+            return ResponseEntity.status(HttpStatus.OK).body(updatedOrder);
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); // Return 404 if the product or cart item is not found
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
-
-
 
     @PostMapping("/placeOrder")
     public ResponseEntity<?> placeOrder(@RequestBody PlaceOrderDto placeOrderDto) {
         try {
             // Validate the input DTO
             if (placeOrderDto.getUserId() == null) {
-                return ResponseEntity.badRequest().body("User ID is required.");
+                return ResponseEntity.badRequest().body(new ErrorResponse("User ID is required."));
             }
 
             // Delegate the placement to the service
-            ResponseEntity<?> response = cartService.placeOrder(placeOrderDto);
-
-            // Forward the response from the service method
-            return response;
+            return cartService.placeOrder(placeOrderDto);
         } catch (Exception e) {
-            // Log the exception using a logger
-            Logger logger = LoggerFactory.getLogger(this.getClass());
+            // Log the exception using the logger
             logger.error("Error placing order", e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while placing the order.");
+
+            // Return a generic error response
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ErrorResponse("An error occurred while placing the order."));
         }
     }
 
     @GetMapping("/myOrders/{userId}")
     public ResponseEntity<List<OrderDto>> getMyPlacedOrders(@PathVariable Long userId) {
-        // Calls the service to get the user's placed orders and returns them with an HTTP 200 OK status
         return ResponseEntity.ok(cartService.getMyPlacedOrders(userId));
     }
 
+    // Define ErrorResponse class
+    public static class ErrorResponse {
+        private String message;
 
+        public ErrorResponse(String message) {
+            this.message = message;
+        }
+
+        public String getMessage() {
+            return message;
+        }
+
+        public void setMessage(String message) {
+            this.message = message;
+        }
+    }
 }
