@@ -1,6 +1,5 @@
 package com.backend.demo.services.customer.cart;
 
-
 import com.backend.demo.Entity.*;
 import com.backend.demo.dto.AddProductInCartDto;
 import com.backend.demo.dto.CartItemsDto;
@@ -10,28 +9,28 @@ import com.backend.demo.enums.OrderStatus;
 import com.backend.demo.exceptions.ValidationException;
 import com.backend.demo.repository.*;
 import com.backend.demo.services.razorpay.RazorpayService;
+
 import com.razorpay.RazorpayException;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
-
+// Import Date and other necessary classes
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
 @Service
 public class CartServiceImpl implements CartService {
 
     @Autowired
     private OrderRepository orderRepository;
-
 
     @Autowired
     private UserRepository userRepository;
@@ -45,12 +44,13 @@ public class CartServiceImpl implements CartService {
     @Autowired
     private CouponRepository couponRepository;
 
-
     @Autowired
     private RazorpayService razorpayService;
 
+    @Autowired
+    private PlaceOrderMailService placeOrderMailService; // Added missing Autowired field
 
-
+    private static final Logger logger = LoggerFactory.getLogger(CartServiceImpl.class);
 
     public ResponseEntity<?> addProductToCart(AddProductInCartDto addProductInCartDto) {
         try {
@@ -74,12 +74,9 @@ public class CartServiceImpl implements CartService {
                 activeOrder = orderRepository.save(activeOrder);
             }
 
-            // Fetch the product and user
+            // Fetch the product
             Product product = productRepository.findById(addProductInCartDto.getProductId())
                     .orElseThrow(() -> new RuntimeException("Product not found"));
-
-            User user = userRepository.findById(addProductInCartDto.getUserId())
-                    .orElseThrow(() -> new RuntimeException("User not found"));
 
             // Check if the product is already in the cart for this order
             CartItems cartItem = cartItemsRepository.findByProductIdAndOrderIdAndUserId(
@@ -95,7 +92,7 @@ public class CartServiceImpl implements CartService {
                 cartItem.setProduct(product);
                 cartItem.setPrice(product.getPrice());
                 cartItem.setQuantity(1L);
-                cartItem.setUser(user);
+                cartItem.setUser(activeOrder.getUser());
                 cartItem.setOrder(activeOrder);
                 activeOrder.getCartItems().add(cartItem);
             }
@@ -109,7 +106,7 @@ public class CartServiceImpl implements CartService {
             return ResponseEntity.status(HttpStatus.CREATED).body("Product added to cart successfully.");
         } catch (Exception e) {
             // Log the exception for debugging
-            System.err.println("Error adding product to cart: " + e.getMessage());
+            logger.error("Error adding product to cart: {}", e.getMessage(), e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while adding the product to the cart.");
         }
     }
@@ -130,8 +127,11 @@ public class CartServiceImpl implements CartService {
         return trackingId;
     }
 
-    public OrderDto getCartByUserId(Long userId){
+    public OrderDto getCartByUserId(Long userId) {
         Order activeOrder = orderRepository.findByUserIdAndOrderStatus(userId, OrderStatus.Pending);
+        if (activeOrder == null) {
+            return null; // Or throw an exception if preferred
+        }
         List<CartItemsDto> cartItemsDtoList = activeOrder.getCartItems().stream().map(CartItems::getCartDto).collect(Collectors.toList());
         OrderDto orderDto = new OrderDto();
         orderDto.setAmount(activeOrder.getAmount());
@@ -140,53 +140,54 @@ public class CartServiceImpl implements CartService {
         orderDto.setDiscount(activeOrder.getDiscount());
         orderDto.setTotalAmount(activeOrder.getTotalAmount());
         orderDto.setCartItems(cartItemsDtoList);
-        if (activeOrder.getCoupon() != null){
+        if (activeOrder.getCoupon() != null) {
             orderDto.setCouponName(activeOrder.getCoupon().getName());
         }
 
         return orderDto;
-
     }
 
-    public OrderDto applyCoupon(Long userId, String code){
-
+    public OrderDto applyCoupon(Long userId, String code) {
         Order activeOrder = orderRepository.findByUserIdAndOrderStatus(userId, OrderStatus.Pending);
-        Coupon coupon =couponRepository.findByCode(code).orElseThrow(()-> new ValidationException("Coupon not found."));
+        if (activeOrder == null) {
+            throw new ValidationException("No active order found.");
+        }
+        Coupon coupon = couponRepository.findByCode(code).orElseThrow(() -> new ValidationException("Coupon not found."));
 
-        if (couponIsExpired(coupon)){
-            throw new ValidationException("Coupon has expried");
+        if (couponIsExpired(coupon)) {
+            throw new ValidationException("Coupon has expired.");
         }
 
-        double discountAmount = ((coupon.getDiscount()/ 100.0 * activeOrder.getTotalAmount()));
-
+        double discountAmount = ((coupon.getDiscount() / 100.0) * activeOrder.getTotalAmount());
         double netAmount = activeOrder.getTotalAmount() - discountAmount;
 
-        activeOrder.setAmount((long)netAmount);
-        activeOrder.setDiscount((long)discountAmount);
+        activeOrder.setAmount((long) netAmount);
+        activeOrder.setDiscount((long) discountAmount);
         activeOrder.setCoupon(coupon);
-
 
         orderRepository.save(activeOrder);
         return activeOrder.getOrderDto();
     }
 
-    private boolean couponIsExpired(Coupon coupon){
-        Date currentdate = new Date();
+    private boolean couponIsExpired(Coupon coupon) {
+        Date currentDate = new Date();
         Date expirationDate = coupon.getExpirationDate();
 
-        return expirationDate !=null && currentdate.after(expirationDate);
+        return expirationDate != null && currentDate.after(expirationDate);
     }
 
-    public OrderDto increaseProductQuantity(AddProductInCartDto addProductInCartDto){
+    public OrderDto increaseProductQuantity(AddProductInCartDto addProductInCartDto) {
         Order activeOrder = orderRepository.findByUserIdAndOrderStatus(addProductInCartDto.getUserId(), OrderStatus.Pending);
-        Optional<Product> optionalProduct = productRepository.findById(addProductInCartDto.getProductId());
+        if (activeOrder == null) {
+            throw new ValidationException("No active order found.");
+        }
 
+        Optional<Product> optionalProduct = productRepository.findById(addProductInCartDto.getProductId());
         Optional<CartItems> optionalCartItem = cartItemsRepository.findByProductIdAndOrderIdAndUserId(
                 addProductInCartDto.getProductId(), activeOrder.getId(), addProductInCartDto.getUserId()
         );
 
-        if (optionalProduct.isPresent() && optionalCartItem.isPresent()){
-
+        if (optionalProduct.isPresent() && optionalCartItem.isPresent()) {
             CartItems cartItem = optionalCartItem.get();
             Product product = optionalProduct.get();
 
@@ -195,29 +196,28 @@ public class CartServiceImpl implements CartService {
 
             cartItem.setQuantity(cartItem.getQuantity() + 1);
 
-            if (activeOrder.getCoupon() != null){
-
-                double discountAmount = ((activeOrder.getCoupon().getDiscount()/ 100.0 * activeOrder.getTotalAmount()));
-
+            if (activeOrder.getCoupon() != null) {
+                double discountAmount = ((activeOrder.getCoupon().getDiscount() / 100.0) * activeOrder.getTotalAmount());
                 double netAmount = activeOrder.getTotalAmount() - discountAmount;
 
-                activeOrder.setAmount((long)netAmount);
-                activeOrder.setDiscount((long)discountAmount);
+                activeOrder.setAmount((long) netAmount);
+                activeOrder.setDiscount((long) discountAmount);
             }
             cartItemsRepository.save(cartItem);
             orderRepository.save(activeOrder);
             return activeOrder.getOrderDto();
-
         }
 
         return null;
     }
 
     public OrderDto decreaseProductQuantity(AddProductInCartDto addProductInCartDto) {
-        // Find the active order for the user
         Order activeOrder = orderRepository.findByUserIdAndOrderStatus(addProductInCartDto.getUserId(), OrderStatus.Pending);
-        Optional<Product> optionalProduct = productRepository.findById(addProductInCartDto.getProductId());
+        if (activeOrder == null) {
+            throw new ValidationException("No active order found.");
+        }
 
+        Optional<Product> optionalProduct = productRepository.findById(addProductInCartDto.getProductId());
         Optional<CartItems> optionalCartItem = cartItemsRepository.findByProductIdAndOrderIdAndUserId(
                 addProductInCartDto.getProductId(), activeOrder.getId(), addProductInCartDto.getUserId()
         );
@@ -237,7 +237,7 @@ public class CartServiceImpl implements CartService {
                     double discountAmount = (activeOrder.getCoupon().getDiscount() / 100.0) * activeOrder.getTotalAmount();
                     double netAmount = activeOrder.getTotalAmount() - discountAmount;
 
-                    activeOrder.setAmount(Math.round(netAmount));  // Ensure rounding to avoid issues
+                    activeOrder.setAmount(Math.round(netAmount));
                     activeOrder.setDiscount(Math.round(discountAmount));
                 }
 
@@ -245,10 +245,7 @@ public class CartServiceImpl implements CartService {
                 orderRepository.save(activeOrder);
                 return activeOrder.getOrderDto();
             } else {
-                // If quantity is 1, consider removing the item or handle accordingly
-                // Here, you might want to either remove the item or set the quantity to 0
-                // I'll remove the item in this example:
-
+                // Remove the item if quantity is 1
                 cartItemsRepository.delete(cartItem);
                 activeOrder.setAmount(activeOrder.getAmount() - product.getPrice());
                 activeOrder.setTotalAmount(activeOrder.getTotalAmount() - product.getPrice());
@@ -270,12 +267,13 @@ public class CartServiceImpl implements CartService {
     }
 
     public OrderDto deleteProductFromCart(AddProductInCartDto addProductInCartDto) {
-        // Find the active order for the user
         Order activeOrder = orderRepository.findByUserIdAndOrderStatus(addProductInCartDto.getUserId(), OrderStatus.Pending);
-        Optional<Product> optionalProduct = productRepository.findById(addProductInCartDto.getProductId());
+        if (activeOrder == null) {
+            throw new ValidationException("No active order found.");
+        }
 
-        if (activeOrder != null && optionalProduct.isPresent()) {
-            // Find the cart item for this product
+        Optional<Product> optionalProduct = productRepository.findById(addProductInCartDto.getProductId());
+        if (optionalProduct.isPresent()) {
             Optional<CartItems> optionalCartItem = cartItemsRepository.findByProductIdAndOrderIdAndUserId(
                     addProductInCartDto.getProductId(), activeOrder.getId(), addProductInCartDto.getUserId()
             );
@@ -308,7 +306,6 @@ public class CartServiceImpl implements CartService {
         return null;
     }
 
-
     public ResponseEntity<?> placeOrder(PlaceOrderDto placeOrderDto) {
         try {
             // Find the active order for the user
@@ -324,29 +321,30 @@ public class CartServiceImpl implements CartService {
 
             // Generate a unique tracking ID
             UUID trackingId = UUID.randomUUID();
+            activeOrder.setTrackingId(trackingId);
 
             // Process payment through Razorpay
             JSONObject razorpayOrder = razorpayService.createOrder(activeOrder.getAmount());
-            JSONObject razorpayOrderJson = new JSONObject(razorpayOrder.toString());
-            String razorpayOrderId = razorpayOrderJson.getString("id"); // Extract Razorpay Order ID
+            String razorpayOrderId = razorpayOrder.getString("id"); // Extract Razorpay Order ID
 
             // Set the Razorpay Order ID and tracking ID in your Order entity
             activeOrder.setRazorpayOrderId(razorpayOrderId);
-            activeOrder.setTrackingId(trackingId);
 
             // Set date and payment details
             activeOrder.setDate(new Date()); // Set current date
             activeOrder.setPayment("Razorpay"); // Set payment type
 
-            // Update order status to 'Processing'
+            // Update order status to 'Placed'
             activeOrder.setOrderStatus(OrderStatus.Placed);
             orderRepository.save(activeOrder);
+
+            // Send order confirmation email
+            placeOrderMailService.sendOrderConfirmationEmail(activeOrder);
 
             // Return response with the tracking ID and other details
             return ResponseEntity.status(HttpStatus.CREATED).body("Order placed successfully. Tracking ID: " + trackingId.toString());
         } catch (RazorpayException | JSONException e) {
-            // Log the exception and return detailed error message
-            Logger logger = LoggerFactory.getLogger(this.getClass());
+            // Log the exception and return a detailed error message
             logger.error("Error occurred while placing the order", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred while placing the order: " + e.getMessage());
         }
@@ -363,9 +361,4 @@ public class CartServiceImpl implements CartService {
                 .collect(Collectors.toList());
     }
 
-
-
 }
-
-
-
