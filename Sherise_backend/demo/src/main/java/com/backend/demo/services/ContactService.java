@@ -5,10 +5,12 @@ import com.backend.demo.repository.ContactRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
     
 @Service
 @RequiredArgsConstructor
+@EnableAsync
 public class ContactService {
 
     private static final Logger logger = LoggerFactory.getLogger(ContactService.class);
