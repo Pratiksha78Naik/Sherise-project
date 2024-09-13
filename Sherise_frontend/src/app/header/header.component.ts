@@ -7,11 +7,17 @@ import { NavigationEnd, Router } from '@angular/router';
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
+
 })
 export class HeaderComponent implements OnInit {
   isCustomerLoggedIn: boolean = false;
   isAdminLoggedIn: boolean = false;
   showHeader: boolean = false;
+   userName: string | null = null; // Corrected property declaration
+     userProfilePicture: string = 'assets/images/slider/avatar-profile.svg'; // Default profile picture
+      // Added variable to manage dropdown visibility
+       dropdownVisible: boolean = false;
+
 
   constructor(
     private router: Router,
@@ -24,8 +30,18 @@ export class HeaderComponent implements OnInit {
         this.isCustomerLoggedIn = this.userStorageService.isCustomerLoggedIn();
         this.isAdminLoggedIn = this.userStorageService.isAdminLoggedIn();
         this.showHeader = !(event.url === '/login' || event.url === '/signup');
+
+          if (this.isCustomerLoggedIn || this.isAdminLoggedIn) {
+                   this.userName = this.userStorageService.getUserName(); // Get the user's name
+                 }
       }
     });
+  }
+
+
+  // Added method to toggle dropdown visibility
+  toggleDropdown(): void {
+    this.dropdownVisible = !this.dropdownVisible;
   }
 
   logout(): void {

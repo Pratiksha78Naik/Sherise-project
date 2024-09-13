@@ -17,40 +17,56 @@ import java.util.Optional;
 public class AdminController {
 
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     // Get all users
     @GetMapping("/users")
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public ResponseEntity<List<User>> getAllUsers() {
+        List<User> users = userRepository.findAll();
+        if (users.isEmpty()) {
+            return ResponseEntity.noContent().build();  // Return NO_CONTENT status for empty list
+        }
+        return ResponseEntity.ok(users);  // Return OK status with user list
     }
 
     // Get a user by ID
     @GetMapping("/users/{id}")
     public ResponseEntity<User> getUserById(@PathVariable("id") Long id) {
         Optional<User> user = userRepository.findById(id);
-        return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        return user.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
     // Create a new user
     @PostMapping("/users")
-    public User createUser(@RequestBody User user) {
-        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword())); // Ensure password is encoded
-        return userRepository.save(user);
+    public ResponseEntity<User> createUser(@RequestBody User user) {
+        // Ensure password is encoded
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        User savedUser = userRepository.save(user);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);  // Return CREATED status with saved user
     }
 
     // Update a user
     @PutMapping("/users/{id}")
     public ResponseEntity<User> updateUser(@PathVariable("id") Long id, @RequestBody User updatedUser) {
-        return userRepository.findById(id)
-                .map(user -> {
-                    user.setName(updatedUser.getName());
-                    user.setEmail(updatedUser.getEmail());
-                    user.setRole(updatedUser.getRole());
-                    user.setPassword(new BCryptPasswordEncoder().encode(updatedUser.getPassword()));
-                    user.setImg(updatedUser.getImg());
-                    return ResponseEntity.ok(userRepository.save(user));
-                })
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        Optional<User> userOptional = userRepository.findById(id);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            user.setName(updatedUser.getName());
+            user.setEmail(updatedUser.getEmail());
+            user.setRole(updatedUser.getRole());
+
+            // Only update the password if it's provided
+            if (updatedUser.getPassword() != null && !updatedUser.getPassword().isEmpty()) {
+                user.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
+            }
+
+            user.setImg(updatedUser.getImg());
+            userRepository.save(user);
+            return ResponseEntity.ok(user);  // Return OK status with updated user
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();  // Return NOT_FOUND status
+        }
     }
 
     // Delete a user
@@ -58,9 +74,9 @@ public class AdminController {
     public ResponseEntity<Void> deleteUser(@PathVariable("id") Long id) {
         if (userRepository.existsById(id)) {
             userRepository.deleteById(id);
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok().build();  // Return OK status without content
         } else {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();  // Return NOT_FOUND status
         }
     }
 }

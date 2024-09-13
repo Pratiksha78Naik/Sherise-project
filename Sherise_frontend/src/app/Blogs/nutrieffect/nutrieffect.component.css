@@ -1,100 +1,92 @@
-@media (max-width: 768px) {
-    .header h1 {
-        font-size: 2em;
-    }
-}
-@media (max-width: 576px) {
-    .header h1 {
-        font-size: 1.5em;
-    }
+.header-main {
+    padding: 30px;
+    font-size: 40px;
+    text-align: center;
+    background: url('/assets/images/blog/natural-remedies-art1.jpg') no-repeat center center;
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
 }
 
-.row {
+.content-wrapper {
     display: flex;
     flex-wrap: wrap;
     margin: 0 -15px;
 }
-.col {
+
+.main-column {
+    flex: 3;
+    padding: 15px;
+}
+
+.sidebar {
     flex: 1;
     padding: 15px;
 }
-.blog_image {
+
+.card {
+    background-color: white;
+    padding: 30px;
+    margin-top: 20px;
+    border-radius: 8px;
+    margin-left: 3%;
+}
+
+.subheading {
+    font-weight: 700;
+    color: #df4e4e;
+    margin-top: 20px;
+}
+
+.blog-list {
+    font-weight: 600;
+    color: rgba(36, 36, 38, 0.884);
+}
+
+.blog-image {
     width: 100%;
     height: auto;
     max-width: 100%;
-}
-.text-center {
-    text-align: center;
-}
-.w3-large {
-    font-size: 1.25em;
-    list-style: circle;
-}
-.w3-large li {
-    list-style: circle;
+    border-radius: 8px;
 }
 
-.head1 {
-    padding: 30px;
-    font-size: 40px;
-    text-align: center;
-    background: url('/assets/images/blog/M5-1660910497820.webp') no-repeat center center;
-    background-size: cover;
-    height: 100vh; 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;         }
-.head1 h2 {
-    color: #e6e6e6;
-}
-.leftcolumn {
-    float: left;
-    width: 75%;
-    padding: 2px;
-}
-.rightcolumn {
-    float: left;
-    width: 25%;
-    padding-left: 20px;
-    margin-top:4%;
-}
-.fakeimg {
+.image-container {
     background-color: #fdfdfd;
-    width: 100%;
-}
-.blog_image {
-    width: 60%;
-}
-
-.card1 {
-    background-color: white;
-    padding: 30px;
+    padding: 10px;
     margin-top: 20px;
-  
-} .card {
-    background-color: white;
-    padding: 100px;
-    margin-top: 20px;
-  
 }
 
-.row:after {
-    content: "";
-    display: table;
-    clear: both;
+/* Removing whitespace under <p> tags */
+p {
+    margin-bottom: 0;
 }
-.head2{
-    color: #111116;
-    font-weight: 700;
-}
-.card p{
-    font-weight:600;
-color: rgba(11, 11, 81, 0.884);
 
+/* Ensuring consistent heading styles */
+.subheading h2 {
+    color: #df4e4e;
 }
-.blog-con{
-font-weight:600;
-color: rgba(5, 5, 62, 0.884);
 
+@media (max-width: 768px) {
+    .header-main h1 {
+        font-size: 6em;
+    }
+
+    .content-wrapper {
+        flex-direction: column;
+    }
+
+    .main-column, .sidebar {
+        width: 100%;
+        padding: 0 15px;
+    }
 }
+
+@media (max-width: 576px) {
+    .header-main h1 {
+        font-size: 1.5em;
+    }
+}
+

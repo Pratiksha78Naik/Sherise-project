@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AdminService } from '../admin.service'; // Adjust the path as needed
+import Swal from 'sweetalert2'; // Using SweetAlert for better user experience
 
 @Component({
   selector: 'app-updateuser',
@@ -9,7 +10,7 @@ import { AdminService } from '../admin.service'; // Adjust the path as needed
 })
 export class UpdateuserComponent implements OnInit {
   userId!: number;
-  user: any = {}; // Define user model or interface
+  user: any = {}; // Define a proper user model if available
 
   constructor(
     private route: ActivatedRoute,
@@ -31,6 +32,7 @@ export class UpdateuserComponent implements OnInit {
       },
       error => {
         console.error('Error fetching user data:', error);
+        Swal.fire('Error', 'Could not fetch user details. Please try again later.', 'error');
       }
     );
   }
@@ -38,10 +40,13 @@ export class UpdateuserComponent implements OnInit {
   updateUser(): void {
     this.adminService.updateUser(this.userId, this.user).subscribe(
       () => {
-        this.router.navigate(['/admin/user']); // Redirect after successful update
+        Swal.fire('Success', 'User updated successfully.', 'success').then(() => {
+          this.router.navigate(['/admin/user']); // Redirect after successful update
+        });
       },
       error => {
         console.error('Error updating user:', error);
+        Swal.fire('Error', 'Could not update user. Please try again later.', 'error');
       }
     );
   }

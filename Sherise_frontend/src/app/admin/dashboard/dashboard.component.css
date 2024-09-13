@@ -1,0 +1,20 @@
+.card-img-top {
+    object-fit: cover;
+    height: 200px; /* Adjust height as needed */
+  }
+  .product-card {
+    display: flex;
+    flex-direction: column;
+  }
+  .actions a, .actions button {
+    margin-right: 5px;
+  }
+  .search-input .form-control {
+    border-radius: 0;
+  }
+  .search-input .btn {
+    border-radius: 0;
+  }
+  .info-row {
+    margin-bottom: 0.5rem;
+  }

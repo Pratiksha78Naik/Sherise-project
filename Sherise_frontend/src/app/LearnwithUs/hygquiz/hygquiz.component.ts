@@ -38,31 +38,7 @@ export class HygQuizComponent implements OnInit {
       options: ['10%', '20%', '50%', '70%'],
       answer: '70%',
     },
-    {
-      question: 'Which organization has been instrumental in promoting menstrual hygiene in India?',
-      options: ['World Wildlife Fund (WWF)', 'United Nations Childrens Fund (UNICEF)', 'World Health Organization (WHO)', 'International Monetary Fund (IMF)'],
-      answer: 'United Nations Childrens Fund (UNICEF)',
-    },
-    {
-      question: 'Which factor is essential for maintaining menstrual hygiene?',
-      options: ['Access to clean water and sanitation', 'Increased screen time', 'More recreational activities', 'Reduced intake of water'],
-      answer: 'Access to clean water and sanitation',
-    },
-    {
-      question: 'What is one effective method to reduce menstrual stigma in schools?',
-      options: ['Avoid discussing menstruation', 'Punishing girls who talk about menstruation', 'Comprehensive sex education including menstrual hygiene', 'Increasing school fees'],
-      answer: 'Comprehensive sex education including menstrual hygiene',
-    },
-    {
-      question: 'What impact does menstrual hygiene management have on girls education?',
-      options: ['It increases absenteeism', 'It promotes gender inequality', 'It improves attendance and participation', 'It reduces academic performance'],
-      answer: 'It improves attendance and participation',
-    },
-    {
-      question: 'Which of the following is a consequence of poor menstrual hygiene?',
-      options: ['Improved academic performance', 'Increased risk of infections', 'Better social status', 'Increased physical fitness'],
-      answer: 'Increased risk of infections',
-    },
+    
   
   ];
 

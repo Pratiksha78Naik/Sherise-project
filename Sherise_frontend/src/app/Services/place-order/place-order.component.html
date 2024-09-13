@@ -1,0 +1,169 @@
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-header">
+      <h4 class="card-title">Place Order</h4>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="orderForm" (ngSubmit)="handlePayment()">
+        <div class="row">
+          <!-- Plot Number Input Field -->
+          <div class="col-md-6 mb-3">
+            <label for="plotNo">Plot No</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              id="plotNo" 
+              formControlName="plotNo" 
+              placeholder="Enter plot number" 
+              [class.is-invalid]="orderForm.get('plotNo')?.invalid && orderForm.get('plotNo')?.touched"
+              required
+            >
+            <div *ngIf="orderForm.get('plotNo')?.invalid && orderForm.get('plotNo')?.touched" class="invalid-feedback">
+              Plot number is required!
+            </div>
+          </div>
+
+          <!-- Street Input Field -->
+          <div class="col-md-6 mb-3">
+            <label for="street">Street</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              id="street" 
+              formControlName="street" 
+              placeholder="Enter street" 
+              [class.is-invalid]="orderForm.get('street')?.invalid && orderForm.get('street')?.touched"
+              required
+            >
+            <div *ngIf="orderForm.get('street')?.invalid && orderForm.get('street')?.touched" class="invalid-feedback">
+              Street is required!
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <!-- District Input Field -->
+          <div class="col-md-6 mb-3">
+            <label for="district">District</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              id="district" 
+              formControlName="district" 
+              placeholder="Enter district" 
+              [class.is-invalid]="orderForm.get('district')?.invalid && orderForm.get('district')?.touched"
+              required
+            >
+            <div *ngIf="orderForm.get('district')?.invalid && orderForm.get('district')?.touched" class="invalid-feedback">
+              District is required!
+            </div>
+          </div>
+
+          <!-- State Input Field -->
+          <div class="col-md-6 mb-3">
+            <label for="state">State</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              id="state" 
+              formControlName="state" 
+              placeholder="Enter state" 
+              [class.is-invalid]="orderForm.get('state')?.invalid && orderForm.get('state')?.touched"
+              required
+            >
+            <div *ngIf="orderForm.get('state')?.invalid && orderForm.get('state')?.touched" class="invalid-feedback">
+              State is required!
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <!-- Pin Code Input Field -->
+          <div class="col-md-6 mb-3">
+            <label for="pinCode">Pin Code</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              id="pinCode" 
+              formControlName="pinCode" 
+              placeholder="Enter pin code" 
+              [class.is-invalid]="orderForm.get('pinCode')?.invalid && orderForm.get('pinCode')?.touched"
+              required
+            >
+            <div *ngIf="orderForm.get('pinCode')?.invalid && orderForm.get('pinCode')?.touched" class="invalid-feedback">
+              Valid pin code is required!
+            </div>
+          </div>
+
+          <!-- Mobile Number Input Field -->
+          <div class="col-md-6 mb-3">
+            <label for="mobileNo">Mobile No</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              id="mobileNo" 
+              formControlName="mobileNo" 
+              placeholder="Enter mobile number" 
+              [class.is-invalid]="orderForm.get('mobileNo')?.invalid && orderForm.get('mobileNo')?.touched"
+              required
+            >
+            <div *ngIf="orderForm.get('mobileNo')?.invalid && orderForm.get('mobileNo')?.touched" class="invalid-feedback">
+              Valid mobile number is required!
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <!-- Email Input Field -->
+          <div class="col-md-6 mb-3">
+            <label for="email">Email</label>
+            <input 
+              type="email" 
+              class="form-control" 
+              id="email" 
+              formControlName="email" 
+              placeholder="Enter email address" 
+              [class.is-invalid]="orderForm.get('email')?.invalid && orderForm.get('email')?.touched"
+              required
+            >
+            <div *ngIf="orderForm.get('email')?.invalid && orderForm.get('email')?.touched" class="invalid-feedback">
+              Valid email is required!
+            </div>
+          </div>
+
+          <!-- Order Description Input Field -->
+          <div class="col-md-6 mb-3">
+            <label for="orderDescription">Description</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              id="orderDescription" 
+              formControlName="orderDescription" 
+              placeholder="Enter description"
+            >
+          </div>
+        </div>
+
+        <!-- Amount Display -->
+        <div class="form-group mt-3">
+          <label for="amount">Amount</label>
+          <input 
+            type="text" 
+            class="form-control" 
+            id="amount" 
+            [value]="orderAmount | currency:'INR':'symbol':'1.0-0'" 
+            readonly
+          >
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="mt-4 d-flex justify-content-between">
+          <button type="submit" class="btn btn-primary" [disabled]="orderForm.invalid">
+            Pay and Order
+          </button>
+          <button type="button" class="btn btn-danger" (click)="closeForm()">Close</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

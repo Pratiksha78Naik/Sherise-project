@@ -20,20 +20,21 @@
               <li>
                 <small>Follow Us</small>:
               </li>
-              <li><i class="fab fa-facebook-square"></i></li>
+              <li><a href="https://wa.me/yourphonenumber"><i class="fab fa-whatsapp"></i></a></li> <!-- WhatsApp icon -->
               <li><i class="fab fa-twitter-square"></i></li>
               <li><a href="https://www.instagram.com/sherise_development?igsh=N3FtNWNrMWtkOGVo"><i class="fab fa-instagram"></i></a></li>
-              <li><i class="fab fa-linkedin"></i></li>
+
             </ul>
           </div>
           <div class="col-lg-3 d-none d-md-block col-md-6 btn-bhed">
             <a class="link-spacing" routerLink="/login" tabindex="0">Login</a>
-            <a routerLink="#" tabindex="0">Donate</a>
+            <a routerLink="/donate" tabindex="0" class="me-3">Donate</a>
+           <a routerLink="/cart"> <img src="assets/images/trolley.png" alt="" style="height: 25px;"></a>
           </div>
         </div>
       </div>
     </div>
-  
+
     <div id="menu-jk" class="header-bottom">
       <div class="container">
         <div class="row nav-row">
@@ -83,6 +84,8 @@
               <li class="nav-item">
                 <a class="nav-link" routerLink="/contact" tabindex="0">Contact US</a>
               </li>
+
+
             </ul>
           </div>
         </div>
@@ -90,11 +93,14 @@
     </div>
   </header>
 
-  
- 
 
-    <mat-toolbar *ngIf="showHeader && isAdminLoggedIn">
-      <span class="navbar-brand">Sherise - Admin</span>
+
+
+
+
+
+
+    <mat-toolbar *ngIf="showHeader && isAdminLoggedIn" class="toolbar">
     <a routerLink="/index">
       <img src="assets/images/logo-no-background.png" alt="" style="height: 80px;">
     </a>
@@ -104,12 +110,20 @@
     <span class="navbar-brand">Admin</span>
 
     <span class="spacer"></span>
+
+      <span class="user-name" *ngIf="userName"> welcome,{{ userName }}</span>
+
     <button mat-button routerLink="/admin/dashboard" routerLinkActive="active">Dashboard</button>
     <button mat-button routerLink="/admin/category" routerLinkActive="active">Category</button>
+      <button mat-button routerLink="/admin/product" routerLinkActive="active">Product Add</button>
+      <button mat-button routerLink="/admin/orders" routerLinkActive="active">Orders</button>
     <button mat-button routerLink="/admin/user" routerLinkActive="active">Users</button>
+
     <button mat-button (click)="logout()">Logout</button>
   </mat-toolbar>
-  
+
+
+
 
 
   <header class="continer-fluid mb-3" *ngIf="isCustomerLoggedIn" color="primary">
@@ -162,13 +176,40 @@
               <li class="nav-item">
                 <a class="nav-link" routerLink="/contact" tabindex="0">Contact US</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-item" (click)="logout()" tabindex="0">Logout</a>
-              </li>
+
+
+
+              <div class="profile-container d-flex align-items-center justify-content-end">
+                <div class="dropdown">
+                  <img [src]="userProfilePicture" alt="Profile Picture" class="profile-icon dropdown-toggle" (click)="toggleDropdown()" />
+                  <div class="dropdown-menu" [ngClass]="{'show': dropdownVisible}">
+                    <a class="dropdown-item">Welcome, {{ userName }}</a>
+                    <a class="dropdown-item" (click)="logout()">Logout</a>
+                  </div>
+                </div>
+              </div>
             </ul>
+
+
+
+
+
+
+
+
+
+
+
           </div>
+
+
+
+
+
+
         </div>
+
+
       </div>
     </div>
   </header>
-  

@@ -6,7 +6,7 @@
 }
 
 .carousel-item img {
-    max-height: 700px;
+    max-height: 580px;
     object-fit: cover;
     width: 100%;
 }
@@ -111,3 +111,4 @@
 .container p {
 text-align: justify;
 }
+
