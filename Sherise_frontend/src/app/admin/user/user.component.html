@@ -16,7 +16,7 @@
       <td>{{ user.role }}</td>
       <td>
         <!-- Update button with routerLink to navigate to update page -->
-        <a class="btn btn-primary btn-sm" [routerLink]="['/admin/user/update', user.id]" role="button">Update</a>
+        <a class="btn btn-primary btn-sm" [routerLink]="['/admin/user', user.id]" role="button">Update</a>
         <!-- Delete button with confirmation dialog -->
         <button class="btn btn-danger btn-sm" (click)="deleteUser(user.id)">Delete</button>
       </td>

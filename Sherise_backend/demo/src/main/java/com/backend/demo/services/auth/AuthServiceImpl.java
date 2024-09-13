@@ -8,10 +8,13 @@ import com.backend.demo.repository.UserRepository;
 // Import SignupEmailService
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
+@EnableAsync
 public class AuthServiceImpl implements AuthService {
 
     @Autowired
@@ -59,6 +62,7 @@ public class AuthServiceImpl implements AuthService {
             userRepository.save(user);
         }
     }
+
 
     @Override
     public void sendThankYouEmail(String email) {

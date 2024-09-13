@@ -5,10 +5,12 @@ import com.backend.demo.repository.SubscriberRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@EnableAsync
 public class SubscriberService {
 
     private static final Logger logger = LoggerFactory.getLogger(SubscriberService.class);

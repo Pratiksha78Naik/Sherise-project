@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-contact',
@@ -21,19 +22,37 @@ export class ContactComponent {
     });
   }
 
-  onSubmit() {
+ onSubmit() {
     if (this.contactForm.valid) {
       this.http.post(this.apiUrl, this.contactForm.value).subscribe(
         response => {
-          this.submissionMessage = 'Message sent successfully!';
+          // SweetAlert success popup
+          Swal.fire({
+            title: 'Success!',
+            text: 'Message sent successfully!',
+            icon: 'success',
+            confirmButtonText: 'OK'
+          });
           this.contactForm.reset();
         },
         error => {
-          this.submissionMessage = 'Error sending message. Please try again later.';
+          // SweetAlert error popup
+          Swal.fire({
+            title: 'Error!',
+            text: 'Error sending message. Please try again later.',
+            icon: 'error',
+            confirmButtonText: 'OK'
+          });
         }
       );
     } else {
-      this.submissionMessage = 'Please fill out the form correctly.';
+      // SweetAlert validation error popup
+      Swal.fire({
+        title: 'Form Incomplete',
+        text: 'Please fill out the form correctly.',
+        icon: 'warning',
+        confirmButtonText: 'OK'
+      });
     }
   }
 }

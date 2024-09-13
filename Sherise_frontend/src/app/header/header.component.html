@@ -184,6 +184,8 @@
                   <img [src]="userProfilePicture" alt="Profile Picture" class="profile-icon dropdown-toggle" (click)="toggleDropdown()" />
                   <div class="dropdown-menu" [ngClass]="{'show': dropdownVisible}">
                     <a class="dropdown-item">Welcome, {{ userName }}</a>
+                    <a class="dropdown-item" routerLink="/cart" >Cart</a>
+                    <a class="dropdown-item" routerLink="/my-orders" >Orders</a>
                     <a class="dropdown-item" (click)="logout()">Logout</a>
                   </div>
                 </div>
