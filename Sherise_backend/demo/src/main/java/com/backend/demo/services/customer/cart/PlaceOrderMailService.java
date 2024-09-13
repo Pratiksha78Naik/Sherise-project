@@ -1,4 +1,4 @@
-package com.backend.demo.services.mail;
+package com.backend.demo.services.customer.cart;
 
 import com.backend.demo.Entity.Order;
 import com.backend.demo.Entity.User;

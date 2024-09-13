@@ -2,6 +2,8 @@ package com.backend.demo.Entity;
 
 import com.backend.demo.dto.OrderDto;
 import com.backend.demo.enums.OrderStatus;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -27,21 +29,24 @@ public class Order {
     private Long totalAmount;
     private Long discount;
 
-    @Column(unique = true)  // Ensure trackingId is unique
+    @Column(unique = true)
     private UUID trackingId;
 
     private String razorpayOrderId;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)  // Changed from OneToOne to ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User user;  // Ensure User entity has a matching id column
+    @JsonBackReference
+    private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = true)  // Changed from OneToOne to ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "coupon_id", referencedColumnName = "id")
-    private Coupon coupon;  // Ensure Coupon entity has a matching id column
+    @JsonManagedReference
+    private Coupon coupon;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CartItems> cartItems;  // Ensure CartItems entity has a matching order field
+    @JsonManagedReference
+    private List<CartItems> cartItems;
 
     public OrderDto getOrderDto() {
         OrderDto orderDto = new OrderDto();
