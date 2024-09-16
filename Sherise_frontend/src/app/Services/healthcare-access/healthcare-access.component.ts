@@ -2,8 +2,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AppointmentService } from '../backend_services/appointment.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-healthcare-access',
   templateUrl: './healthcare-access.component.html',
@@ -16,8 +17,7 @@ export class HealthcareAccessComponent {
   constructor(
     private appointmentService: AppointmentService,
     private fb: FormBuilder,
-    private snackBar: MatSnackBar,  // Injected MatSnackBar
-    private router: Router           // Injected Router
+    private router: Router  // Injected Router
   ) {}
 
   ngOnInit() {
@@ -33,13 +33,23 @@ export class HealthcareAccessComponent {
       const headers = new HttpHeaders().set('Authorization', 'Bearer YOUR_TOKEN_HERE');
       this.appointmentService.postAppointment(this.postAppointmentForm.value, { headers }).subscribe(
         (res) => {
-          this.snackBar.open('Appointment booked successfully!', 'Close', { duration: 5000 });
-          location.reload();
+          // Success SweetAlert notification
+          Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: 'Appointment booked successfully!',
+            confirmButtonText: 'OK'
+          }).then(() => {
+            location.reload();  // Reload the page after success
+          });
         },
         (err) => {
-          this.snackBar.open('Appointment booking failed. Please try again.', 'Close', {
-            duration: 5000,
-            panelClass: 'error-snackbar'
+          // Error SweetAlert notification
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Appointment booking failed. Please try again.',
+            confirmButtonText: 'OK'
           });
         }
       );

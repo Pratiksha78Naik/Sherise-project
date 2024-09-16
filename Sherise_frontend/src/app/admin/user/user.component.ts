@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../admin.service';
+import Swal from 'sweetalert2'; // Using SweetAlert for better user experience
 
 @Component({
   selector: 'app-user',
@@ -7,8 +8,7 @@ import { AdminService } from '../admin.service';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
-
-  users: any[] = [];
+  users: any[] = []; // Use any[] to match your service response type
 
   constructor(private adminService: AdminService) {}
 
@@ -18,40 +18,50 @@ export class UserComponent implements OnInit {
 
   getAllUsers(): void {
     this.adminService.getAllUsers().subscribe(
-      (res: any) => {
-        console.log('Users fetched successfully:', res);
+      (res: any[]) => { // Adjust the type to any[] if no specific model is used
         this.users = res;
       },
       (error: any) => {
-        console.error('Error fetching users:', error);
+        Swal.fire('Error', 'Could not fetch users. Please try again later.', 'error');
       }
     );
   }
 
   deleteUser(id: number): void {
-    console.log('Deleting user with ID:', id);
-    this.adminService.deleteUser(id).subscribe(
-      (res: any) => {
-        console.log('User deleted successfully:', res);
-        // Refresh the user list after deletion
-        this.getAllUsers();
-      },
-      (error: any) => {
-        console.error('Error deleting user:', error);
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You won\'t be able to revert this!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, keep it'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.adminService.deleteUser(id).subscribe(
+          () => {
+            Swal.fire('Deleted!', 'User has been deleted.', 'success');
+            this.users = this.users.filter(user => user.id !== id);
+          },
+          (error: any) => {
+            Swal.fire('Error', 'User could not be deleted.', 'error');
+          }
+        );
       }
-    );
-  }
-  updateUser(id: number, updatedData: any): void {
-    this.adminService.updateUser(id, updatedData).subscribe(
-      (res) => {
-        console.log('User updated successfully:', res);
-        // Optionally, refresh the user list or handle UI updates
-        this.getAllUsers();
-      },
-      (error: any) => {
-        console.error('Error updating user:', error);
-      }
-    );
+    });
   }
 
+  updateUser(id: number, updatedData: any): void { // Use any for updatedData
+    this.adminService.updateUser(id, updatedData).subscribe(
+      () => {
+        Swal.fire('Updated!', 'User has been updated successfully.', 'success');
+        const index = this.users.findIndex(user => user.id === id);
+        if (index !== -1) {
+          this.users[index] = { ...this.users[index], ...updatedData }; // Update the local array
+        }
+      },
+      (error: any) => {
+        Swal.fire('Error', 'User could not be updated.', 'error');
+      }
+    );
+  }
 }

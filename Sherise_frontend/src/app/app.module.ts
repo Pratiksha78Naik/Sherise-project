@@ -53,6 +53,9 @@ import { LoginComponent } from './login/login.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { DemoAngularMaterialModule } from './DemoAngularMaterial';
 import { SignupComponent } from './signup/signup.component';
+import { PlaceOrderComponent } from './Services/place-order/place-order.component';
+import { DonateComponent } from './donate/donate.component';
+import { MyOrdersComponent } from './Services/my-orders/my-orders.component';
 
 
 @NgModule({
@@ -103,7 +106,10 @@ import { SignupComponent } from './signup/signup.component';
     HygQuizComponent,
     AccessibilityComponent,
     SignupComponent,
-    LoginComponent
+    LoginComponent,
+    PlaceOrderComponent,
+    DonateComponent,
+    MyOrdersComponent
 
   ],
   imports: [

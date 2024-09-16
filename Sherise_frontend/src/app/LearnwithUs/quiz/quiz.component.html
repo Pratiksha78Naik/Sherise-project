@@ -11,7 +11,7 @@
       <button (click)="checkAnswer()" class="button">Next</button>
     </div>
     <ng-template #resultTemplate>
-      <div id="result" class="result">
+      <div id="result" class="result mb-5">
         You scored {{ score }} out of {{ quizData.length }}!
         <div *ngIf="incorrectAnswers.length">
           <p>Incorrect Answers:</p>
@@ -22,8 +22,8 @@
             </p>
           </div>
         </div>
-        <button (click)="retryQuiz()" class="button">Retry</button>
-        <button (click)="showAnswer()" class="button" *ngIf="!showingAnswers">Show Answer</button>
+        <button (click)="retryQuiz()" class="button mt-3">Retry</button>
+    
       </div>
     </ng-template>
   </div>

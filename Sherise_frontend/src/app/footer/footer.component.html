@@ -1,4 +1,5 @@
 
+
 <footer class="footer mt-5"  *ngIf="showFooter">
     <div class="container">
         <div class="row">
@@ -35,10 +36,10 @@
                 <div class="footer-column">
             
                  
-                    <form class="subscribe-form">
-                        <input type="email" placeholder="Enter your email ID">
+                    <form class="subscribe-form" (submit)="onSubscribe()">
+                        <input type="email" placeholder="Enter your email ID" [(ngModel)]="subscriberEmail" name="email" required>
                         <button type="submit">Subscribe</button>
-                    </form>
+                      </form>
                 </div>
                 <div id="google_translate_element"></div>
             </div>
@@ -56,12 +57,18 @@
             <a routerLink="">2015 &copy; All Rights Reserved | Designed and Developed by SheRise</a>
 
             <span>
-            <a><i class="fab fa-github"></i></a>
-            <a><i class="fab fa-google-plus-g"></i></a>
-            <a><i class="fab fa-pinterest-p"></i></a>
-            <a><i class="fab fa-twitter"></i></a>
-            <a><i class="fab fa-facebook-f"></i></a>
+                <a href="https://twitter.com/yourusername" target="_blank" aria-label="Follow us on Twitter">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="https://wa.me/yourphonenumber" target="_blank" aria-label="Chat with us on WhatsApp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="https://www.instagram.com/sherise_development?igsh=N3FtNWNrMWtkOGVo" target="_blank" aria-label="Follow us on Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                
     </span>
         </div>
-
+       
+        
     </div>

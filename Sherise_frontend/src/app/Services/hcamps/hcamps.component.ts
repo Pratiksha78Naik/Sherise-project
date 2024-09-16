@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
+import Swal from 'sweetalert2';  // Import SweetAlert
 
 @Component({
   selector: 'app-hcamps',
@@ -11,7 +12,7 @@ export class HcampsComponent {
   questionFormData = {
     name: '',
     email: '',
-    question: ''  // This is the field used in the question submission form
+    question: ''  // Field used for question submission
   };
 
   registrationFormData = {
@@ -28,10 +29,23 @@ export class HcampsComponent {
   onQuestionSubmit() {
     this.submitQuestionForm(this.questionFormData).subscribe({
       next: (response: any) => {
-        console.log('Question submitted successfully!', response);
+        // SweetAlert Success Message for Question Submission
+        Swal.fire({
+          icon: 'success',
+          title: 'Question Submitted!',
+          text: 'Thank you for submitting your question.',
+          confirmButtonText: 'OK'
+        });
         this.resetQuestionForm();
       },
       error: (error: HttpErrorResponse) => {
+        // SweetAlert Error Message for Question Submission
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: 'Failed to submit your question. Please try again later.',
+          confirmButtonText: 'OK'
+        });
         console.error('Error submitting question!', error);
       }
     });
@@ -40,10 +54,23 @@ export class HcampsComponent {
   onRegistrationSubmit() {
     this.submitRegistrationForm(this.registrationFormData).subscribe({
       next: (response: any) => {
-        console.log('Registration submitted successfully!', response);
+        // SweetAlert Success Message for Registration Submission
+        Swal.fire({
+          icon: 'success',
+          title: 'Registration Successful!',
+          text: 'You have successfully registered for the workshop.',
+          confirmButtonText: 'OK'
+        });
         this.resetRegistrationForm();
       },
       error: (error: HttpErrorResponse) => {
+        // SweetAlert Error Message for Registration Submission
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: 'Failed to register for the workshop. Please try again later.',
+          confirmButtonText: 'OK'
+        });
         console.error('Error submitting registration!', error);
       }
     });
@@ -79,7 +106,7 @@ export class HcampsComponent {
     this.registrationFormData = {
       name: '',
       email: '',
-      workshop:''
-};
-}
+      workshop: ''
+    };
+  }
 }

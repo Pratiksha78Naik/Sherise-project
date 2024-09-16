@@ -1,0 +1,31 @@
+.status-line {
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    color: #fff;
+    text-align: center;
+  }
+  
+  .label-primary {
+    background-color: #007bff; /* Blue */
+  }
+  
+  .label-info {
+    background-color: #17a2b8; /* Light Blue */
+  }
+  
+  .label-success {
+    background-color: #28a745; /* Green */
+  }
+  
+  .label-danger {
+    background-color: #dc3545; /* Red */
+  }
+  
+  .label-default {
+    background-color: #6c757d; /* Gray */
+  }
+  
+  
+  .container{
+    margin-top: 200PX;
+  }

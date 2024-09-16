@@ -1,35 +1,25 @@
-<button class="btn-new"></button>
-
-
-<table>
-  <thead>
+<table class="table table-bordered table-striped">
+  <thead class="thead-dark">
     <tr>
       <th>Id</th>
       <th>Name</th>
       <th>Email</th>
-
       <th>Role</th>
       <th>Action</th>
-
-
     </tr>
   </thead>
-
-
   <tbody>
     <tr *ngFor="let user of users">
-      <td>{{user.id}}</td>
-      <td>{{user.name}}</td>
-      <td>{{user.email}}</td>
-
-      <td>{{user.role}}</td>
+      <td>{{ user.id }}</td>
+      <td>{{ user.name }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.role }}</td>
       <td>
-        <button class="btn-update" [routerLink]="['/admin/user', user.id]">Update</button>
-        <button class="btn-delete" (click)="deleteUser(user.id)">Delete</button>
+        <!-- Update button with routerLink to navigate to update page -->
+        <a class="btn btn-primary btn-sm" [routerLink]="['/admin/user', user.id]" role="button">Update</a>
+        <!-- Delete button with confirmation dialog -->
+        <button class="btn btn-danger btn-sm" (click)="deleteUser(user.id)">Delete</button>
       </td>
-
     </tr>
   </tbody>
 </table>
-
-

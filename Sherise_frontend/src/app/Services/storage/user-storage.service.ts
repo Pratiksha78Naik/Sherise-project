@@ -43,10 +43,19 @@ export class UserStorageService {
     return null;
   }
 
+ 
   public getUserId(): string {
     const user = this.getUser();
-    return user ? user.userId : '';
+    return user ? user.UserId : ''; // Use UserId with capital "U"
   }
+
+
+  public getUserName(): string {
+    const user = this.getUser();
+    return user ? user.name : '';
+  }
+
+
 
   public getUserRole(): string {
     const user = this.getUser();

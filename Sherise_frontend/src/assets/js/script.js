@@ -92,8 +92,7 @@ function toggleAccordion(element) {
         content.style.display = "block";
         icon.innerHTML = "&#9652;";
     }
-}// Initialization for ES Users
-
+}
 
 
 
