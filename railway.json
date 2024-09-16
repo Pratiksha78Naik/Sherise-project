@@ -1,4 +1,4 @@
-ise{
+{
   "build": {
     "command": "cd Sherise_backend && ./mvnw clean package"
   },
