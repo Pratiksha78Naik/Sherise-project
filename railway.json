@@ -1,8 +1,0 @@
-{
-  "build": {
-    "command": "cd Sherise_backend && ./mvnw clean package"
-  },
-  "start": {
-    "command": "cd Sherise_backend && java -jar target/demo-0.0.1-SNAPSHOT.jar"
-  }
-}
