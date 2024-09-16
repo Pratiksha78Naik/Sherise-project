@@ -1,8 +1,8 @@
-{
+ise{
   "build": {
-    "command": "cd backend && ./mvnw clean package"
+    "command": "cd Sherise_backend && ./mvnw clean package"
   },
   "start": {
-    "command": "cd backend && java -jar target/demo-0.0.1-SNAPSHOT.jar"
+    "command": "cd Sherise_backend && java -jar target/demo-0.0.1-SNAPSHOT.jar"
   }
 }
