@@ -1,0 +1,4 @@
+{
+  "build": "cd backend && ./mvnw clean package",  // Adjust this to your build command
+  "start": "cd backend && java -jar target/your-backend-jar-file.jar"  // Adjust this to your start command
+}
