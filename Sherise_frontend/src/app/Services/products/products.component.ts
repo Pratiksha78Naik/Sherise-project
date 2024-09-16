@@ -1,27 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import Swal from 'sweetalert2'; // Import SweetAlert2
+import Swal from 'sweetalert2';
 import { CustomerService } from '../customer.service';
 import { UserStorageService } from '../storage/user-storage.service';
 import { Router } from '@angular/router';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
-  selector: 'app-products',
-  templateUrl: './products.component.html',
-  styleUrls: ['./products.component.css']
+selector: 'app-products',
+templateUrl: './products.component.html',
+styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements OnInit {
-  products: any[] = [];
-  searchProductForm!: FormGroup;
-  listofCategories: any[] = [];
-  userId: string | null = null;
-  selectedCategoryId: number | null = null;
+products: any[] = [];
+searchProductForm!: FormGroup;
+listofCategories: any[] = [];
+userId: string | null = null;
+selectedCategoryId: number | null = null;
 
-  constructor(
+constructor(
     private customerService: CustomerService,
     private fb: FormBuilder,
     private userStorageService: UserStorageService,
-    private router: Router
+    private router: Router,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
   ngOnInit() {
@@ -39,6 +41,22 @@ export class ProductsComponent implements OnInit {
     });
   }
 
+  private handleError(error: any) {
+    if (isPlatformBrowser(this.platformId)) {
+      // Browser-specific error handling
+      console.error('Client-side error:', error.message);
+    } else {
+      // Server-side error handling
+      console.error('Server-side error:', error.message);
+    }
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: error.message || 'An error occurred.',
+      confirmButtonText: 'Close'
+    });
+  }
+
   getAllProducts() {
     this.products = [];
     this.customerService.getAllProducts().subscribe(
@@ -51,15 +69,7 @@ export class ProductsComponent implements OnInit {
         });
         console.log(this.products);
       },
-      error => {
-        console.error('Error fetching products', error);
-        Swal.fire({
-          icon: 'error',
-          title: 'Failed to load products',
-          text: error.message,
-          confirmButtonText: 'Close'
-        });
-      }
+      error => this.handleError(error)
     );
   }
 
@@ -77,15 +87,7 @@ export class ProductsComponent implements OnInit {
           });
           console.log(this.products);
         },
-        error => {
-          console.error('Error searching for products', error);
-          Swal.fire({
-            icon: 'error',
-            title: 'Failed to search for products',
-            text: error.message,
-            confirmButtonText: 'Close'
-          });
-        }
+        error => this.handleError(error)
       );
     } else {
       Swal.fire({
@@ -103,15 +105,7 @@ export class ProductsComponent implements OnInit {
         this.listofCategories = res;
         console.log('Fetched Categories:', this.listofCategories);
       },
-      error => {
-        console.error('Error fetching categories', error);
-        Swal.fire({
-          icon: 'error',
-          title: 'Failed to load categories',
-          text: error.message,
-          confirmButtonText: 'Close'
-        });
-      }
+      error => this.handleError(error)
     );
   }
 
@@ -133,15 +127,7 @@ export class ProductsComponent implements OnInit {
         });
         console.log(this.products);
       },
-      error => {
-        console.error('Error fetching products by category', error);
-        Swal.fire({
-          icon: 'error',
-          title: 'Failed to load products by category',
-          text: error.message,
-          confirmButtonText: 'Close'
-        });
-      }
+      error => this.handleError(error)
     );
   }
 
@@ -169,15 +155,7 @@ export class ProductsComponent implements OnInit {
           });
         }
       },
-      error => {
-        console.error('Error adding product to cart:', error);
-        Swal.fire({
-          icon: 'error',
-          title: 'you need to login first',
-          text: error.message,
-          confirmButtonText: 'Close'
-        });
-      }
+      error => this.handleError(error)
     );
   }
 }
