@@ -4,7 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { UserStorageService } from './storage/user-storage.service';
 
-const BASIC_URL = "http://localhost:8080/";
+const BASIC_URL = "https://sherise-app-latest.onrender.com";
 
 @Injectable({
   providedIn: 'root'
@@ -43,12 +43,12 @@ export class CustomerService {
       productId: productId,
       userId: userId
     };
-  
+
     if (!userId) {
       console.error('User ID is not available.');
       return throwError(() => new Error('User ID is missing'));
     }
-  
+
     return this.http.post(`${BASIC_URL}api/customer/cart`, cartDto, {
       headers: this.createAuthorizationHeader(),
       observe: 'response', // Get the full HTTP response
@@ -66,7 +66,7 @@ export class CustomerService {
       catchError(this.handleError)
     );
   }
-  
+
 
   increaseProductQuantity(productId: number): Observable<any> {
     const userId = this.userStorageService.getUserId();
@@ -157,14 +157,14 @@ export class CustomerService {
 
   placeOrder(orderDto: any): Observable<any> {
     const userId = this.userStorageService.getUserId();
-  
+
     if (!userId) {
       console.error('User ID is not available.');
       return throwError(() => new Error('User ID is missing'));
     }
-  
+
     orderDto.userId = userId;
-  
+
     return this.http.post<any>(`${BASIC_URL}api/customer/placeOrder`, orderDto, {
       headers: this.createAuthorizationHeader(),
     }).pipe(
@@ -182,7 +182,7 @@ export class CustomerService {
       })
     );
   }
-  
+
   private initiateRazorpayPayment(orderId: string, amount: number) {
     const options = {
       key: 'rzp_test_GbzMAhkysTbe34', // Replace with your Razorpay key
@@ -211,27 +211,27 @@ export class CustomerService {
         }
       }
     };
-  
+
     const paymentObject = new Razorpay(options);
     paymentObject.open();
   }
-  
+
 
   getOrdersByUserId(): Observable<any> {
     const userId = this.userStorageService.getUserId();
-    
+
     if (!userId) {
       console.error('User ID is not available.');
       return throwError(() => new Error('User ID is missing'));
     }
-  
+
     return this.http.get(`${BASIC_URL}api/customer/myOrders/${userId}`, {
       headers: this.createAuthorizationHeader(),
     }).pipe(
       catchError(this.handleError)
     );
   }
-  
+
 
   getAllCategory(): Observable<any> {
     return this.http.get<any>(`${BASIC_URL}api/admin/categories`, {
@@ -261,13 +261,13 @@ export class CustomerService {
 
   private handleError(error: HttpErrorResponse): Observable<never> {
     let errorMessage = 'An unknown error occurred!';
-    
+
     if (error.error instanceof ErrorEvent) {
       errorMessage = `Client-side error: ${error.error.message}`;
     } else {
       errorMessage = `Server-side error: ${error.status} - ${error.message || 'No error message'}`;
     }
-    
+
     console.error(errorMessage, error);
     return throwError(() => new Error(errorMessage));
   }

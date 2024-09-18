@@ -4,7 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { UserStorageService } from '../Services/storage/user-storage.service';
 
-const BASIC_URL = "http://localhost:8080/";
+const BASIC_URL = "https://sherise-app-latest.onrender.com";
 
 @Injectable({
   providedIn: 'root'
@@ -115,11 +115,11 @@ export class AdminService {
     return this.http.get(
       `${BASIC_URL}api/admin/order/${orderId}/${status}`,
       {
-        headers: this.createAuthorizationHeader(),  
+        headers: this.createAuthorizationHeader(),
       }
     );
   }
-  
+
 
   getAllProducts(): Observable<any[]> {
     return this.http.get<any[]>(`${BASIC_URL}api/admin/products`, {
