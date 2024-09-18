@@ -9,7 +9,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class DonateComponent {
   donateForm: FormGroup;
-  private apiUrl = 'http://localhost:8080/donation/donate'; // Replace with your actual API endpoint
+  private apiUrl = 'https://sherise-app-latest.onrender.com/donate'; // Replace with your actual API endpoint
   submissionMessage = '';
 
   constructor(private http: HttpClient, private fb: FormBuilder) {

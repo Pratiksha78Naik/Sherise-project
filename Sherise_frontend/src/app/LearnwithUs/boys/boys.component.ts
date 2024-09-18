@@ -14,7 +14,7 @@ export class BoysComponent {
     question: ''
   };
 
-  private apiUrl = 'http://localhost:8080/boys-queries';
+  private apiUrl = 'https://sherise-app-latest.onrender.com/boys-queries';
 
   constructor(private http: HttpClient) { }
 
