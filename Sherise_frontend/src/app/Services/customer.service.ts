@@ -4,7 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { UserStorageService } from './storage/user-storage.service';
 
-const BASIC_URL = "https://sherise-app-latest.onrender.com/";
+const BASIC_URL = "http://localhost:8080/";
 
 @Injectable({
   providedIn: 'root'

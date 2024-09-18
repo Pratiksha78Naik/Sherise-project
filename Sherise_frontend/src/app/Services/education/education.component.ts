@@ -16,7 +16,7 @@ export class EducationComponent {
     workshop: ''
   };
 
-  private apiUrl = 'https://sherise-app-latest.onrender.com/registration';
+  private apiUrl = 'http://localhost:8080/regi/registration';
 
   constructor(private http: HttpClient) { }
 

@@ -14,7 +14,7 @@ export class ParentsComponent {
     question: ''
   };
 
-  private apiUrl = 'https://sherise-app-latest.onrender.com/parent-queries';
+  private apiUrl = 'http://localhost:8080/parent-queries';
 
   constructor(private http: HttpClient) { }
 

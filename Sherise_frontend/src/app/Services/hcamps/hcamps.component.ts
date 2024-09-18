@@ -21,8 +21,8 @@ export class HcampsComponent {
     workshop: ''
   };
 
-  private questionApiUrl = 'https://sherise-app-latest.onrender.com/questions/submit';
-  private registrationApiUrl = 'https://sherise-app-latest.onrender.com/form/form1';
+  private questionApiUrl = 'http://localhost:8080/questions/submit';
+  private registrationApiUrl = 'http://localhost:8080/form/form1';
 
   constructor(private http: HttpClient) { }
 
