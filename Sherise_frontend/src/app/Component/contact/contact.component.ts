@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
 })
 export class ContactComponent {
   contactForm: FormGroup;
-  private apiUrl = 'http://localhost:8080/contact/ContactForm'; // Replace with your actual API endpoint
+  private apiUrl = 'https://sherise-app-latest.onrender.com/contact/ContactForm'; // Replace with your actual API endpoint
   submissionMessage = '';
 
   constructor(private http: HttpClient, private fb: FormBuilder) {
