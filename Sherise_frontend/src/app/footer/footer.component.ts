@@ -13,7 +13,7 @@ export class FooterComponent implements OnInit {
   subscriberEmail: string = '';
   message: string = '';
 
-  private apiUrl = 'http://localhost:8080/subscribe/subscribeUser'; // Replace with your actual backend URL
+  private apiUrl = 'https://sherise-app-latest.onrender.com/subscribe/subscribeUser'; // Replace with your actual backend URL
 
   constructor(private router: Router, private http: HttpClient) {}
 
